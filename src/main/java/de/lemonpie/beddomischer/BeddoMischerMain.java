@@ -1,6 +1,8 @@
 package de.lemonpie.beddomischer;
 
 import de.lemonpie.beddomischer.http.handler.PlayerHandler;
+import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
+import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
 import de.lemonpie.beddomischer.model.Player;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
@@ -15,6 +17,7 @@ import static spark.Spark.*;
 public class BeddoMischerMain {
 
 	private static List<Player> players;
+	private static WebSocketHandler webSocketHandler;
 
 	public static void main(String[] args) {
 		players = new ArrayList<>();
@@ -30,10 +33,22 @@ public class BeddoMischerMain {
 		freeMarkerConfiguration.setTemplateLoader(new ClassTemplateLoader(BeddoMischerMain.class, "/template/"));
 
 		Spark.staticFileLocation("/public");
+		webSocket("/callback", webSocketHandler = new WebSocketHandler());
+
+		addPlayer();
+
 		get("/player", new PlayerHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 
 	public static List<Player> getPlayers() {
 		return players;
+	}
+
+	public static Player addPlayer() {
+		Player player = new Player(players.size());
+		PlayerCallbackListener playerCallbackListener = new PlayerCallbackListener(player, webSocketHandler);
+		player.addListener(playerCallbackListener);
+		players.add(player);
+		return player;
 	}
 }

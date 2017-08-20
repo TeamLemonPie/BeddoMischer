@@ -1,5 +1,6 @@
 package de.lemonpie.beddomischer.http.websocket;
 
+import com.google.gson.Gson;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -11,7 +12,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @WebSocket
-public class WebsocketHandler {
+public class WebSocketHandler {
+
+	private Gson gson = new Gson();
 
 	// Store sessions if you want to, for example, broadcast a message to all users
 	private static final Queue<Session> sessions = new ConcurrentLinkedQueue<>();
@@ -28,7 +31,16 @@ public class WebsocketHandler {
 
 	@OnWebSocketMessage
 	public void message(Session session, String message) throws IOException {
-		System.out.println("Got: " + message);
-		session.getRemote().sendString(message);
+	}
+
+	public void sendCommand(CallbackCommand command) {
+		String json = gson.toJson(command);
+		sessions.forEach(session -> {
+			try {
+				session.getRemote().sendString(json);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 }

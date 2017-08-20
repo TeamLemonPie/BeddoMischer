@@ -4,7 +4,7 @@ public enum Color {
 	PIK("Pi"),
 	HERZ("He"),
 	KARO("Ka"),
-	KREUZ("Ke");
+	KREUZ("Kr");
 
 	private String name;
 

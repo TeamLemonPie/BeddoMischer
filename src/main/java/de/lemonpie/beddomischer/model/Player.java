@@ -13,6 +13,7 @@ public class Player {
 
 	private List<PlayerListener> listeners;
 
+	private final int id;
 	private String name;
 	private String twitchName;
 
@@ -21,11 +22,16 @@ public class Player {
 
 	private int chips;
 
-	public Player() {
+	public Player(int id) {
 		listeners = new LinkedList<>();
 
+		this.id = id;
 		this.name = "[Player]";
 		this.twitchName = "[TwitchName]";
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getName() {

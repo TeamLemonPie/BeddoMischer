@@ -18,5 +18,10 @@ function onLoad() {
     // Log messages from the server
     connection.onmessage = function (e) {
         console.log('Server: ' + e.data);
+
+        var data = JSON.parse(e.data);
+        if (data.scope === "player") {
+            handlePlayerCallback(data.command, data.key, data.value);
+        }
     };
 }
