@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.model.card;
 
 public enum CardType {
+
 	TWO("2"),
 	THREE("3"),
 	FOUR("4"),
@@ -10,6 +11,7 @@ public enum CardType {
 	EIGHT("8"),
 	NINE("9"),
 	TEN("10"),
+	ASS("A"),
 	JACK("B"),
 	QUEEN("D"),
 	KING("K");
