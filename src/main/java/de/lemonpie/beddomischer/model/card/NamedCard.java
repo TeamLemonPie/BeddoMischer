@@ -20,6 +20,6 @@ public class NamedCard extends Card {
 
 	@Override
 	public String name() {
-		return "";
+		return color.toString() + "-" + type.toString();
 	}
 }

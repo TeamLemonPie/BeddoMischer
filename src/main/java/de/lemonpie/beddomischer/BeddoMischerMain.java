@@ -40,8 +40,6 @@ public class BeddoMischerMain {
 		Spark.staticFileLocation("/public");
 		webSocket("/callback", webSocketHandler = new WebSocketHandler());
 
-		addPlayer();
-
 		get("/player", new PlayerHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
