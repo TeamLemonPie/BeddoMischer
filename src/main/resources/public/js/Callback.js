@@ -22,6 +22,8 @@ function onLoad() {
         var data = JSON.parse(e.data);
         if (data.scope === "player") {
             handlePlayerCallback(data.command, data.key, data.value);
+        } else if (data.scope === "board") {
+            handleBoardCallback(data.command, data.key, data.value);
         }
     };
 }

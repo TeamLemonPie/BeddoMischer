@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer;
 import de.lemonpie.beddomischer.http.handler.BoardHandler;
 import de.lemonpie.beddomischer.http.handler.PlayerHandler;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
+import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
@@ -40,6 +41,8 @@ public class BeddoMischerMain {
 		Spark.staticFileLocation("/public");
 		webSocket("/callback", webSocketHandler = new WebSocketHandler());
 
+		initBoard();
+
 		get("/player", new PlayerHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
@@ -58,5 +61,10 @@ public class BeddoMischerMain {
 
 	public static Board getBoard() {
 		return board;
+	}
+
+	private static void initBoard() {
+		BoardCallbackListener boardCallbackListener = new BoardCallbackListener(webSocketHandler);
+		board.addListener(boardCallbackListener);
 	}
 }
