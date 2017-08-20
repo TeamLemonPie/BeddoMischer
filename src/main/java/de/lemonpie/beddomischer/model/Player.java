@@ -3,8 +3,10 @@ package de.lemonpie.beddomischer.model;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.card.Card;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class Player {
@@ -21,6 +23,9 @@ public class Player {
 
 	public Player() {
 		listeners = new LinkedList<>();
+
+		this.name = "[Player]";
+		this.twitchName = "[TwitchName]";
 	}
 
 	public String getName() {
@@ -80,5 +85,14 @@ public class Player {
 		for (PlayerListener playerListener : listeners) {
 			consumer.accept(playerListener);
 		}
+	}
+
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", name);
+		map.put("twitchName", twitchName);
+		map.put("card1", card1 != null ? card1.toString() : "back");
+		map.put("card2", card2 != null ? card2.toString() : "back");
+		return map;
 	}
 }

@@ -2,13 +2,27 @@
 <head>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-${player_name}
+<body onload="onLoad()">
+<div class="left-container">
+<#list players as player>
+    <div class="player-container">
 
-<ul>
-<#list player_list as player>
-    <li>${player}</li>
+        <div class="deck">
+            <div class="card" style="background-image: url('img/${player.card1}.png');"></div>
+            <div class="card" style="background-image: url('img/${player.card2}.png');"></div>
+        </div>
+        <div class="banner">
+            <div class="player-info">
+                <div class="player-name">
+                ${player.name}
+                </div>
+                <div class="player-name player-subname">
+                ${player.twitchName}
+                </div>
+            </div>
+        </div>
+    </div>
 </#list>
-</ul>
+</div>
 </body>
 </html>
