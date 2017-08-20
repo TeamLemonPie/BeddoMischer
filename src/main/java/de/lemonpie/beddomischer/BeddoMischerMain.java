@@ -1,6 +1,8 @@
 package de.lemonpie.beddomischer;
 
 import de.lemonpie.beddomischer.http.handler.PlayerHandler;
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.template.Configuration;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -15,7 +17,10 @@ public class BeddoMischerMain {
 			Spark.halt(500, "internal error: " + exception.getLocalizedMessage());
 		});
 
+		Configuration freeMarkerConfiguration = new Configuration(Configuration.VERSION_2_3_0);
+		freeMarkerConfiguration.setTemplateLoader(new ClassTemplateLoader(BeddoMischerMain.class, "/template/"));
 
-		get("/player", new PlayerHandler(), new FreeMarkerEngine());
+		Spark.staticFileLocation("/public");
+		get("/player", new PlayerHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 }
