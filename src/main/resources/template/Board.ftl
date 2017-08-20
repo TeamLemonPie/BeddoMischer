@@ -15,6 +15,16 @@
             <div class="card ${card}"></div>
         </#list>
         </div>
+        <div class="banner-board">
+            <div class="banner-table">
+                <div class="player-info">
+                    <div class="player-name center-text">
+                        Tisch
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>
