@@ -9,6 +9,7 @@ import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
+import de.lemonpie.beddomischer.socket.ControlServerSocket;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import spark.Spark;
@@ -30,21 +31,38 @@ public class BeddoMischerMain {
 
 	private static WebSocketHandler webSocketHandler;
 
-	public static void main(String[] args) {
-		players = new ArrayList<>();
-		board = new Board();
+	private static ControlServerSocket rfidServerSocket;
+	private static ControlServerSocket controlServerSocket;
 
+	public static void main(String[] args) {
 		Path settingsPath = Paths.get("settings.properties");
+		Settings settings = new Settings();
 		try {
 			if (Files.notExists(settingsPath)) {
 				SettingsHandler.saver().defaultSettings(settingsPath);
 			}
-			Settings settings = SettingsHandler.loader().load(settingsPath);
+			settings = SettingsHandler.loader().load(settingsPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		port(9999);
+		players = new ArrayList<>();
+		board = new Board();
+
+		try {
+			rfidServerSocket = new ControlServerSocket(settings.readerInterface(), settings.readerPort());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			controlServerSocket = new ControlServerSocket(settings.controlInterface(), settings.controlPort());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ipAddress(settings.httpInterface());
+		port(settings.httpPort());
 
 		exception(Exception.class, (exception, req, res) -> {
 			exception.printStackTrace();
