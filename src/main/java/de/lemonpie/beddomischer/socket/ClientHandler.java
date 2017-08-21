@@ -34,9 +34,6 @@ public class ClientHandler implements Runnable {
 	}
 
 	public void send(String command) {
-		if (!command.endsWith("\n")) {
-			command = command + "\n";
-		}
 		outputStream.print(command); // AutoFlush is enable
 	}
 
@@ -47,7 +44,7 @@ public class ClientHandler implements Runnable {
 		try {
 			while ((line = inputStream.readLine()) != null) {
 				// Handle line
-				System.out.printf("[%s]: %s\n", socket.getInetAddress().getHostName(), line);
+				System.out.printf("[%s]: %s\n", socket.getRemoteSocketAddress(), line);
 
 				commandServerSocket.getCommands().forEach(command -> command.execute(line));
 
@@ -70,5 +67,6 @@ public class ClientHandler implements Runnable {
 		outputStream.close();
 		inputStream.close();
 		socket.close();
+		System.out.printf("[%s]: Connection closed\n", socket.getRemoteSocketAddress());
 	}
 }

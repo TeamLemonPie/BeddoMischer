@@ -38,8 +38,12 @@ public class ConnectionHandler implements Runnable {
 		try {
 			Socket socket;
 			while ((socket = serverSocket.getServerSocket().accept()) != null) {
-				// Handle Client
+				System.out.printf("[%s]: Connection established\n", socket.getRemoteSocketAddress());
 
+				// Handle Client
+				ClientHandler clientHandler = new ClientHandler(socket, serverSocket);
+				clientHandler.start();
+				clientHandlers.add(clientHandler);
 
 				// Stop Thread
 				if (thread.isInterrupted()) {
