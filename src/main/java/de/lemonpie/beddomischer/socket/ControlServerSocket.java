@@ -8,22 +8,22 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandServerSocket implements Closeable {
+public class ControlServerSocket implements Closeable {
 
 	private List<Command> commands;
 
 	private ServerSocket serverSocket;
 	private ConnectionHandler connectionHandler;
 
-	public CommandServerSocket(String host, int port) throws IOException {
+	public ControlServerSocket(String host, int port) throws IOException {
 		this(new InetSocketAddress(host, port));
 	}
 
-	public CommandServerSocket(InetAddress host, int port) throws IOException {
+	public ControlServerSocket(InetAddress host, int port) throws IOException {
 		this(new InetSocketAddress(host, port));
 	}
 
-	public CommandServerSocket(InetSocketAddress socketAddress) throws IOException {
+	public ControlServerSocket(InetSocketAddress socketAddress) throws IOException {
 		commands = new ArrayList<>();
 		serverSocket = new ServerSocket();
 		serverSocket.bind(socketAddress);

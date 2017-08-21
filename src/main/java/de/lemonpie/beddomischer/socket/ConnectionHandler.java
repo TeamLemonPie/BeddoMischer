@@ -8,11 +8,11 @@ import java.util.List;
 public class ConnectionHandler implements Runnable {
 
 	private Thread thread;
-	private CommandServerSocket serverSocket;
+	private ControlServerSocket serverSocket;
 
 	private List<ClientHandler> clientHandlers;
 
-	public ConnectionHandler(CommandServerSocket serverSocket) {
+	public ConnectionHandler(ControlServerSocket serverSocket) {
 		this.clientHandlers = new ArrayList<>();
 		this.serverSocket = serverSocket;
 		this.thread = new Thread(this);

@@ -9,14 +9,14 @@ import java.net.Socket;
 public class ClientHandler implements Runnable {
 
 	private Thread thread;
-	private CommandServerSocket commandServerSocket;
+	private ControlServerSocket controlServerSocket;
 
 	private Socket socket;
 	private BufferedReader inputStream;
 	private PrintStream outputStream;
 
-	public ClientHandler(Socket socket, CommandServerSocket commandServerSocket) throws IOException {
-		this.commandServerSocket = commandServerSocket;
+	public ClientHandler(Socket socket, ControlServerSocket controlServerSocket) throws IOException {
+		this.controlServerSocket = controlServerSocket;
 
 		this.socket = socket;
 		this.inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -33,8 +33,8 @@ public class ClientHandler implements Runnable {
 		this.thread.interrupt();
 	}
 
-	public void send(String command) {
-		outputStream.print(command); // AutoFlush is enable
+	public void write(String data) {
+		outputStream.println(data); // AutoFlush is enable
 	}
 
 	private String line;
@@ -46,7 +46,9 @@ public class ClientHandler implements Runnable {
 				// Handle line
 				System.out.printf("[%s]: %s\n", socket.getRemoteSocketAddress(), line);
 
-				commandServerSocket.getCommands().forEach(command -> command.execute(line));
+				write(line);
+
+				controlServerSocket.getCommands().forEach(command -> command.execute(line));
 
 				if (thread.isInterrupted()) {
 					break;
