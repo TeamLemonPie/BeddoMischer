@@ -9,14 +9,11 @@ import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
-<<<<<<< HEAD
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
-=======
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
->>>>>>> http
 
 import java.io.IOException;
 import java.net.Inet4Address;
