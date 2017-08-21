@@ -16,7 +16,6 @@ import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,11 +36,12 @@ public class BeddoMischerMain {
 
 	public static void main(String[] args) {
 		Path settingsPath = Paths.get("settings.properties");
+		Settings settings = new Settings();
 		try {
 			if (Files.notExists(settingsPath)) {
 				SettingsHandler.saver().defaultSettings(settingsPath);
 			}
-			Settings settings = SettingsHandler.loader().load(settingsPath);
+			settings = SettingsHandler.loader().load(settingsPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -50,18 +50,19 @@ public class BeddoMischerMain {
 		board = new Board();
 
 		try {
-			rfidServerSocket = new ControlServerSocket(Inet4Address.getLoopbackAddress(), 9998);
+			rfidServerSocket = new ControlServerSocket(settings.readerInterface(), settings.readerPort());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			controlServerSocket = new ControlServerSocket(Inet4Address.getLoopbackAddress(), 9997);
+			controlServerSocket = new ControlServerSocket(settings.controlInterface(), settings.controlPort());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		port(9999);
+		ipAddress(settings.httpInterface());
+		port(settings.httpPort());
 
 		exception(Exception.class, (exception, req, res) -> {
 			exception.printStackTrace();
