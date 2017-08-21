@@ -7,6 +7,12 @@ public interface PlayerListener {
 
 	void twitchNameDidChange(String twitchName);
 
+	/**
+	 * Update player card.
+	 *
+	 * @param index index of card (0 based)
+	 * @param card  new card
+	 */
 	void cardDidChangeAtIndex(int index, Card card);
 
 	void chipsDidChange(int chips);

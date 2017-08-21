@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.left-container {
+    height: 100vh;
+    width: 262px;
+    display: table-cell;
+    vertical-align: bottom;
+    padding: 0 0 50px 50px;
+}
+
+.player-container {
+    margin-top: 12px;
+}
+
+.board-container {
+    margin-top: 50px;
+}
+
+.banner {
+    width: 262px;
+    height: 60px;
+    background-color: #151826;
+    border-radius: 0 10px 10px 0;
+    border: 3px solid #000000;
+    padding: 0 15px 4px 0;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.banner-board {
+    width: 520px;
+    height: 60px;
+    background-color: #151826;
+    border-radius: 10px;
+    border: 3px solid #000000;
+    text-align: center;
+    margin: auto;
+    display: table;
+}
+
+.banner-table {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.player-info {
+    display: inline-block;
+    width: 100%;
+}
+
+.player-name {
+    font-size: 24px;
+    color: #FFFFFF;
+    text-align: right;
+    font-weight: bold;
+    font-family: Tahoma, serif;
+}
+
+.player-subname {
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.deck {
+    height: 55px;
+    text-align: right;
+    padding-right: 17px;
+}
+
+.board {
+    height: 60px;
+    text-align: center;
+}
+
+.card {
+    height: 100%;
+    width: 80px;
+    display: inline-block;
+    background: no-repeat center center;
+    background-size: contain;
+    padding-left: 5px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.debug {
+    border: 1px solid red;
+}
