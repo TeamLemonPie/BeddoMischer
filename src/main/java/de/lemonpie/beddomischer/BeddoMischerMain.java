@@ -7,11 +7,17 @@ import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.settings.Settings;
+import de.lemonpie.beddomischer.settings.SettingsHandler;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +33,16 @@ public class BeddoMischerMain {
 	public static void main(String[] args) {
 		players = new ArrayList<>();
 		board = new Board();
+
+		Path settingsPath = Paths.get("settings.properties");
+		try {
+			if (Files.notExists(settingsPath)) {
+				SettingsHandler.saver().defaultSettings(settingsPath);
+			}
+			Settings settings = SettingsHandler.loader().load(settingsPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		port(9999);
 
