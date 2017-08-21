@@ -45,4 +45,8 @@ public class Board {
 			consumer.accept(boardListener);
 		}
 	}
+
+	public Card[] getCards() {
+		return cards;
+	}
 }
