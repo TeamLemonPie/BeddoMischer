@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControlServerSocket implements Closeable {
+public abstract class ControlServerSocket implements Closeable {
 
 	// Command Name, Command Implementation
 	private Map<String, Command> commands;
@@ -31,6 +31,12 @@ public class ControlServerSocket implements Closeable {
 
 		connectionHandler = new ConnectionHandler(this);
 		connectionHandler.start();
+	}
+
+	protected abstract void init();
+
+	public void writeAll(String data) {
+		connectionHandler.getClientHandlers().forEach(client -> client.write(data));
 	}
 
 	public void addCommand(Command command) {

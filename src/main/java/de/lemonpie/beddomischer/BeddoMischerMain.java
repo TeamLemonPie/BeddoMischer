@@ -10,6 +10,8 @@ import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
+import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
+import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import spark.Spark;
@@ -50,13 +52,13 @@ public class BeddoMischerMain {
 		board = new Board();
 
 		try {
-			rfidServerSocket = new ControlServerSocket(settings.readerInterface(), settings.readerPort());
+			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			controlServerSocket = new ControlServerSocket(settings.controlInterface(), settings.controlPort());
+			controlServerSocket = new AdminServerSocket(settings.controlInterface(), settings.controlPort());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -100,5 +102,13 @@ public class BeddoMischerMain {
 	private static void initBoard() {
 		BoardCallbackListener boardCallbackListener = new BoardCallbackListener(webSocketHandler);
 		board.addListener(boardCallbackListener);
+	}
+
+	public static ControlServerSocket getRfidServerSocket() {
+		return rfidServerSocket;
+	}
+
+	public static ControlServerSocket getControlServerSocket() {
+		return controlServerSocket;
 	}
 }
