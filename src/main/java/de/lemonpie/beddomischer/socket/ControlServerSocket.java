@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControlServerSocket implements Closeable {
 
-	private List<Command> commands;
+	// Command Name, Command Implementation
+	private Map<String, Command> commands;
 
 	private ServerSocket serverSocket;
 	private ConnectionHandler connectionHandler;
@@ -24,7 +25,7 @@ public class ControlServerSocket implements Closeable {
 	}
 
 	public ControlServerSocket(InetSocketAddress socketAddress) throws IOException {
-		commands = new ArrayList<>();
+		commands = new HashMap<>();
 		serverSocket = new ServerSocket();
 		serverSocket.bind(socketAddress);
 
@@ -33,7 +34,7 @@ public class ControlServerSocket implements Closeable {
 	}
 
 	public void addCommand(Command command) {
-		this.commands.add(command);
+		this.commands.put(command.name(), command);
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class ControlServerSocket implements Closeable {
 		return serverSocket;
 	}
 
-	public List<Command> getCommands() {
+	public Map<String, Command> getCommands() {
 		return commands;
 	}
 }
