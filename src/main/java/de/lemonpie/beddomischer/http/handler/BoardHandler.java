@@ -20,7 +20,7 @@ public class BoardHandler implements TemplateViewRoute {
 		List<String> cards = new ArrayList<>();
 
 		for (Card card : BeddoMischerMain.getBoard().getCards()) {
-			cards.add(card != null ? card.toString() : "back");
+			cards.add(card != null ? card.name() : "back");
 		}
 
 		model.put("board", cards);

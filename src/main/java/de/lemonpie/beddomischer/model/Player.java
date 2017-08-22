@@ -97,8 +97,8 @@ public class Player {
 		Map<String, Object> map = new HashMap<>();
 		map.put("name", name);
 		map.put("twitchName", twitchName);
-		map.put("card1", card1 != null ? card1.toString() : "back");
-		map.put("card2", card2 != null ? card2.toString() : "back");
+		map.put("card1", card1 != null ? card1.name() : "back");
+		map.put("card2", card2 != null ? card2.name() : "back");
 		return map;
 	}
 }
