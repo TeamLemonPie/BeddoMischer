@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.Objects;
 
 public class ClientHandler implements Runnable {
 
@@ -56,8 +55,9 @@ public class ClientHandler implements Runnable {
 				System.out.printf("[%s]: %s\n", socket.getRemoteSocketAddress(), line);
 
 				CommandData commandData = gson.fromJson(line, CommandData.class);
+
 				controlServerSocket.getCommands().forEach((name, command) -> {
-					if (Objects.equals(name, commandData.getCommand())) {
+					if (name.equals(commandData.getCommand())) {
 						command.execute(commandData);
 					}
 				});

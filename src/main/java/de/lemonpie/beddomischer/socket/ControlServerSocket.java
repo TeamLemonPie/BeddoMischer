@@ -29,6 +29,8 @@ public abstract class ControlServerSocket implements Closeable {
 		serverSocket = new ServerSocket();
 		serverSocket.bind(socketAddress);
 
+		init();
+
 		connectionHandler = new ConnectionHandler(this);
 		connectionHandler.start();
 	}

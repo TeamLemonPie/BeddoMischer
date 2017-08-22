@@ -101,4 +101,14 @@ public class Player {
 		map.put("card2", card2 != null ? card2.toString() : "back");
 		return map;
 	}
+
+	public void setCard(int index, Card card) {
+		if (index == 0) {
+			setCard1(card);
+		} else if (index == 1) {
+			setCard2(card);
+		} else {
+			throw new IllegalArgumentException("Index is " + index + " should be 0 or 1");
+		}
+	}
 }

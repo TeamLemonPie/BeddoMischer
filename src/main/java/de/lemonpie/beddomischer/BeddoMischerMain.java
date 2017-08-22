@@ -6,8 +6,8 @@ import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.model.CardReader;
 import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.reader.CardReader;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static spark.Spark.*;
 
@@ -98,6 +99,10 @@ public class BeddoMischerMain {
 		return player;
 	}
 
+	public static Optional<Player> getPlayer(int id) {
+		return players.stream().filter(r -> r.getId() == id).findFirst();
+	}
+
 	public static Board getBoard() {
 		return board;
 	}
@@ -117,5 +122,9 @@ public class BeddoMischerMain {
 
 	public static List<CardReader> getCardReaders() {
 		return cardReaders;
+	}
+
+	public static Optional<CardReader> getCardReader(int readerId) {
+		return cardReaders.stream().filter(r -> r.getReaderId() == readerId).findFirst();
 	}
 }

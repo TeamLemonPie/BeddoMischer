@@ -26,4 +26,13 @@ public enum CardType {
 	public String toString() {
 		return name;
 	}
+
+	public static CardType get(String value) {
+		for (CardType cardType : values()) {
+			if (cardType.name.equals(value)) {
+				return cardType;
+			}
+		}
+		return null;
+	}
 }
