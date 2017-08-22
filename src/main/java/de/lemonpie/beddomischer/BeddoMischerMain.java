@@ -6,6 +6,7 @@ import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
 import de.lemonpie.beddomischer.model.Board;
+import de.lemonpie.beddomischer.model.CardReader;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
@@ -30,6 +31,7 @@ public class BeddoMischerMain {
 
 	private static List<Player> players;
 	private static Board board;
+	private static List<CardReader> cardReaders;
 
 	private static WebSocketHandler webSocketHandler;
 
@@ -50,6 +52,7 @@ public class BeddoMischerMain {
 
 		players = new ArrayList<>();
 		board = new Board();
+		cardReaders = new ArrayList<>();
 
 		try {
 			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
@@ -110,5 +113,9 @@ public class BeddoMischerMain {
 
 	public static ControlServerSocket getControlServerSocket() {
 		return controlServerSocket;
+	}
+
+	public static List<CardReader> getCardReaders() {
+		return cardReaders;
 	}
 }
