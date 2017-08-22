@@ -63,11 +63,6 @@ def generate_deck(playerDict, board):
 
     return tuple(deck)
 
-# Generate all possible hole card combinations
-def generate_hole_cards(deck):
-    import itertools
-    return itertools.combinations(deck, 2)
-
 # Generate num_iterations random boards
 def generate_random_boards(deck, num_iterations, board_length):
     import random
@@ -271,10 +266,12 @@ def find_winning_percentage(winner_list):
     return percentages
 
 # Populate provided data structures with results from simulation
-def find_winner(generate_boards, deck, playerDict, num, board_length,
+def find_winner(generate_boards, deck, playerDict, num,
                 given_board, winner_list, result_histograms):
+
     # Run simulations
     result_list = [None] * len(playerDict)
+    board_length = 0 if given_board is None else len(given_board)
     for remaining_board in generate_boards(deck, num, board_length):
         # Generate a new board
         if given_board:
@@ -295,3 +292,4 @@ def find_winner(generate_boards, deck, playerDict, num, board_length,
         # Increment what hand each player made
         for index, result in enumerate(result_list):
             result_histograms[index][result[0]] += 1
+        print(result_list)
