@@ -100,14 +100,14 @@ public class Hand
 		{
 			if(occurrences.get(i) == 2)
 			{
-				CardValue curentValue = CardValue.fromValue(occurrences.get(i));
+				CardValue curentValue = CardValue.fromValue(i);
 				if(curentValue.getValue() > cardPairs.get(0).getValue().getValue())
 				{
 					cardPairs.set(1, cardPairs.get(0));
 					cardPairs.set(0, new Card(CardSymbol.BACK, curentValue));
 				}
 			}
-		}		
+		}
 		
 		return cardPairs;
 	}
