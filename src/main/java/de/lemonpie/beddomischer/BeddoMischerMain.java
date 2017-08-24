@@ -4,9 +4,10 @@ import de.lemonpie.beddomischer.http.handler.BoardHandler;
 import de.lemonpie.beddomischer.http.handler.PlayerHandler;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
-import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
+import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.PlayerList;
 import de.lemonpie.beddomischer.model.reader.CardReader;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
@@ -30,7 +31,7 @@ import static spark.Spark.*;
 
 public class BeddoMischerMain {
 
-	private static List<Player> players;
+	private static PlayerList players;
 	private static Board board;
 	private static List<CardReader> cardReaders;
 
@@ -51,7 +52,7 @@ public class BeddoMischerMain {
 			e.printStackTrace();
 		}
 
-		players = new ArrayList<>();
+		players = new PlayerList();
 		board = new Board();
 		cardReaders = new ArrayList<>();
 
@@ -83,6 +84,9 @@ public class BeddoMischerMain {
 
 		initBoard();
 
+		// Add Listener
+		players.addListener(new PlayerListWebListener(webSocketHandler));
+
 		get("/player", new PlayerHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
@@ -95,8 +99,6 @@ public class BeddoMischerMain {
 
 	public static Player addPlayer() {
         Player player = new Player(playerIndex++);
-        PlayerCallbackListener playerCallbackListener = new PlayerCallbackListener(player, webSocketHandler);
-		player.addListener(playerCallbackListener);
 		players.add(player);
 		return player;
 	}

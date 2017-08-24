@@ -1,5 +1,7 @@
 package de.lemonpie.beddomischer.socket;
 
+import com.google.gson.Gson;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -36,6 +38,12 @@ public abstract class ControlServerSocket implements Closeable {
 	}
 
 	protected abstract void init();
+
+
+    public void writeAll(CommandData command) {
+        Gson gson = new Gson();
+        writeAll(gson.toJson(command));
+    }
 
 	public void writeAll(String data) {
 		connectionHandler.getClientHandlers().forEach(client -> client.write(data));

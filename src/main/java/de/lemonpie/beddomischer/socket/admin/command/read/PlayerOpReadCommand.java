@@ -1,10 +1,12 @@
-package de.lemonpie.beddomischer.socket.admin;
+package de.lemonpie.beddomischer.socket.admin.command.read;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
+import de.lemonpie.beddomischer.socket.admin.command.send.PlayerOpSendCommand;
 
-public class PlayerOpCommand implements Command {
+public class PlayerOpReadCommand implements Command {
     @Override
     public String name() {
         return "player-op";
@@ -14,7 +16,8 @@ public class PlayerOpCommand implements Command {
     public void execute(CommandData command) {
         String op = command.getValue().getAsString();
         if (op.equals("add")) {
-            BeddoMischerMain.addPlayer();
+            Player player = BeddoMischerMain.addPlayer();
+            BeddoMischerMain.getControlServerSocket().writeAll(new PlayerOpSendCommand(player.getId()));
         } else if (op.equals("remove")) {
             int playerId = command.getKey();
             BeddoMischerMain.getPlayer(playerId).ifPresent(player -> {

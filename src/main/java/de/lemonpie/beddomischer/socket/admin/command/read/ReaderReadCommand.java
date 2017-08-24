@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.socket.admin;
+package de.lemonpie.beddomischer.socket.admin.command.read;
 
 import com.google.gson.JsonObject;
 import de.lemonpie.beddomischer.BeddoMischerMain;
@@ -15,8 +15,8 @@ import java.util.Optional;
  * <code>key = reader id</code>
  * <code>value = {type, index}</code>
  */
-public class ReaderCommand implements Command {
-	@Override
+public class ReaderReadCommand implements Command {
+    @Override
 	public String name() {
 		return "reader";
 	}

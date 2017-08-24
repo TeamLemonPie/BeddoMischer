@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.socket.admin;
 
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
+import de.lemonpie.beddomischer.socket.admin.command.read.*;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -22,12 +23,12 @@ public class AdminServerSocket extends ControlServerSocket {
 
 	@Override
 	protected void init() {
-		addCommand(new ClearCommand());
-		addCommand(new ReaderCommand());
+        addCommand(new ClearReadCommand());
+        addCommand(new ReaderReadCommand());
 
-        addCommand(new PlayerOpCommand());
+        addCommand(new PlayerOpReadCommand());
 
-		addCommand(new PlayerNameCommand());
-		addCommand(new PlayerTwitchNameCommand());
-	}
+        addCommand(new PlayerNameReadCommand());
+        addCommand(new PlayerTwitchNameReadCommand());
+    }
 }
