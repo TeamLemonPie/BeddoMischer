@@ -87,13 +87,15 @@ public class BeddoMischerMain {
 		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 
+    private static int playerIndex = 0;
+
 	public static List<Player> getPlayers() {
 		return players;
 	}
 
 	public static Player addPlayer() {
-		Player player = new Player(players.size());
-		PlayerCallbackListener playerCallbackListener = new PlayerCallbackListener(player, webSocketHandler);
+        Player player = new Player(playerIndex++);
+        PlayerCallbackListener playerCallbackListener = new PlayerCallbackListener(player, webSocketHandler);
 		player.addListener(playerCallbackListener);
 		players.add(player);
 		return player;
