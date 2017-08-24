@@ -20,5 +20,15 @@ function handlePlayerCallback(command, key, value) {
         playerCard2.removeAttr("class");
         playerCard2.addClass(value);
         playerCard2.addClass("card");
+    } else if (command === "player-op") {
+        if (value === "add") {
+            loadPlayer(key);
+        }
     }
+}
+
+function loadPlayer(id) {
+    $.get("player/" + id, function (data) {
+        $(".left-container").append(data);
+    });
 }
