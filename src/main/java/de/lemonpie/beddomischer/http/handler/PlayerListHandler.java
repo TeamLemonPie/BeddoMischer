@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlayerHandler implements TemplateViewRoute {
-	@Override
+public class PlayerListHandler implements TemplateViewRoute {
+    @Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 		List<Player> players = BeddoMischerMain.getPlayers();
 

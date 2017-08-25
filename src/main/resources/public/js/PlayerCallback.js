@@ -3,7 +3,7 @@ Handles all player callback events from server.
  */
 
 function handlePlayerCallback(command, key, value) {
-    var playerContainer = $(".player-container").get(key);
+    var playerContainer = $("#player-" + id);
     if (command === "name") {
         var playerName = $(playerContainer).find("#player-name");
         playerName.text(value)
