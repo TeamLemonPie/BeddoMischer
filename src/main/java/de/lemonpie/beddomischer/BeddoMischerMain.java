@@ -1,7 +1,8 @@
 package de.lemonpie.beddomischer;
 
 import de.lemonpie.beddomischer.http.handler.BoardHandler;
-import de.lemonpie.beddomischer.http.handler.PlayerHandler;
+import de.lemonpie.beddomischer.http.handler.PlayerGetHandler;
+import de.lemonpie.beddomischer.http.handler.PlayerListHandler;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
@@ -77,8 +78,9 @@ public class BeddoMischerMain {
 
 		initBoard();
 
-		get("/player", new PlayerHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
-		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+        get("/player", new PlayerListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+        get("/player/:id", new PlayerGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+        get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 
 	public static List<Player> getPlayers() {

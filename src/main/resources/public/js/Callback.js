@@ -1,5 +1,5 @@
 function onLoad() {
-    var connection = new WebSocket('ws://localhost:9999/callback');
+    var connection = new WebSocket('ws://' + location.hostname + ':' + location.port + '/callback');
 
     // When the connection is open, send some data to the server
     connection.onopen = function () {

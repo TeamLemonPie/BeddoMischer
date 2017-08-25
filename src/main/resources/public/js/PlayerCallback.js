@@ -3,7 +3,7 @@ Handles all player callback events from server.
  */
 
 function handlePlayerCallback(command, key, value) {
-    var playerContainer = $(".player-container").get(key);
+    var playerContainer = $("#player-" + id);
     if (command === "name") {
         var playerName = $(playerContainer).find("#player-name");
         playerName.text(value)
@@ -20,5 +20,15 @@ function handlePlayerCallback(command, key, value) {
         playerCard2.removeAttr("class");
         playerCard2.addClass(value);
         playerCard2.addClass("card");
+    } else if (command === "player-op") {
+        if (value === "add") {
+            loadPlayer(key);
+        }
     }
+}
+
+function loadPlayer(id) {
+    $.get("player/" + id, function (data) {
+        $(".left-container").append(data);
+    });
 }
