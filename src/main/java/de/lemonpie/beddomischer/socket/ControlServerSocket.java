@@ -1,16 +1,19 @@
 package de.lemonpie.beddomischer.socket;
 
+import com.google.gson.Gson;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ControlServerSocket implements Closeable {
+public abstract class ControlServerSocket implements Closeable {
 
-	private List<Command> commands;
+	// Command Name, Command Implementation
+	private Map<String, Command> commands;
 
 	private ServerSocket serverSocket;
 	private ConnectionHandler connectionHandler;
@@ -24,16 +27,30 @@ public class ControlServerSocket implements Closeable {
 	}
 
 	public ControlServerSocket(InetSocketAddress socketAddress) throws IOException {
-		commands = new ArrayList<>();
+		commands = new HashMap<>();
 		serverSocket = new ServerSocket();
 		serverSocket.bind(socketAddress);
+
+		init();
 
 		connectionHandler = new ConnectionHandler(this);
 		connectionHandler.start();
 	}
 
+	protected abstract void init();
+
+
+    public void writeAll(CommandData command) {
+        Gson gson = new Gson();
+        writeAll(gson.toJson(command));
+    }
+
+	public void writeAll(String data) {
+		connectionHandler.getClientHandlers().forEach(client -> client.write(data));
+	}
+
 	public void addCommand(Command command) {
-		this.commands.add(command);
+		this.commands.put(command.name(), command);
 	}
 
 	@Override
@@ -53,7 +70,7 @@ public class ControlServerSocket implements Closeable {
 		return serverSocket;
 	}
 
-	public List<Command> getCommands() {
+	public Map<String, Command> getCommands() {
 		return commands;
 	}
 }
