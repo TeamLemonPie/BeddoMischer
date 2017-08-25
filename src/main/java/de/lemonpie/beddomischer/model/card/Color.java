@@ -16,4 +16,13 @@ public enum Color {
 	public String toString() {
 		return name;
 	}
+
+	public static Color get(String value) {
+		for (Color color : Color.values()) {
+			if (color.name.equals(value)) {
+				return color;
+			}
+		}
+		return null;
+	}
 }

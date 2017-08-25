@@ -54,4 +54,8 @@ public class ConnectionHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+	public List<ClientHandler> getClientHandlers() {
+		return clientHandlers;
+	}
 }
