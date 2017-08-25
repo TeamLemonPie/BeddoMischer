@@ -2,28 +2,28 @@ package de.lemonpie.beddomischer.http.handler;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.PlayerList;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class PlayerGetHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {
         int id = Integer.valueOf(request.params(":id"));
-        List<Player> players = BeddoMischerMain.getPlayers();
+        PlayerList players = BeddoMischerMain.getPlayers();
 
         Map<String, Object> model = new HashMap<>();
 
-        for (Player player : players) {
-            if (player.getId() == id) {
-                model.put("player", player.toMap());
-                return new ModelAndView(model, "PlayerItem.ftl");
-            }
+        Optional<Player> playerOptional = players.getPlayer(id);
+        if (playerOptional.isPresent()) {
+            model.put("player", playerOptional.get().toMap());
+            return new ModelAndView(model, "PlayerItem.ftl");
         }
         return null;
     }

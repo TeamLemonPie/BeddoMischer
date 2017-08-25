@@ -1,12 +1,10 @@
 package de.lemonpie.beddomischer.http.websocket.listener;
 
 import com.google.gson.JsonPrimitive;
-import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.PlayerListListener;
 import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.socket.admin.command.send.PlayerOpSendCommand;
 
 public class PlayerListWebListener implements PlayerListListener {
 
@@ -21,5 +19,11 @@ public class PlayerListWebListener implements PlayerListListener {
         player.addListener(new PlayerCallbackListener(player, webSocket));
         webSocket.sendCommand(new CallbackCommand("player", "player-op", player.getId(),
                 new JsonPrimitive("add")));
+    }
+
+    @Override
+    public void removePlayer(Player player) {
+        webSocket.sendCommand(new CallbackCommand("player", "player-op", player.getId(),
+                new JsonPrimitive("remove")));
     }
 }

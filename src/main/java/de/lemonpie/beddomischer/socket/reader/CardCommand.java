@@ -32,9 +32,10 @@ public class CardCommand implements Command {
 				int index = ((BoardCardReader) reader).getIndex();
 				BeddoMischerMain.getBoard().setCard(index, card);
 			} else if (reader instanceof PlayerCardReader) {
-				Optional<Player> player = BeddoMischerMain.getPlayer(((PlayerCardReader) reader).getPlayerId());
+				PlayerCardReader playerCardReader = (PlayerCardReader) reader;
+				Optional<Player> player = BeddoMischerMain.getPlayers().getPlayer(playerCardReader.getPlayerId());
 				player.ifPresent(p -> {
-					int index = ((PlayerCardReader) reader).getIndex();
+					int index = playerCardReader.getIndex();
 					p.setCard(index, card);
 				});
 			}

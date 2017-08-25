@@ -7,7 +7,6 @@ import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerList;
 import de.lemonpie.beddomischer.model.reader.CardReader;
 import de.lemonpie.beddomischer.settings.Settings;
@@ -93,20 +92,8 @@ public class BeddoMischerMain {
         get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 
-    private static int playerIndex = 0;
-
-	public static List<Player> getPlayers() {
+	public static PlayerList getPlayers() {
 		return players;
-	}
-
-	public static Player addPlayer() {
-        Player player = new Player(playerIndex++);
-		players.add(player);
-		return player;
-	}
-
-	public static Optional<Player> getPlayer(int id) {
-		return players.stream().filter(r -> r.getId() == id).findFirst();
 	}
 
 	public static Board getBoard() {

@@ -1,9 +1,10 @@
 function onLoad() {
-    var connection = new WebSocket('ws://' + location.hostname + ':' + location.port + '/callback');
+    var url = 'ws://' + location.hostname + ':' + location.port + '/callback';
+    var connection = new WebSocket(url);
 
     // When the connection is open, send some data to the server
     connection.onopen = function () {
-        connection.send('Ping'); // Send the message 'Ping' to the server
+        console.log("Connected to: " + url)
     };
 
     // Log errors
@@ -12,7 +13,9 @@ function onLoad() {
     };
 
     connection.onclose = function (code, reason) {
-        console.log("connection closed")
+        setTimeout(function () {
+            onLoad()
+        }, 5000);
     };
 
     // Log messages from the server
