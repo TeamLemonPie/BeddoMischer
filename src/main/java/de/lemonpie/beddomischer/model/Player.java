@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.PlayerListener;
+import de.lemonpie.beddomischer.model.card.BlankCard;
 import de.lemonpie.beddomischer.model.card.Card;
 
 import java.util.HashMap;
@@ -109,6 +110,19 @@ public class Player {
 			setCard2(card);
 		} else {
 			throw new IllegalArgumentException("Index is " + index + " should be 0 or 1");
+		}
+	}
+
+	public void clearCards() {
+		setCard(0, new BlankCard());
+		setCard(1, new BlankCard());
+	}
+
+	public void setCard(Card card) {
+		if (card1 != null && card1 instanceof BlankCard) {
+			setCard1(card);
+		} else {
+			setCard2(card);
 		}
 	}
 }

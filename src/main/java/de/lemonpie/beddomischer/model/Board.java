@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.BoardListener;
+import de.lemonpie.beddomischer.model.card.BlankCard;
 import de.lemonpie.beddomischer.model.card.Card;
 
 import java.util.LinkedList;
@@ -48,5 +49,11 @@ public class Board {
 
 	public Card[] getCards() {
 		return cards;
+	}
+
+	public void clearCards() {
+		for (int i = 0; i < getCards().length; i++) {
+			setCard(i, new BlankCard());
+		}
 	}
 }

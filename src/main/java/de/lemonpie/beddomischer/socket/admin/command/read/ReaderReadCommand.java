@@ -37,12 +37,11 @@ public class ReaderReadCommand implements Command {
 
 				if (cardReader.isPresent() && cardReader.get() instanceof PlayerCardReader) {
 					PlayerCardReader reader = (PlayerCardReader) cardReader.get();
-					reader.setIndex(index);
 					reader.setPlayerId(playerId);
 				} else {
 					cardReader.ifPresent(reader -> BeddoMischerMain.getCardReaders().remove(reader)); // Remove old
-					BeddoMischerMain.getCardReaders().add(new PlayerCardReader(readerId, playerId, index));
-				}
+                    BeddoMischerMain.getCardReaders().add(new PlayerCardReader(readerId, playerId));
+                }
 			} else if (type == 1) { // BOARD
 				if (cardReader.isPresent() && cardReader.get() instanceof BoardCardReader) {
 					BoardCardReader reader = (BoardCardReader) cardReader.get();
