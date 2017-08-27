@@ -8,23 +8,24 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-public class PlayerGetHandler implements TemplateViewRoute {
+public class ChipListHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {
-        int id = Integer.valueOf(request.params(":id"));
         PlayerList players = BeddoMischerMain.getPlayers();
 
         Map<String, Object> model = new HashMap<>();
+        List<Map<String, Object>> playerModel = new ArrayList<>();
 
-        Optional<Player> playerOptional = players.getPlayer(id);
-        if (playerOptional.isPresent()) {
-            model.put("player", playerOptional.get().toMap());
-            return new ModelAndView(model, "PlayerItem.ftl");
+        for (Player player : players) {
+            playerModel.add(player.toMap());
         }
-        return null;
+
+        model.put("players", playerModel);
+        return new ModelAndView(model, "Chips.ftl");
     }
 }

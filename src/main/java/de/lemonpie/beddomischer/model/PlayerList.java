@@ -2,23 +2,34 @@ package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.PlayerListListener;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
-public class PlayerList extends ArrayList<Player> {
+public class PlayerList implements Iterable<Player> {
 
+    private List<Player> data = new ArrayList<>();
+    private int playerIndex = 0;
     private List<PlayerListListener> listeners;
 
     public PlayerList() {
         this.listeners = new LinkedList<>();
     }
 
-    @Override
-    public boolean add(Player player) {
+    public Player add() {
+        Player player = new Player(playerIndex++);
         fireListener(l -> l.addPlayer(player));
-        return super.add(player);
+        return data.add(player) == true ? player : null;
+    }
+
+    public Optional<Player> getPlayer(int id) {
+        return data.stream().filter(r -> r.getId() == id).findFirst();
+    }
+
+    public boolean remove(Object o) {
+        if (o instanceof Player) {
+            fireListener(l -> l.removePlayer((Player) o));
+        }
+        return data.remove(o);
     }
 
     public void addListener(PlayerListListener playerListener) {
@@ -33,5 +44,20 @@ public class PlayerList extends ArrayList<Player> {
         for (PlayerListListener playerListener : listeners) {
             consumer.accept(playerListener);
         }
+    }
+
+    @Override
+    public Iterator<Player> iterator() {
+        return data.iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super Player> action) {
+        data.forEach(action);
+    }
+
+    @Override
+    public Spliterator<Player> spliterator() {
+        return data.spliterator();
     }
 }

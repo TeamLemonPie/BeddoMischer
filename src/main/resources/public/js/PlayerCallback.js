@@ -23,6 +23,8 @@ function handlePlayerCallback(command, key, value) {
     } else if (command === "player-op") {
         if (value === "add") {
             loadPlayer(key);
+        } else if (value === "remove") {
+            removePlayer(key);
         }
     }
 }
@@ -31,4 +33,8 @@ function loadPlayer(id) {
     $.get("player/" + id, function (data) {
         $(".left-container").append(data);
     });
+}
+
+function removePlayer(id) {
+    $(".left-container").remove();
 }

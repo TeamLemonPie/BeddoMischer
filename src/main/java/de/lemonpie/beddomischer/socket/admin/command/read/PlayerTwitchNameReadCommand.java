@@ -16,6 +16,6 @@ public class PlayerTwitchNameReadCommand implements Command {
 		int playerId = command.getKey();
 		String twitchName = command.getValue().getAsString();
 
-		BeddoMischerMain.getPlayer(playerId).ifPresent(p -> p.setTwitchName(twitchName));
+		BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(p -> p.setTwitchName(twitchName));
 	}
 }

@@ -16,11 +16,11 @@ public class PlayerOpReadCommand implements Command {
     public void execute(CommandData command) {
         String op = command.getValue().getAsString();
         if (op.equals("add")) {
-            Player player = BeddoMischerMain.addPlayer();
+            Player player = BeddoMischerMain.getPlayers().add();
             BeddoMischerMain.getControlServerSocket().writeAll(new PlayerOpSendCommand(player.getId()));
         } else if (op.equals("remove")) {
             int playerId = command.getKey();
-            BeddoMischerMain.getPlayer(playerId).ifPresent(player -> {
+            BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(player -> {
                 BeddoMischerMain.getPlayers().remove(player);
             });
         }

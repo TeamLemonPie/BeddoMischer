@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class PlayerGetHandler implements TemplateViewRoute {
+public class ChipGetHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {
         int id = Integer.valueOf(request.params(":id"));
@@ -23,7 +23,7 @@ public class PlayerGetHandler implements TemplateViewRoute {
         Optional<Player> playerOptional = players.getPlayer(id);
         if (playerOptional.isPresent()) {
             model.put("player", playerOptional.get().toMap());
-            return new ModelAndView(model, "PlayerItem.ftl");
+            return new ModelAndView(model, "ChipItem.ftl");
         }
         return null;
     }
