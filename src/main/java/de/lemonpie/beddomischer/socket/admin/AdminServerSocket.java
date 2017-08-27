@@ -30,5 +30,6 @@ public class AdminServerSocket extends ControlServerSocket {
 
         addCommand(new PlayerNameReadCommand());
         addCommand(new PlayerTwitchNameReadCommand());
+        addCommand(new PlayerChipsReadCommand());
     }
 }
