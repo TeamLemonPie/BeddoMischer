@@ -9,4 +9,8 @@ public class AdminPlayerListListener implements PlayerListListener {
         AdminPlayerListener listener = new AdminPlayerListener(player);
         player.addListener(listener);
     }
+
+    @Override
+    public void removePlayer(Player player) {
+    }
 }

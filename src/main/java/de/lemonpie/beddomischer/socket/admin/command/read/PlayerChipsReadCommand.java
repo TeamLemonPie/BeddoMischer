@@ -16,6 +16,6 @@ public class PlayerChipsReadCommand implements Command {
         int playerId = command.getKey();
         int chips = command.getValue().getAsInt();
 
-        BeddoMischerMain.getPlayer(playerId).ifPresent(p -> p.setChips(chips));
+        BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(p -> p.setChips(chips));
     }
 }
