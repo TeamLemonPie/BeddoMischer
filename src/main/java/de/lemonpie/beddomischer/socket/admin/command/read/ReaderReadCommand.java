@@ -30,7 +30,6 @@ public class ReaderReadCommand implements Command {
 		if (command.getValue() instanceof JsonObject) {
 			JsonObject value = (JsonObject) command.getValue();
 			int type = value.get("type").getAsInt();
-			int index = value.get("index").getAsInt();
 
 			if (type == 0) { // PLAYER
 				int playerId = value.get("playerId").getAsInt();
@@ -43,13 +42,15 @@ public class ReaderReadCommand implements Command {
                     BeddoMischerMain.getCardReaders().add(new PlayerCardReader(readerId, playerId));
                 }
 			} else if (type == 1) { // BOARD
+                int boardId = value.get("boardId").getAsInt();
+
 				if (cardReader.isPresent() && cardReader.get() instanceof BoardCardReader) {
 					BoardCardReader reader = (BoardCardReader) cardReader.get();
-					reader.setIndex(index);
-				} else {
+                    reader.setIndex(boardId);
+                } else {
 					cardReader.ifPresent(reader -> BeddoMischerMain.getCardReaders().remove(reader)); // Remove old
-					BeddoMischerMain.getCardReaders().add(new BoardCardReader(readerId, index));
-				}
+                    BeddoMischerMain.getCardReaders().add(new BoardCardReader(readerId, boardId));
+                }
 			}
 		}
 		System.out.println(BeddoMischerMain.getCardReaders());

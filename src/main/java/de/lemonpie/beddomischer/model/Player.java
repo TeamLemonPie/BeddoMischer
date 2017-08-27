@@ -119,8 +119,8 @@ public class Player {
 	}
 
 	public void setCard(Card card) {
-		if (card1 != null && card1 instanceof BlankCard) {
-			setCard1(card);
+        if (card1 == null || card1 instanceof BlankCard) {
+            setCard1(card);
 		} else {
 			setCard2(card);
 		}
