@@ -23,20 +23,19 @@ public class CardCommand implements Command {
 
 	@Override
 	public void execute(CommandData command) {
-		int readerID = command.getKey();
-		String cardCode = command.getValue().getAsJsonPrimitive().getAsString();
+        int readerId = command.getKey();
+        String cardCode = command.getValue().getAsJsonPrimitive().getAsString();
 		Card card = Card.fromString(cardCode);
 
-		BeddoMischerMain.getCardReaders().stream().filter(r -> r.getReaderId() == readerID).forEach(reader -> {
-			if (reader instanceof BoardCardReader) {
+        BeddoMischerMain.getCardReaders().stream().filter(r -> r.getReaderId() == readerId).forEach(reader -> {
+            if (reader instanceof BoardCardReader) {
 				int index = ((BoardCardReader) reader).getIndex();
 				BeddoMischerMain.getBoard().setCard(index, card);
 			} else if (reader instanceof PlayerCardReader) {
 				Optional<Player> player = BeddoMischerMain.getPlayer(((PlayerCardReader) reader).getPlayerId());
 				player.ifPresent(p -> {
-					int index = ((PlayerCardReader) reader).getIndex();
-					p.setCard(index, card);
-				});
+                    p.setCard(card);
+                });
 			}
 		});
 	}

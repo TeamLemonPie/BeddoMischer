@@ -31,4 +31,8 @@ public class CommandData {
 	public JsonElement getValue() {
 		return value;
 	}
+
+    protected void setValue(JsonElement value) {
+        this.value = value;
+    }
 }

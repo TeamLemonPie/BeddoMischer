@@ -13,6 +13,7 @@ import de.lemonpie.beddomischer.model.reader.CardReader;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
+import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import freemarker.cache.ClassTemplateLoader;
@@ -87,6 +88,7 @@ public class BeddoMischerMain {
 
 		// Add Listener
 		players.addListener(new PlayerListWebListener(webSocketHandler));
+		players.addListener(new AdminPlayerListListener());
 
         get("/player", new PlayerListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
         get("/player/:id", new PlayerGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
