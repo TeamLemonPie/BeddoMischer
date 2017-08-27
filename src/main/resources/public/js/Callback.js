@@ -18,7 +18,7 @@ function onLoad() {
         }, 5000);
     };
 
-    // Log messages from the server
+    // Handle messages
     connection.onmessage = function (e) {
         console.log('Server: ' + e.data);
 
@@ -26,7 +26,11 @@ function onLoad() {
         if (data.scope === "player") {
             handlePlayerCallback(data.command, data.key, data.value);
         } else if (data.scope === "board") {
-            handleBoardCallback(data.command, data.key, data.value);
+            try {
+                handleBoardCallback(data.command, data.key, data.value);
+            } catch (e) {
+            } finally {
+            }
         }
     };
 }
