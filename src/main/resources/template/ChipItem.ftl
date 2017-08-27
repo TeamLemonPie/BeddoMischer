@@ -7,3 +7,6 @@
     </div>
 </div>
 </#macro>
+
+<#import "ChipItem.ftl" as m>
+<@m.chipContainer player/>

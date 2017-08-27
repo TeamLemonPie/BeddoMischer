@@ -17,6 +17,5 @@ public class PlayerNameReadCommand implements Command {
 		String name = command.getValue().getAsString();
 
         BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(p -> p.setName(name));
-		BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(p -> p.setChips(1000));
 	}
 }
