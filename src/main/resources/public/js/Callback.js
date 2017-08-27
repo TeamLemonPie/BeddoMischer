@@ -24,10 +24,20 @@ function onLoad() {
 
         var data = JSON.parse(e.data);
         if (data.scope === "player") {
-            handlePlayerCallback(data.command, data.key, data.value);
+            try {
+                handlePlayerCallback(data.command, data.key, data.value);
+            } catch (e) {
+            } finally {
+            }
         } else if (data.scope === "board") {
             try {
                 handleBoardCallback(data.command, data.key, data.value);
+            } catch (e) {
+            } finally {
+            }
+        } else if (data.scope === "chip") {
+            try {
+                handleChipCallback(data.command, data.key, data.value);
             } catch (e) {
             } finally {
             }

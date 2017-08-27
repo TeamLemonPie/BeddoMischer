@@ -9,7 +9,9 @@ import de.lemonpie.beddomischer.model.card.Card;
 
 public class PlayerCallbackListener implements PlayerListener {
 
-	public static final String SCOPE = "player";
+	public static final String SCOPE_PLAYER = "player";
+	public static final String SCOPE_CHIP = "chip";
+
 	private Player player;
 	private WebSocketHandler webSocketHandler;
 
@@ -20,28 +22,28 @@ public class PlayerCallbackListener implements PlayerListener {
 
 	@Override
 	public void nameDidChange(String name) {
-		CallbackCommand callbackCommand = new CallbackCommand(SCOPE, "name", player.getId(),
+		CallbackCommand callbackCommand = new CallbackCommand(SCOPE_PLAYER, "name", player.getId(),
 				new JsonPrimitive(name));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 
 	@Override
 	public void twitchNameDidChange(String twitchName) {
-		CallbackCommand callbackCommand = new CallbackCommand(SCOPE, "twitchName", player.getId(),
+		CallbackCommand callbackCommand = new CallbackCommand(SCOPE_PLAYER, "twitchName", player.getId(),
 				new JsonPrimitive(twitchName));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 
 	@Override
 	public void cardDidChangeAtIndex(int index, Card card) {
-		CallbackCommand callbackCommand = new CallbackCommand(SCOPE, "card" + index, player.getId(),
+		CallbackCommand callbackCommand = new CallbackCommand(SCOPE_PLAYER, "card" + index, player.getId(),
 				new JsonPrimitive(card.name()));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 
 	@Override
 	public void chipsDidChange(int chips) {
-		CallbackCommand callbackCommand = new CallbackCommand(SCOPE, "chips", player.getId(),
+		CallbackCommand callbackCommand = new CallbackCommand(SCOPE_CHIP, "chip", player.getId(),
 				new JsonPrimitive(chips));
 		webSocketHandler.sendCommand(callbackCommand);
 	}

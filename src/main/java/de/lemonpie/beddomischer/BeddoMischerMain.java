@@ -1,8 +1,6 @@
 package de.lemonpie.beddomischer;
 
-import de.lemonpie.beddomischer.http.handler.BoardHandler;
-import de.lemonpie.beddomischer.http.handler.PlayerGetHandler;
-import de.lemonpie.beddomischer.http.handler.PlayerListHandler;
+import de.lemonpie.beddomischer.http.handler.*;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
@@ -87,7 +85,9 @@ public class BeddoMischerMain {
 		// Add Listener
 		players.addListener(new PlayerListWebListener(webSocketHandler));
 
-        get("/player", new PlayerListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+		get("/chips", new ChipListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+		get("/chips/:id", new ChipGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+		get("/player", new PlayerListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
         get("/player/:id", new PlayerGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
         get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
