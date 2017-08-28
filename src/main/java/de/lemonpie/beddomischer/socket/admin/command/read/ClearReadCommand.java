@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.socket.admin.command.read;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.card.BlankCard;
@@ -8,12 +9,13 @@ import de.lemonpie.beddomischer.model.reader.BoardCardReader;
 import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
+import de.lemonpie.beddomischer.socket.reader.ClearSendCommand;
 
 public class ClearReadCommand implements Command {
     @Override
-	public String name() {
-		return "clear";
-	}
+    public CommandName name() {
+        return CommandName.CLEAR;
+    }
 
 	@Override
 	public void execute(CommandData command) {
@@ -42,7 +44,7 @@ public class ClearReadCommand implements Command {
 			});
 		}
 
-		CommandData forwardCommandData = new CommandData("reader", "clear", key, null);
-		BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+        ClearSendCommand forwardCommandData = new ClearSendCommand(key);
+        BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 	}
 }

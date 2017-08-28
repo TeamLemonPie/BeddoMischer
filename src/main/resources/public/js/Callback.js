@@ -23,19 +23,19 @@ function onLoad() {
         console.log('Server: ' + e.data);
 
         var data = JSON.parse(e.data);
-        if (data.scope === "player") {
+        if (data.scope === "PLAYER") {
             try {
                 handlePlayerCallback(data.command, data.key, data.value);
             } catch (e) {
             } finally {
             }
-        } else if (data.scope === "board") {
+        } else if (data.scope === "BOARD") {
             try {
                 handleBoardCallback(data.command, data.key, data.value);
             } catch (e) {
             } finally {
             }
-        } else if (data.scope === "chip") {
+        } else if (data.scope === "CHIP") {
             try {
                 handleChipCallback(data.command, data.key, data.value);
             } catch (e) {

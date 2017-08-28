@@ -57,7 +57,7 @@ public class ClientHandler implements Runnable {
 				CommandData commandData = gson.fromJson(line, CommandData.class);
 
 				controlServerSocket.getCommands().forEach((name, command) -> {
-					if (name.equals(commandData.getCommand())) {
+					if (name.getName().equals(commandData.getCommand())) {
 						command.execute(commandData);
 					}
 				});

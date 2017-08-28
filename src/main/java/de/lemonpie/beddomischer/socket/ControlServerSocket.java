@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.socket;
 
 import com.google.gson.Gson;
+import de.lemonpie.beddomischer.CommandName;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.Map;
 public abstract class ControlServerSocket implements Closeable {
 
 	// Command Name, Command Implementation
-	private Map<String, Command> commands;
+    private Map<CommandName, Command> commands;
 
 	private ServerSocket serverSocket;
 	private ConnectionHandler connectionHandler;
@@ -70,7 +71,7 @@ public abstract class ControlServerSocket implements Closeable {
 		return serverSocket;
 	}
 
-	public Map<String, Command> getCommands() {
-		return commands;
+    public Map<CommandName, Command> getCommands() {
+        return commands;
 	}
 }

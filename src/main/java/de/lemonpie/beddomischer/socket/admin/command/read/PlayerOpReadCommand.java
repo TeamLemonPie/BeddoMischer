@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.socket.admin.command.read;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
@@ -8,8 +9,8 @@ import de.lemonpie.beddomischer.socket.admin.command.send.PlayerOpSendCommand;
 
 public class PlayerOpReadCommand implements Command {
     @Override
-    public String name() {
-        return "player-op";
+    public CommandName name() {
+        return CommandName.PLAYER_OP;
     }
 
     @Override

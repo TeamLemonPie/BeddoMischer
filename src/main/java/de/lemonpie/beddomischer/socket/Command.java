@@ -1,6 +1,9 @@
 package de.lemonpie.beddomischer.socket;
 
+import de.lemonpie.beddomischer.CommandName;
+
 public interface Command {
-	String name();
-	void execute(CommandData command);
+    CommandName name();
+
+    void execute(CommandData command);
 }

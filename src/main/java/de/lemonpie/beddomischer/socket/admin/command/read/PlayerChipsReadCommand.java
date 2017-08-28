@@ -1,14 +1,15 @@
 package de.lemonpie.beddomischer.socket.admin.command.read;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
 
 public class PlayerChipsReadCommand implements Command {
 
     @Override
-    public String name() {
-        return "chips";
+    public CommandName name() {
+        return CommandName.PLAYER_CHIP;
     }
 
     @Override

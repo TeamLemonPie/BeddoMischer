@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.socket.reader;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.model.reader.BoardCardReader;
@@ -17,9 +18,9 @@ import java.util.Optional;
  */
 public class CardCommand implements Command {
 	@Override
-	public String name() {
-		return "card";
-	}
+    public CommandName name() {
+        return CommandName.CARD;
+    }
 
 	@Override
 	public void execute(CommandData command) {

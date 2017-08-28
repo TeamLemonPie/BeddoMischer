@@ -2,8 +2,8 @@
 <div class="player-container" id="player-${player.id}">
 
     <div class="deck">
-        <div class="card ${player.card1}" id="card1"></div>
-        <div class="card ${player.card2}" id="card2"></div>
+        <div class="card ${player.card1}" id="card0"></div>
+        <div class="card ${player.card2}" id="card1"></div>
     </div>
     <div class="banner">
         <div class="player-info">

@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.socket.admin.command.read;
 
 import com.google.gson.JsonObject;
 import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.model.reader.BoardCardReader;
 import de.lemonpie.beddomischer.model.reader.CardReader;
 import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
@@ -17,42 +18,42 @@ import java.util.Optional;
  */
 public class ReaderReadCommand implements Command {
     @Override
-	public String name() {
-		return "reader";
-	}
+    public CommandName name() {
+        return CommandName.READER;
+    }
 
-	@Override
-	public void execute(CommandData command) {
-		int readerId = command.getKey();
+    @Override
+    public void execute(CommandData command) {
+        int readerId = command.getKey();
 
-		Optional<CardReader> cardReader = BeddoMischerMain.getCardReader(readerId);
+        Optional<CardReader> cardReader = BeddoMischerMain.getCardReader(readerId);
 
-		if (command.getValue() instanceof JsonObject) {
-			JsonObject value = (JsonObject) command.getValue();
-			int type = value.get("type").getAsInt();
+        if (command.getValue() instanceof JsonObject) {
+            JsonObject value = (JsonObject) command.getValue();
+            int type = value.get("type").getAsInt();
 
-			if (type == 0) { // PLAYER
-				int playerId = value.get("playerId").getAsInt();
+            if (type == 0) { // PLAYER
+                int playerId = value.get("playerId").getAsInt();
 
-				if (cardReader.isPresent() && cardReader.get() instanceof PlayerCardReader) {
-					PlayerCardReader reader = (PlayerCardReader) cardReader.get();
-					reader.setPlayerId(playerId);
-				} else {
-					cardReader.ifPresent(reader -> BeddoMischerMain.getCardReaders().remove(reader)); // Remove old
+                if (cardReader.isPresent() && cardReader.get() instanceof PlayerCardReader) {
+                    PlayerCardReader reader = (PlayerCardReader) cardReader.get();
+                    reader.setPlayerId(playerId);
+                } else {
+                    cardReader.ifPresent(reader -> BeddoMischerMain.getCardReaders().remove(reader)); // Remove old
                     BeddoMischerMain.getCardReaders().add(new PlayerCardReader(readerId, playerId));
                 }
-			} else if (type == 1) { // BOARD
+            } else if (type == 1) { // BOARD
                 int boardId = value.get("boardId").getAsInt();
 
-				if (cardReader.isPresent() && cardReader.get() instanceof BoardCardReader) {
-					BoardCardReader reader = (BoardCardReader) cardReader.get();
+                if (cardReader.isPresent() && cardReader.get() instanceof BoardCardReader) {
+                    BoardCardReader reader = (BoardCardReader) cardReader.get();
                     reader.setIndex(boardId);
                 } else {
-					cardReader.ifPresent(reader -> BeddoMischerMain.getCardReaders().remove(reader)); // Remove old
+                    cardReader.ifPresent(reader -> BeddoMischerMain.getCardReaders().remove(reader)); // Remove old
                     BeddoMischerMain.getCardReaders().add(new BoardCardReader(readerId, boardId));
                 }
-			}
-		}
-		System.out.println(BeddoMischerMain.getCardReaders());
-	}
+            }
+        }
+        System.out.println(BeddoMischerMain.getCardReaders());
+    }
 }
