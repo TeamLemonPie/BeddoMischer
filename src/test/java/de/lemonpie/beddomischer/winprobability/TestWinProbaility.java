@@ -82,8 +82,8 @@ public class TestWinProbaility
 		{
 			percentages.add((int)(probabilities.get(i) * 100));
 		}
-		
-		assertTrue(63 < percentages.get(0) && percentages.get(0) < 67);
+
+		assertTrue(62 < percentages.get(0) && percentages.get(0) < 67);
 		assertTrue(12 < percentages.get(1) && percentages.get(1) < 16);
 		assertTrue(18 < percentages.get(2) && percentages.get(2) < 22);		
 	}

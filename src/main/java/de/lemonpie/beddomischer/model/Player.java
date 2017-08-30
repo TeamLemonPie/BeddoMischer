@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddomischer.winprobability.CalculatedHand;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ public class Player {
 	private Card card2;
 
 	private int chips;
+	private CalculatedHand calculatedHand;
 
 	public Player(int id) {
 		listeners = new LinkedList<>();
@@ -77,6 +79,14 @@ public class Player {
 	public void setChips(int chips) {
 		this.chips = chips;
 		fireListener(listener -> listener.chipsDidChange(chips));
+	}
+
+	public CalculatedHand getCalculatedHand() {
+		return calculatedHand;
+	}
+
+	public void setCalculatedHand(CalculatedHand calculatedHand) {
+		this.calculatedHand = calculatedHand;
 	}
 
 	public void addListener(PlayerListener playerListener) {

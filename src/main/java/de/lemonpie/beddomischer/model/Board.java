@@ -1,11 +1,14 @@
 package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.BoardListener;
+import de.lemonpie.beddomischer.model.card.BlankCard;
 import de.lemonpie.beddomischer.model.card.Card;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class Board {
 
@@ -15,6 +18,8 @@ public class Board {
 	public Board() {
 		listeners = new LinkedList<>();
 		cards = new Card[5];
+
+		Arrays.fill(cards, new BlankCard());
 	}
 
 	public Card getCard(int index) throws IndexOutOfBoundsException {
@@ -48,5 +53,9 @@ public class Board {
 
 	public Card[] getCards() {
 		return cards;
+	}
+
+	public int getNumberOfMissingCards() {
+		return (int) Stream.of(cards).filter(c -> c instanceof BlankCard).count();
 	}
 }
