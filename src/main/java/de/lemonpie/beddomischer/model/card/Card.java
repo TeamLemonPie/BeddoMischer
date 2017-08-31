@@ -61,4 +61,15 @@ public class Card implements Comparable<Object> {
 		Card other = (Card) obj;
 		return Integer.compare(this.value.getWeight(), other.getValue().getWeight());
 	}
+
+	public static Card fromString(String cardCode) {
+		String[] parts = cardCode.split("-");
+		if (parts.length == 2) {
+			CardSymbol symbol = CardSymbol.get(parts[0]);
+			CardValue value = CardValue.get(parts[1]);
+			return new Card(symbol, value);
+		} else {
+			return Card.EMPTY;
+		}
+	}
 }

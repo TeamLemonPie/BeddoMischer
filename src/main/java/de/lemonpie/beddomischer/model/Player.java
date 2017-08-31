@@ -105,10 +105,37 @@ public class Player {
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new HashMap<>();
-		map.put("name", name);
+        map.put("id", id);
+        map.put("name", name);
 		map.put("twitchName", twitchName);
-		map.put("cardLeft", cardLeft != null ? cardLeft.getName() : "back");
-		map.put("cardRight", cardRight != null ? cardRight.getName() : "back");
+
+		map.put("card1", cardLeft != null ? cardLeft.getName() : "back");
+		map.put("card2", cardRight != null ? cardRight.getName() : "back");
+
+		map.put("chips", chips);
 		return map;
+	}
+
+	public void setCard(int index, Card card) {
+		if (index == 0) {
+			setCardLeft(card);
+		} else if (index == 1) {
+			setCardRight(card);
+		} else {
+			throw new IllegalArgumentException("Index is " + index + " should be 0 or 1");
+		}
+	}
+
+	public void clearCards() {
+		setCard(0, Card.EMPTY);
+		setCard(1, Card.EMPTY);
+	}
+
+	public void setCard(Card card) {
+        if (cardLeft == null || cardLeft == Card.EMPTY) {
+            setCardLeft(card);
+		} else {
+			setCardRight(card);
+		}
 	}
 }

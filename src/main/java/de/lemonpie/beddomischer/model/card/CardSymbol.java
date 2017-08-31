@@ -16,6 +16,15 @@ public enum CardSymbol {
 		this.shortCode = shortCode;
 	}
 
+	public static CardSymbol get(String name) {
+		for (CardSymbol cardSymbol : values()) {
+			if (cardSymbol.shortName.equals(name)) {
+				return cardSymbol;
+			}
+		}
+		return null;
+	}
+
 	public String getShortName() {
 		return shortName;
 	}

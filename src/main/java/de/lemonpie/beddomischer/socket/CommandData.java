@@ -1,17 +1,17 @@
-package de.lemonpie.beddomischer.http.websocket;
+package de.lemonpie.beddomischer.socket;
 
 import com.google.gson.JsonElement;
 import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.Scope;
 
-public class CallbackCommand {
+public class CommandData {
 
     private Scope scope;
     private String command;
 	private int key;
 	private JsonElement value;
 
-    public CallbackCommand(Scope scope, CommandName command, int key, JsonElement value) {
+    public CommandData(Scope scope, CommandName command, int key, JsonElement value) {
         this.scope = scope;
         this.command = command.getName();
         this.key = key;
@@ -33,4 +33,8 @@ public class CallbackCommand {
 	public JsonElement getValue() {
 		return value;
 	}
+
+    protected void setValue(JsonElement value) {
+        this.value = value;
+    }
 }

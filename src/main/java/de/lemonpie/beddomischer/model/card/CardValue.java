@@ -35,7 +35,15 @@ public enum CardValue{
 				return currentValue;
 			}
 		}
+		return null;
+	}
 
+	public static CardValue get(String name) {
+		for (CardValue currentValue : values()) {
+			if (currentValue.name.equals(name)) {
+				return currentValue;
+			}
+		}
 		return null;
 	}
 

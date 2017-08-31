@@ -1,5 +1,7 @@
 package de.lemonpie.beddomischer.socket;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,6 +9,12 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
+
+	private static Gson gson;
+
+	static {
+		gson = new Gson();
+	}
 
 	private Thread thread;
 	private ControlServerSocket controlServerSocket;
@@ -46,9 +54,13 @@ public class ClientHandler implements Runnable {
 				// Handle line
 				System.out.printf("[%s]: %s\n", socket.getRemoteSocketAddress(), line);
 
-				write(line);
+				CommandData commandData = gson.fromJson(line, CommandData.class);
 
-				controlServerSocket.getCommands().forEach(command -> command.execute(line));
+				controlServerSocket.getCommands().forEach((name, command) -> {
+					if (name.getName().equals(commandData.getCommand())) {
+						command.execute(commandData);
+					}
+				});
 
 				if (thread.isInterrupted()) {
 					break;

@@ -1,15 +1,18 @@
 package de.lemonpie.beddomischer;
 
-import de.lemonpie.beddomischer.http.handler.BoardHandler;
-import de.lemonpie.beddomischer.http.handler.PlayerHandler;
+import de.lemonpie.beddomischer.http.handler.*;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
-import de.lemonpie.beddomischer.http.websocket.listener.PlayerCallbackListener;
+import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.PlayerList;
+import de.lemonpie.beddomischer.model.reader.CardReader;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
+import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
+import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
+import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import spark.Spark;
@@ -21,13 +24,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static spark.Spark.*;
 
 public class BeddoMischerMain {
 
-	private static List<Player> players;
+	private static PlayerList players;
 	private static Board board;
+	private static List<CardReader> cardReaders;
 
 	private static WebSocketHandler webSocketHandler;
 
@@ -46,17 +51,18 @@ public class BeddoMischerMain {
 			e.printStackTrace();
 		}
 
-		players = new ArrayList<>();
+		players = new PlayerList();
 		board = new Board();
+		cardReaders = new ArrayList<>();
 
 		try {
-			rfidServerSocket = new ControlServerSocket(settings.readerInterface(), settings.readerPort());
+			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		try {
-			controlServerSocket = new ControlServerSocket(settings.controlInterface(), settings.controlPort());
+			controlServerSocket = new AdminServerSocket(settings.controlInterface(), settings.controlPort());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -77,20 +83,19 @@ public class BeddoMischerMain {
 
 		initBoard();
 
-		get("/player", new PlayerHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
-		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+		// Add Listener
+		players.addListener(new PlayerListWebListener(webSocketHandler));
+		players.addListener(new AdminPlayerListListener());
+
+		get("/chips", new ChipListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+		get("/chips/:id", new ChipGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+		get("/player", new PlayerListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+        get("/player/:id", new PlayerGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+        get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 
-	public static List<Player> getPlayers() {
+	public static PlayerList getPlayers() {
 		return players;
-	}
-
-	public static Player addPlayer() {
-		Player player = new Player(players.size());
-		PlayerCallbackListener playerCallbackListener = new PlayerCallbackListener(player, webSocketHandler);
-		player.addListener(playerCallbackListener);
-		players.add(player);
-		return player;
 	}
 
 	public static Board getBoard() {
@@ -100,5 +105,21 @@ public class BeddoMischerMain {
 	private static void initBoard() {
 		BoardCallbackListener boardCallbackListener = new BoardCallbackListener(webSocketHandler);
 		board.addListener(boardCallbackListener);
+	}
+
+	public static ControlServerSocket getRfidServerSocket() {
+		return rfidServerSocket;
+	}
+
+	public static ControlServerSocket getControlServerSocket() {
+		return controlServerSocket;
+	}
+
+	public static List<CardReader> getCardReaders() {
+		return cardReaders;
+	}
+
+	public static Optional<CardReader> getCardReader(int readerId) {
+		return cardReaders.stream().filter(r -> r.getReaderId() == readerId).findFirst();
 	}
 }

@@ -1,6 +1,8 @@
 package de.lemonpie.beddomischer.http.websocket.listener;
 
 import com.google.gson.JsonPrimitive;
+import de.lemonpie.beddomischer.CommandName;
+import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.BoardListener;
@@ -16,7 +18,7 @@ public class BoardCallbackListener implements BoardListener {
 
 	@Override
 	public void cardDidChangeAtIndex(int index, Card card) {
-		CallbackCommand callbackCommand = new CallbackCommand("board", "card", index,
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.BOARD, CommandName.CARD, index,
 				new JsonPrimitive(card.getName()));
 		webSocketHandler.sendCommand(callbackCommand);
 	}

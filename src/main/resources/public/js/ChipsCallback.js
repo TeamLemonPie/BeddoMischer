@@ -1,6 +1,14 @@
 /*
-Handles all player callback events from server.
+Handles all chip callback events from server.
  */
+
+function handleChipCallback(command, key, value) {
+    if (command === "chip") {
+        var playerContainer = $("#player-" + key);
+        var playerName = $(playerContainer).find("#player-chip");
+        playerName.text(value)
+    }
+}
 
 function handlePlayerCallback(command, key, value) {
     var playerContainer = $("#player-" + key);
@@ -10,13 +18,6 @@ function handlePlayerCallback(command, key, value) {
     } else if (command === "twitchName") {
         var playerTwitchName = $(playerContainer).find("#player-twitchName");
         playerTwitchName.text(value)
-    } else if (command === "card") {
-        var cardId = value.index;
-        var playerCard1 = $(playerContainer).find("#card" + cardId);
-
-        playerCard1.removeAttr("class");
-        playerCard1.addClass("card");
-        playerCard1.addClass(value.card);
     } else if (command === "player-op") {
         if (value === "add") {
             loadPlayer(key);
@@ -27,11 +28,11 @@ function handlePlayerCallback(command, key, value) {
 }
 
 function loadPlayer(id) {
-    $.get("player/" + id, function (data) {
-        $(".left-container").append(data);
+    $.get("chips/" + id, function (data) {
+        $(".table-container").append(data);
     });
 }
 
 function removePlayer(id) {
-    $(".left-container").remove();
+    $(".table-container").remove();
 }

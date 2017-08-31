@@ -22,7 +22,6 @@ public class BoardHandler implements TemplateViewRoute {
 		for (Card card : BeddoMischerMain.getBoard().getCards()) {
 			cards.add(card != null ? card.getName() : "back");
 		}
-
 		model.put("board", cards);
 		return new ModelAndView(model, "Board.ftl");
 	}

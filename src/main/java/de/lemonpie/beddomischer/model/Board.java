@@ -57,4 +57,10 @@ public class Board {
 	public int getNumberOfMissingCards() {
 		return (int) Stream.of(cards).filter(c -> c == Card.EMPTY).count();
 	}
+
+	public void clearCards() {
+		for (int i = 0; i < getCards().length; i++) {
+			setCard(i, Card.EMPTY);
+		}
+	}
 }
