@@ -34,5 +34,5 @@ function loadPlayer(id) {
 }
 
 function removePlayer(id) {
-    $(".table-container").remove();
+    $("#player-" + id).remove();
 }
