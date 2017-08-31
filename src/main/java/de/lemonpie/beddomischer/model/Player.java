@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.PlayerListener;
-import de.lemonpie.beddomischer.model.card.BlankCard;
 import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,10 +18,11 @@ public class Player {
 	private String name;
 	private String twitchName;
 
-	private Card card1;
-	private Card card2;
+	private Card cardLeft;
+	private Card cardRight;
 
 	private int chips;
+	private CalculatedHand calculatedHand;
 
 	public Player(int id) {
 		listeners = new LinkedList<>();
@@ -53,22 +54,22 @@ public class Player {
 		fireListener(listener -> listener.twitchNameDidChange(twitchName));
 	}
 
-	public Card getCard1() {
-		return card1;
+	public Card getCardLeft() {
+		return cardLeft;
 	}
 
-	public void setCard1(Card card1) {
-		this.card1 = card1;
-		fireListener(listener -> listener.cardDidChangeAtIndex(0, card1));
+	public void setCardLeft(Card cardLeft) {
+		this.cardLeft = cardLeft;
+		fireListener(listener -> listener.cardDidChangeAtIndex(0, cardLeft));
 	}
 
-	public Card getCard2() {
-		return card2;
+	public Card getCardRight() {
+		return cardRight;
 	}
 
-	public void setCard2(Card card2) {
-		this.card2 = card2;
-		fireListener(listener -> listener.cardDidChangeAtIndex(1, card2));
+	public void setCardRight(Card cardRight) {
+		this.cardRight = cardRight;
+		fireListener(listener -> listener.cardDidChangeAtIndex(1, cardRight));
 	}
 
 	public int getChips() {
@@ -78,6 +79,14 @@ public class Player {
 	public void setChips(int chips) {
 		this.chips = chips;
 		fireListener(listener -> listener.chipsDidChange(chips));
+	}
+
+	public CalculatedHand getCalculatedHand() {
+		return calculatedHand;
+	}
+
+	public void setCalculatedHand(CalculatedHand calculatedHand) {
+		this.calculatedHand = calculatedHand;
 	}
 
 	public void addListener(PlayerListener playerListener) {
@@ -99,32 +108,34 @@ public class Player {
         map.put("id", id);
         map.put("name", name);
 		map.put("twitchName", twitchName);
+
+		map.put("card1", cardLeft != null ? cardLeft.getName() : "back");
+		map.put("card2", cardRight != null ? cardRight.getName() : "back");
+
 		map.put("chips", chips);
-		map.put("card1", card1 != null ? card1.name() : "back");
-		map.put("card2", card2 != null ? card2.name() : "back");
 		return map;
 	}
 
 	public void setCard(int index, Card card) {
 		if (index == 0) {
-			setCard1(card);
+			setCardLeft(card);
 		} else if (index == 1) {
-			setCard2(card);
+			setCardRight(card);
 		} else {
 			throw new IllegalArgumentException("Index is " + index + " should be 0 or 1");
 		}
 	}
 
 	public void clearCards() {
-		setCard(0, new BlankCard());
-		setCard(1, new BlankCard());
+		setCard(0, Card.EMPTY);
+		setCard(1, Card.EMPTY);
 	}
 
 	public void setCard(Card card) {
-        if (card1 == null || card1 instanceof BlankCard) {
-            setCard1(card);
+        if (cardLeft == null || cardLeft == Card.EMPTY) {
+            setCardLeft(card);
 		} else {
-			setCard2(card);
+			setCardRight(card);
 		}
 	}
 }

@@ -10,16 +10,16 @@ import de.lemonpie.beddomischer.model.card.Card;
 
 public class BoardCallbackListener implements BoardListener {
 
-    private WebSocketHandler webSocketHandler;
+	private WebSocketHandler webSocketHandler;
 
-    public BoardCallbackListener(WebSocketHandler webSocketHandler) {
-        this.webSocketHandler = webSocketHandler;
-    }
+	public BoardCallbackListener(WebSocketHandler webSocketHandler) {
+		this.webSocketHandler = webSocketHandler;
+	}
 
-    @Override
-    public void cardDidChangeAtIndex(int index, Card card) {
-        CallbackCommand callbackCommand = new CallbackCommand(Scope.BOARD, CommandName.CARD, index,
-                new JsonPrimitive(card.name()));
-        webSocketHandler.sendCommand(callbackCommand);
-    }
+	@Override
+	public void cardDidChangeAtIndex(int index, Card card) {
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.BOARD, CommandName.CARD, index,
+				new JsonPrimitive(card.getName()));
+		webSocketHandler.sendCommand(callbackCommand);
+	}
 }

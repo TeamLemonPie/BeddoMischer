@@ -16,7 +16,7 @@ public class CardSendCommand extends CommandData {
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", 1);
-        jsonObject.addProperty("card", card.name());
+        jsonObject.addProperty("card", card.getName());
         setValue(jsonObject);
     }
 
@@ -26,7 +26,7 @@ public class CardSendCommand extends CommandData {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", 0);
         jsonObject.addProperty("index", index);
-        jsonObject.addProperty("card", card.name());
+        jsonObject.addProperty("card", card.getName());
         setValue(jsonObject);
     }
 }

@@ -37,7 +37,7 @@ public class PlayerCallbackListener implements PlayerListener {
 	@Override
 	public void cardDidChangeAtIndex(int index, Card card) {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("card", card.name());
+        jsonObject.addProperty("card", card.getName());
         jsonObject.addProperty("index", index);
         CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.CARD, player.getId(), jsonObject);
         webSocketHandler.sendCommand(callbackCommand);
