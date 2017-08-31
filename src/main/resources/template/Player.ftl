@@ -13,8 +13,8 @@
     <div class="player-container">
 
         <div class="deck">
-            <div class="card ${player.card1}" id="card1"></div>
-            <div class="card ${player.card2}" id="card2"></div>
+            <div class="card ${player.cardLeft}" id="cardLeft"></div>
+            <div class="card ${player.cardRight}" id="cardRight"></div>
         </div>
         <div class="banner">
             <div class="player-info">

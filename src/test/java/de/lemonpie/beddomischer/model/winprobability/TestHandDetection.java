@@ -1,5 +1,9 @@
-package de.lemonpie.beddomischer.winprobability;
+package de.lemonpie.beddomischer.model.winprobability;
 
+import de.lemonpie.beddomischer.model.HandType;
+import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddomischer.model.card.CardSymbol;
+import de.lemonpie.beddomischer.model.card.CardValue;
 import org.junit.Test;
 
 import java.util.ArrayList;

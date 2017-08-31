@@ -2,7 +2,7 @@ package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.card.Card;
-import de.lemonpie.beddomischer.winprobability.CalculatedHand;
+import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,8 +18,8 @@ public class Player {
 	private String name;
 	private String twitchName;
 
-	private Card card1;
-	private Card card2;
+	private Card cardLeft;
+	private Card cardRight;
 
 	private int chips;
 	private CalculatedHand calculatedHand;
@@ -54,22 +54,22 @@ public class Player {
 		fireListener(listener -> listener.twitchNameDidChange(twitchName));
 	}
 
-	public Card getCard1() {
-		return card1;
+	public Card getCardLeft() {
+		return cardLeft;
 	}
 
-	public void setCard1(Card card1) {
-		this.card1 = card1;
-		fireListener(listener -> listener.cardDidChangeAtIndex(0, card1));
+	public void setCardLeft(Card cardLeft) {
+		this.cardLeft = cardLeft;
+		fireListener(listener -> listener.cardDidChangeAtIndex(0, cardLeft));
 	}
 
-	public Card getCard2() {
-		return card2;
+	public Card getCardRight() {
+		return cardRight;
 	}
 
-	public void setCard2(Card card2) {
-		this.card2 = card2;
-		fireListener(listener -> listener.cardDidChangeAtIndex(1, card2));
+	public void setCardRight(Card cardRight) {
+		this.cardRight = cardRight;
+		fireListener(listener -> listener.cardDidChangeAtIndex(1, cardRight));
 	}
 
 	public int getChips() {
@@ -107,8 +107,8 @@ public class Player {
 		Map<String, Object> map = new HashMap<>();
 		map.put("name", name);
 		map.put("twitchName", twitchName);
-		map.put("card1", card1 != null ? card1.name() : "back");
-		map.put("card2", card2 != null ? card2.name() : "back");
+		map.put("cardLeft", cardLeft != null ? cardLeft.getName() : "back");
+		map.put("cardRight", cardRight != null ? cardRight.getName() : "back");
 		return map;
 	}
 }

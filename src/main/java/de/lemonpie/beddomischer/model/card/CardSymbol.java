@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.model.card;
 
 public enum CardSymbol {
 
+	BACK("Back", "B"),
 	HEART("He", "H"),
 	CROSS("Kr", "C"),
 	SPADES("Pi", "P"),

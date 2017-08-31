@@ -1,6 +1,14 @@
-package de.lemonpie.beddomischer.winprobability;
+package de.lemonpie.beddomischer.model.winprobability;
+
+import de.lemonpie.beddomischer.model.Board;
+import de.lemonpie.beddomischer.model.HandType;
+import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddomischer.model.card.CardSymbol;
+import de.lemonpie.beddomischer.model.card.CardValue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Calculation
@@ -55,13 +63,13 @@ public class Calculation
 		{
 			if(i < 5 - numberOfMissingCardsInBoard)
 			{
-				fullBoard.setCard(board.getCards().get(i), i);
+				fullBoard.setCard(i, board.getCard(i));
 			}
 			else
 			{
 				Random random = new Random();
 				int randomIndex = random.nextInt(remainingDeck.size());
-				fullBoard.setCard(remainingDeck.get(randomIndex), i);
+				fullBoard.setCard(i, remainingDeck.get(randomIndex));
 				remainingDeck.remove(randomIndex);
 			}
 		}
@@ -171,12 +179,12 @@ public class Calculation
 			if(playerHighestCards.size() > highestCardIndex)
 			{				
 				CardValue playerCardValue = playerHighestCards.get(highestCardIndex).getValue();
-				if(playerCardValue.getValue() > highestCardValue.getValue())
+				if(playerCardValue.getWeight() > highestCardValue.getWeight())
 				{
 					returnList = new ArrayList<>();				
 					returnList.add(i);
 				}
-				else if(playerCardValue.getValue() == highestCardValue.getValue())
+				else if(playerCardValue.getWeight() == highestCardValue.getWeight())
 				{
 					if(!returnList.contains(i))
 						returnList.add(i);
@@ -234,7 +242,7 @@ public class Calculation
 			fullDeck.remove(currentPlayer.getCardRight());
 		}
 
-		fullDeck.removeAll(board.getCards());
+		fullDeck.removeAll(Arrays.asList(board.getCards()));
 
 		return fullDeck;
 	}

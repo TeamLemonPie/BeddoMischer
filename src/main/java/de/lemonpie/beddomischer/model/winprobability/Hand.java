@@ -1,6 +1,13 @@
-package de.lemonpie.beddomischer.winprobability;
+package de.lemonpie.beddomischer.model.winprobability;
+
+import de.lemonpie.beddomischer.model.Board;
+import de.lemonpie.beddomischer.model.HandType;
+import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddomischer.model.card.CardSymbol;
+import de.lemonpie.beddomischer.model.card.CardValue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Hand
@@ -15,8 +22,7 @@ public class Hand
 
 	public Hand(Board board, Card cardLeft, Card cardRight)
 	{
-		cards = new ArrayList<>();
-		cards.addAll(board.getCards());
+		cards = new ArrayList<>(Arrays.asList(board.getCards()));
 		cards.add(cardLeft);
 		cards.add(cardRight);
 		Collections.sort(this.cards);
@@ -25,39 +31,39 @@ public class Hand
 	public CalculatedHand detectHand()
 	{
 		Card highestCard = detectRoyalFlush();
-		if(!highestCard.isEmpty())
+		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.ROYAL_FLUSH, highestCard);
 
 		highestCard = detectStraightFlush();
-		if(!highestCard.isEmpty())
+		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.STRAIGHT_FLUSH, highestCard);
 
 		highestCard = detectXOfAKind(4);
-		if(!highestCard.isEmpty())
+		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.FOUR_OF_A_KIND, highestCard);
 		
 		ArrayList<Card> highestCards = detectFullHouse();		
-		if(!highestCards.contains(new Card()))
+		if(!highestCards.contains(Card.EMPTY))
 			return new CalculatedHand(HandType.FULL_HOUSE, highestCards);
 
 		highestCard = detectFlush();
-		if(!highestCard.isEmpty())
+		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.FLUSH, highestCard);
 		
 		highestCard = detectStraight();
-		if(!highestCard.isEmpty())
+		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.STRAIGHT, highestCard);
 		
 		highestCard = detectXOfAKind(3);
-		if(!highestCard.isEmpty())
+		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.THREE_OF_A_KIND, highestCard);		
 		
 		highestCards = detectTwoPairs();
-		if(!highestCards.contains(new Card()))
+		if(!highestCards.contains(Card.EMPTY))
 			return new CalculatedHand(HandType.TWO_PAIRS, highestCards);
 		
 		highestCard = detectXOfAKind(2);
-		if(!highestCard.isEmpty())
+		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.PAIR, highestCard);
 
 		return new CalculatedHand(HandType.HIGHEST_CARD, detectHighestCard());
@@ -68,7 +74,7 @@ public class Hand
 		Card highestCard = cards.get(0);
 		for(Card currentCard : cards)
 		{
-			if(currentCard.getValue().getValue() > highestCard.getValue().getValue())
+			if(currentCard.getValue().getWeight() > highestCard.getValue().getWeight())
 			{
 				highestCard = currentCard;
 			}
@@ -83,25 +89,25 @@ public class Hand
 		
 		if(occurrences.contains(times))
 		{
-			return new Card(CardSymbol.BACK, CardValue.fromValue(occurrences.lastIndexOf(times)));
+			return new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(times)));
 		}		
 		
-		return new Card();
+		return Card.EMPTY;
 	}
 	
 	private ArrayList<Card> detectTwoPairs()
 	{
 		ArrayList<Integer> occurrences = countOccurencesOValues();
 		ArrayList<Card> cardPairs = new ArrayList<>();		
-		cardPairs.add(new Card());
-		cardPairs.add(new Card());
+		cardPairs.add(Card.EMPTY);
+		cardPairs.add(Card.EMPTY);
 		
 		for(int i = 0; i < occurrences.size(); i++)
 		{
 			if(occurrences.get(i) == 2)
 			{
-				CardValue curentValue = CardValue.fromValue(i);
-				if(curentValue.getValue() > cardPairs.get(0).getValue().getValue())
+				CardValue curentValue = CardValue.fromWeight(i);
+				if(curentValue.getWeight() > cardPairs.get(0).getValue().getWeight())
 				{
 					cardPairs.set(1, cardPairs.get(0));
 					cardPairs.set(0, new Card(CardSymbol.BACK, curentValue));
@@ -114,13 +120,13 @@ public class Hand
 	
 	private Card detectStraight()
 	{
-		Card highestCard = new Card();
+		Card highestCard = Card.EMPTY;
 		
 		for(int k = cards.size() - 1; k >= 0; k--)
 		{
 			Card currentCard = cards.get(k);
 			// straight is not possible if current card is already below 5
-			if(currentCard.getValue().getValue() < 5)
+			if(currentCard.getValue().getWeight() < 5)
 			{
 				break;
 			}
@@ -130,11 +136,11 @@ public class Hand
 
 			for(int i = 1; i < 4; i++)
 			{
-				CardValue nextValue = CardValue.fromValue(currentCard.getValue().getValue() - i);
+				CardValue nextValue = CardValue.fromWeight(currentCard.getValue().getWeight() - i);
 				if(!listContainsCardWithValue(nextValue))
 				{
 					currentRun = false;
-					highestCard = new Card();
+					highestCard = Card.EMPTY;
 					break;
 				}
 			}
@@ -167,7 +173,7 @@ public class Hand
 			Card highestCard = cardsWithMostUsedSymbol.get(0);
 			for(Card currentCard : cardsWithMostUsedSymbol)
 			{
-				if(currentCard.getValue().getValue() > highestCard.getValue().getValue())
+				if(currentCard.getValue().getWeight() > highestCard.getValue().getWeight())
 				{
 					highestCard = currentCard;
 				}
@@ -176,7 +182,7 @@ public class Hand
 			return highestCard;
 		}
 		
-		return new Card();
+		return Card.EMPTY;
 	}
 	
 	private ArrayList<Card> detectFullHouse()
@@ -187,14 +193,14 @@ public class Hand
 		{
 			ArrayList<Card> highestCards = new ArrayList<>();
 			//first card is type of three of a kind
-			highestCards.add(new Card(CardSymbol.BACK, CardValue.fromValue(occurrences.lastIndexOf(3))));
+			highestCards.add(new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(3))));
 			//second card type of pair
-			highestCards.add(new Card(CardSymbol.BACK, CardValue.fromValue(occurrences.lastIndexOf(2))));
+			highestCards.add(new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(2))));
 			return highestCards;
 		}
 		
 		ArrayList<Card> highestCards = new ArrayList<>();
-		highestCards.add(new Card());
+		highestCards.add(Card.EMPTY);
 		return highestCards;
 	}
 
@@ -212,7 +218,7 @@ public class Hand
 			}
 		}
 
-		Card highestCard = new Card();
+		Card highestCard = Card.EMPTY;
 
 		// straight flush is only possible with at least 5 cards
 		if(cardsWithMostUsedSymbol.size() < 5)
@@ -222,7 +228,7 @@ public class Hand
 		{		
 			Card currentCard = cardsWithMostUsedSymbol.get(k);
 			// straight flush is not possible if current card is already below 5
-			if(currentCard.getValue().getValue() < 5)
+			if(currentCard.getValue().getWeight() < 5)
 			{
 				break;
 			}
@@ -232,11 +238,11 @@ public class Hand
 
 			for(int i = 1; i < 4; i++)
 			{
-				Card cardToTest = new Card(mostUsedSymbol, CardValue.fromValue(currentCard.getValue().getValue() - i));
+				Card cardToTest = new Card(mostUsedSymbol, CardValue.fromWeight(currentCard.getValue().getWeight() - i));
 				if(!cardsWithMostUsedSymbol.contains(cardToTest))
 				{
 					currentRun = false;
-					highestCard = new Card();
+					highestCard = Card.EMPTY;
 					break;
 				}
 			}
@@ -288,7 +294,7 @@ public class Hand
 			return new Card(CardSymbol.SPADES, CardValue.ACE);
 		}
 
-		return new Card();
+		return Card.EMPTY;
 	}
 
 	private boolean listContainsCard(Card card)
@@ -372,7 +378,7 @@ public class Hand
 		
 		for(Card currentCard : cards)
 		{
-			int currentIndex = currentCard.getValue().getValue();
+			int currentIndex = currentCard.getValue().getWeight();
 			occurrences.set(currentIndex, occurrences.get(currentIndex) + 1);
 		}
 		

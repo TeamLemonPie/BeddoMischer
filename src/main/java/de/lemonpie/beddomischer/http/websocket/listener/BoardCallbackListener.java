@@ -17,7 +17,7 @@ public class BoardCallbackListener implements BoardListener {
 	@Override
 	public void cardDidChangeAtIndex(int index, Card card) {
 		CallbackCommand callbackCommand = new CallbackCommand("board", "card", index,
-				new JsonPrimitive(card.name()));
+				new JsonPrimitive(card.getName()));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 }

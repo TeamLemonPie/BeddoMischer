@@ -1,7 +1,8 @@
 package de.lemonpie.beddomischer.model.card;
 
-public enum CardType {
+public enum CardValue{
 
+	BACK("B", 0),
 	TWO("2", 2),
 	THREE("3", 3),
 	FOUR("4", 4),
@@ -17,15 +18,25 @@ public enum CardType {
 	ACE("A", 14);
 
 	private String name;
-	private int value;
+	private int weight;
 
-	CardType(String name, int value) {
+	CardValue(String name, int weight) {
 		this.name = name;
-		this.value = value;
+		this.weight = weight;
 	}
 
-	public int getValue() {
-		return value;
+	public int getWeight() {
+		return weight;
+	}
+
+	public static CardValue fromWeight(int weight) {
+		for (CardValue currentValue : values()) {
+			if (currentValue.weight == weight) {
+				return currentValue;
+			}
+		}
+
+		return null;
 	}
 
 	@Override

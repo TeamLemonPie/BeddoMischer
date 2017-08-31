@@ -1,7 +1,6 @@
 package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.BoardListener;
-import de.lemonpie.beddomischer.model.card.BlankCard;
 import de.lemonpie.beddomischer.model.card.Card;
 
 import java.util.Arrays;
@@ -19,7 +18,7 @@ public class Board {
 		listeners = new LinkedList<>();
 		cards = new Card[5];
 
-		Arrays.fill(cards, new BlankCard());
+		Arrays.fill(cards, Card.EMPTY);
 	}
 
 	public Card getCard(int index) throws IndexOutOfBoundsException {
@@ -56,6 +55,6 @@ public class Board {
 	}
 
 	public int getNumberOfMissingCards() {
-		return (int) Stream.of(cards).filter(c -> c instanceof BlankCard).count();
+		return (int) Stream.of(cards).filter(c -> c == Card.EMPTY).count();
 	}
 }

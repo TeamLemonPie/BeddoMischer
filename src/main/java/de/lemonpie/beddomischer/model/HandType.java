@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.winprobability;
+package de.lemonpie.beddomischer.model;
 
 public enum HandType {
 	HIGHEST_CARD(1),
