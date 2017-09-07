@@ -35,18 +35,14 @@ function handlePlayerCallback(command, key, value) {
 function loadPlayer(id) {
     $.get("player/" + id, function (data) {
         $(".left-container").append(data);
-        sortUsingNestedText($('.left-container'), ".player-container", $(this).data("id"));
+
+        var $wrapper = $('.left-container');
+        $wrapper.find('.player-container').sort(function (a, b) {
+            return +a.dataset.id - +b.dataset.id;
+        })
+            .appendTo($wrapper);
 
     });
-}
-
-function sortUsingNestedText(parent, childSelector, keySelector) {
-    var items = parent.children(childSelector).sort(function (a, b) {
-        var vA = $(keySelector, a).attr("data-id");
-        var vB = $(keySelector, b).attr("data-id");
-        return (vA < vB) ? -1 : (vA > vB) ? 1 : 0;
-    });
-    parent.append(items);
 }
 
 function removePlayer(id) {
