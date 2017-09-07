@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.listener.BoardListener;
 import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddomischer.validator.CardValidator;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -32,8 +33,10 @@ public class Board {
 		if (index < 0 || index >= cards.length) {
 			throw new IndexOutOfBoundsException("Index: " + index + " size: " + cards.length);
 		}
-		cards[index] = card;
-		fireListener(listener -> listener.cardDidChangeAtIndex(index, card));
+		if (CardValidator.getInstance().validateCard(card)) {
+			cards[index] = card;
+			fireListener(listener -> listener.cardDidChangeAtIndex(index, card));
+		}
 	}
 
     public void setCard(Card card) throws IndexOutOfBoundsException {

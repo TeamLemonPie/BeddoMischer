@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer.model;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
+import de.lemonpie.beddomischer.validator.CardValidator;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -70,8 +71,10 @@ public class Player {
 	}
 
 	public void setCardLeft(Card cardLeft) {
-		this.cardLeft = cardLeft;
-		fireListener(listener -> listener.cardDidChangeAtIndex(0, cardLeft));
+		if (CardValidator.getInstance().validateCard(cardLeft)) {
+			this.cardLeft = cardLeft;
+			fireListener(listener -> listener.cardDidChangeAtIndex(0, cardLeft));
+		}
 	}
 
 	public Card getCardRight() {
@@ -79,8 +82,10 @@ public class Player {
 	}
 
 	public void setCardRight(Card cardRight) {
-		this.cardRight = cardRight;
-		fireListener(listener -> listener.cardDidChangeAtIndex(1, cardRight));
+		if (CardValidator.getInstance().validateCard(cardRight)) {
+			this.cardRight = cardRight;
+			fireListener(listener -> listener.cardDidChangeAtIndex(1, cardRight));
+		}
 	}
 
 	public int getChips() {
@@ -138,6 +143,8 @@ public class Player {
 	}
 
 	public void clearCards() {
+		CardValidator.getInstance().clear(cardLeft, cardRight);
+
 		setCard(0, Card.EMPTY);
 		setCard(1, Card.EMPTY);
 	}
