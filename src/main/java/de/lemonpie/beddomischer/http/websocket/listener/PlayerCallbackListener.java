@@ -35,6 +35,13 @@ public class PlayerCallbackListener implements PlayerListener {
 	}
 
 	@Override
+	public void hideDidChange(boolean hide) {
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_HIDE, player.getId(),
+				new JsonPrimitive(hide));
+		webSocketHandler.sendCommand(callbackCommand);
+	}
+
+	@Override
 	public void cardDidChangeAtIndex(int index, Card card) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("card", card.getName());

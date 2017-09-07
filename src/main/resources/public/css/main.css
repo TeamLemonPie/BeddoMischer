@@ -89,6 +89,10 @@ body {
     text-align: center;
 }
 
+.hide {
+    display: none;
+}
+
 .debug {
     border: 1px solid red;
 }

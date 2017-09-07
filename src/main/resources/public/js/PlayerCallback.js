@@ -10,6 +10,12 @@ function handlePlayerCallback(command, key, value) {
     } else if (command === "twitchName") {
         var playerTwitchName = $(playerContainer).find("#player-twitchName");
         playerTwitchName.text(value)
+    } else if (command === "hide") {
+        if (value === true) {
+            playerContainer.addClass("hide");
+        } else {
+            playerContainer.removeClass("hide");
+        }
     } else if (command === "card") {
         var cardId = value.index;
         var playerCard1 = $(playerContainer).find("#card" + cardId);

@@ -17,6 +17,7 @@ public class Player {
 	private final int id;
 	private String name;
 	private String twitchName;
+	private boolean hide;
 
 	private Card cardLeft;
 	private Card cardRight;
@@ -30,6 +31,7 @@ public class Player {
 		this.id = id;
 		this.name = "[Player]";
 		this.twitchName = "[TwitchName]";
+		this.hide = false;
 	}
 
 	public int getId() {
@@ -52,6 +54,15 @@ public class Player {
 	public void setTwitchName(String twitchName) {
 		this.twitchName = twitchName;
 		fireListener(listener -> listener.twitchNameDidChange(twitchName));
+	}
+
+	public boolean isHide() {
+		return hide;
+	}
+
+	public void setHide(boolean hide) {
+		this.hide = hide;
+		fireListener(listener -> listener.hideDidChange(hide));
 	}
 
 	public Card getCardLeft() {

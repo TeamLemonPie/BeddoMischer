@@ -7,6 +7,8 @@ public interface PlayerListener {
 
 	void twitchNameDidChange(String twitchName);
 
+    void hideDidChange(boolean hide);
+
 	/**
 	 * Update player card.
 	 *

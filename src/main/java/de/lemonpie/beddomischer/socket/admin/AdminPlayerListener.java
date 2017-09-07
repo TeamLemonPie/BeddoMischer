@@ -23,6 +23,10 @@ public class AdminPlayerListener implements PlayerListener {
     }
 
     @Override
+    public void hideDidChange(boolean hide) {
+    }
+
+    @Override
     public void cardDidChangeAtIndex(int index, Card card) {
         CardSendCommand cardSendCommand = new CardSendCommand(player.getId(), index, card);
         BeddoMischerMain.getControlServerSocket().writeAll(cardSendCommand);
