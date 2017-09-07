@@ -35,9 +35,8 @@ public class ClearReadCommand implements Command {
 					int playerId = ((PlayerCardReader) reader).getPlayerId();
                     BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(Player::clearCards);
 				} else if (reader instanceof BoardCardReader) {
-					int boardIndex = ((BoardCardReader) reader).getIndex();
 					Board board = BeddoMischerMain.getBoard();
-					board.setCard(boardIndex, Card.EMPTY);
+					board.setCard(Card.EMPTY);
 				}
 			});
 		}

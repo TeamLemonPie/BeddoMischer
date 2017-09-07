@@ -30,9 +30,8 @@ public class CardCommand implements Command {
 
         BeddoMischerMain.getCardReaders().stream().filter(r -> r.getReaderId() == readerId).forEach(reader -> {
             if (reader instanceof BoardCardReader) {
-				int index = ((BoardCardReader) reader).getIndex();
-				BeddoMischerMain.getBoard().setCard(index, card);
-			} else if (reader instanceof PlayerCardReader) {
+                BeddoMischerMain.getBoard().setCard(card);
+            } else if (reader instanceof PlayerCardReader) {
 				PlayerCardReader playerCardReader = (PlayerCardReader) reader;
 				Optional<Player> player = BeddoMischerMain.getPlayers().getPlayer(playerCardReader.getPlayerId());
 				player.ifPresent(p -> {

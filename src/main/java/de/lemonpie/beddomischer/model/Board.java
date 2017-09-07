@@ -36,6 +36,15 @@ public class Board {
 		fireListener(listener -> listener.cardDidChangeAtIndex(index, card));
 	}
 
+    public void setCard(Card card) throws IndexOutOfBoundsException {
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] == Card.EMPTY) {
+                setCard(i, card);
+                break;
+            }
+        }
+    }
+
 	public void addListener(BoardListener boardListener) {
 		this.listeners.add(boardListener);
 	}
