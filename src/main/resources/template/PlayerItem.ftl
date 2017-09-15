@@ -15,6 +15,12 @@
             </div>
         </div>
     </div>
+    <div class="percentage">
+        <div class="percentage-banner">
+            <--TODO: replace-->
+            92%
+        </div>
+    </div>
 </div>
 </#macro>
 
