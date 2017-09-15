@@ -6,14 +6,14 @@ body {
 
 .left-container {
     height: 100vh;
-    width: 262px;
+    width: 265px;
     display: table-cell;
     vertical-align: bottom;
-    padding: 0 0 50px 50px;
+    padding: 0 0 55px 0;
 }
 
 .player-container {
-    margin-top: 12px;
+    margin-top: 24px;
 }
 
 .board-container {
@@ -21,7 +21,7 @@ body {
 }
 
 .banner {
-    width: 262px;
+    width: 197px;
     height: 60px;
     background-color: #151826;
     border-radius: 0 10px 10px 0;
@@ -67,8 +67,9 @@ body {
 
 .deck {
     height: 55px;
-    text-align: right;
-    padding-right: 17px;
+    text-align: left;
+    padding-left: 48px;
+	font-size: 6px;
 }
 
 .board {
@@ -78,11 +79,10 @@ body {
 
 .card {
     height: 100%;
-    width: 80px;
+    width: 76px;
     display: inline-block;
     background: no-repeat center center;
     background-size: contain;
-    padding-left: 5px;
 }
 
 .center-text {
@@ -91,6 +91,27 @@ body {
 
 .hide {
     display: none;
+}
+
+.percentage {	
+	display: table-cell;
+    vertical-align: middle;	
+}
+
+.percentage-banner {
+	background-color: #151826;
+    border-radius: 0 10px 10px 0;	
+    border: 3px solid #000000;
+	border-left: none;	
+	font-size: 12px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-family: Tahoma, serif;
+	height: 39px;
+	display: table-cell;
+	text-align: center;
+    vertical-align: middle;
+	width: 44px;
 }
 
 .debug {
