@@ -25,6 +25,8 @@ public class ChipListHandler implements TemplateViewRoute {
             playerModel.add(player.toMap());
         }
 
+        playerModel.sort((p1, p2) -> Integer.compare((Integer) p2.get("chips"), (Integer) p1.get("chips")));
+
         model.put("players", playerModel);
         return new ModelAndView(model, "Chips.ftl");
     }

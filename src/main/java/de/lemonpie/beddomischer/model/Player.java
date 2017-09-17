@@ -124,6 +124,7 @@ public class Player {
         map.put("id", id);
         map.put("name", name);
 		map.put("twitchName", twitchName);
+		map.put("hide", hide);
 
 		map.put("card1", cardLeft != null ? cardLeft.getName() : "back");
 		map.put("card2", cardRight != null ? cardRight.getName() : "back");
