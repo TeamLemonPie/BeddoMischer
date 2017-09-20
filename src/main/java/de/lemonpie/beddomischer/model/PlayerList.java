@@ -25,6 +25,13 @@ public class PlayerList implements Iterable<Player> {
         return data.stream().filter(r -> r.getId() == id).findFirst();
     }
 
+    public void clear() {
+        for (Player player : data) {
+            fireListener(l -> l.removePlayer(player));
+        }
+        data.clear();
+    }
+
     public boolean remove(Object o) {
         if (o instanceof Player) {
             fireListener(l -> l.removePlayer((Player) o));
