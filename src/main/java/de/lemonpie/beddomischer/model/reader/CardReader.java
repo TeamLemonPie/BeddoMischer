@@ -1,8 +1,14 @@
 package de.lemonpie.beddomischer.model.reader;
 
+import com.j256.ormlite.field.DatabaseField;
+
 public abstract  class CardReader {
 
-	private final int readerId;
+    @DatabaseField
+    private int readerId;
+
+    public CardReader() {
+    }
 
 	CardReader(int readerId) {
 		this.readerId = readerId;

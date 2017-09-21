@@ -9,15 +9,18 @@ import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
 import de.lemonpie.beddomischer.model.Board;
+import de.lemonpie.beddomischer.model.CardReaderList;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerList;
-import de.lemonpie.beddomischer.model.reader.CardReader;
+import de.lemonpie.beddomischer.model.reader.BoardCardReader;
+import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
 import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
+import de.lemonpie.beddomischer.storage.StorageCardReaderListListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
@@ -29,9 +32,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static spark.Spark.*;
 
@@ -39,7 +39,7 @@ public class BeddoMischerMain {
 
     private static PlayerList players;
     private static Board board;
-    private static List<CardReader> cardReaders;
+    private static CardReaderList cardReaders;
 
     private static WebSocketHandler webSocketHandler;
 
@@ -55,7 +55,9 @@ public class BeddoMischerMain {
         }
     }
 
-    private static Dao<Player, Integer> playerIntegerDao;
+    private static Dao<Player, Integer> playerDao;
+    private static Dao<BoardCardReader, Integer> boardCardReaderDao;
+    private static Dao<PlayerCardReader, Integer> playerCardReaderDao;
 
     public static void main(String[] args) throws SQLException {
         Path settingsPath = Paths.get("settings.properties");
@@ -71,7 +73,7 @@ public class BeddoMischerMain {
 
         players = new PlayerList();
         board = new Board();
-        cardReaders = new ArrayList<>();
+        cardReaders = new CardReaderList();
 
         try {
             rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
@@ -85,11 +87,16 @@ public class BeddoMischerMain {
             e.printStackTrace();
         }
 
-        String databaseUrl = "jdbc:sqlite:BeddoMischer.db";
-        JdbcConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl);
+        // Setup jdbc
+        final String databaseUrl = "jdbc:sqlite:BeddoMischer.db";
+        final JdbcConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl);
 
-        playerIntegerDao = DaoManager.createDao(connectionSource, Player.class);
+        playerDao = DaoManager.createDao(connectionSource, Player.class);
+        boardCardReaderDao = DaoManager.createDao(connectionSource, BoardCardReader.class);
+        playerCardReaderDao = DaoManager.createDao(connectionSource, PlayerCardReader.class);
         TableUtils.createTableIfNotExists(connectionSource, Player.class);
+        TableUtils.createTableIfNotExists(connectionSource, BoardCardReader.class);
+        TableUtils.createTableIfNotExists(connectionSource, PlayerCardReader.class);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
@@ -120,8 +127,13 @@ public class BeddoMischerMain {
         players.addListener(new AdminPlayerListListener());
         players.addListener(new StoragePlayerListListener());
 
+        cardReaders.addListener(new StorageCardReaderListListener());
+
         // Load data from database
-        players.addAll(playerIntegerDao.queryForAll());
+        players.addAll(playerDao.queryForAll());
+
+        cardReaders.addAll(boardCardReaderDao.queryForAll());
+        cardReaders.addAll(playerCardReaderDao.queryForAll());
 
         get("/chips", new ChipListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
         get("/chips/:id", new ChipGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
@@ -131,7 +143,15 @@ public class BeddoMischerMain {
     }
 
     public static Dao<Player, Integer> getPlayerDao() {
-        return playerIntegerDao;
+        return playerDao;
+    }
+
+    public static Dao<BoardCardReader, Integer> getBoardCardReaderDao() {
+        return boardCardReaderDao;
+    }
+
+    public static Dao<PlayerCardReader, Integer> getPlayerCardReaderDao() {
+        return playerCardReaderDao;
     }
 
     public static PlayerList getPlayers() {
@@ -155,11 +175,7 @@ public class BeddoMischerMain {
         return controlServerSocket;
     }
 
-    public static List<CardReader> getCardReaders() {
+    public static CardReaderList getCardReaders() {
         return cardReaders;
-    }
-
-    public static Optional<CardReader> getCardReader(int readerId) {
-        return cardReaders.stream().filter(r -> r.getReaderId() == readerId).findFirst();
     }
 }
