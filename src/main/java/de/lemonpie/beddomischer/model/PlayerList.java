@@ -21,6 +21,13 @@ public class PlayerList implements Iterable<Player> {
         return data.add(player) == true ? player : null;
     }
 
+    public boolean addAll(List<Player> players) {
+        for (Player player : players) {
+            fireListener(l -> l.addPlayer(player));
+        }
+        return data.addAll(players);
+    }
+
     public Optional<Player> getPlayer(int id) {
         return data.stream().filter(r -> r.getId() == id).findFirst();
     }
@@ -67,4 +74,5 @@ public class PlayerList implements Iterable<Player> {
     public Spliterator<Player> spliterator() {
         return data.spliterator();
     }
+
 }

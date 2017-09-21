@@ -8,16 +8,16 @@
     <div class="banner">
         <div class="player-info">
             <div class="player-name" id="player-name">
-            ${player.name}
+                <#if player.name??>${player.name}</#if>
             </div>
             <div class="player-name player-subname" id="player-twitchName">
-            ${player.twitchName}
+                <#if player.twitchName??>${player.twitchName}</#if>
             </div>
         </div>
     </div>
     <div class="percentage">
         <div class="percentage-banner">
-            <--TODO: replace-->
+            <!--TODO: replace-->
             92%
         </div>
     </div>
