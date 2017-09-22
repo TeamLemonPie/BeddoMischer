@@ -30,7 +30,7 @@ public class ClearReadCommand implements Command {
 			board.clearCards();
 			CardValidator.getInstance().clear();
 		} else {
-			BeddoMischerMain.getCardReader(key).ifPresent(reader -> {
+			BeddoMischerMain.getCardReaders().getCardReader(key).ifPresent(reader -> {
 				if (reader instanceof PlayerCardReader) {
 					int playerId = ((PlayerCardReader) reader).getPlayerId();
                     BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(Player::clearCards);

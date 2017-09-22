@@ -5,6 +5,7 @@ import de.lemonpie.beddomischer.model.reader.CardReader;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class CardReaderList implements Iterable<CardReader> {
 
@@ -30,6 +31,10 @@ public class CardReaderList implements Iterable<CardReader> {
 
     public Optional<CardReader> getCardReader(int id) {
         return data.stream().filter(r -> r.getReaderId() == id).findFirst();
+    }
+
+    public Stream<CardReader> stream() {
+        return data.stream();
     }
 
     public void clear() {

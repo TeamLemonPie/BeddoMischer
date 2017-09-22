@@ -26,7 +26,7 @@ public class ReaderReadCommand implements Command {
     public void execute(CommandData command) {
         int readerId = command.getKey();
 
-        Optional<CardReader> cardReader = BeddoMischerMain.getCardReader(readerId);
+        Optional<CardReader> cardReader = BeddoMischerMain.getCardReaders().getCardReader(readerId);
 
         if (command.getValue() instanceof JsonObject) {
             JsonObject value = (JsonObject) command.getValue();
