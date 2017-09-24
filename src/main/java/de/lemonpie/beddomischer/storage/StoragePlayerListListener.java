@@ -9,14 +9,7 @@ import java.sql.SQLException;
 public class StoragePlayerListListener implements PlayerListListener {
     @Override
     public void addPlayer(Player player) {
-        try {
-            player.addListener(new StoragePlayerListener(player));
-            if (BeddoMischerMain.getPlayerDao().queryForId(player.getId()) == null) {
-                BeddoMischerMain.getPlayerDao().create(player);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        player.addListener(new StoragePlayerListener(player));
     }
 
     @Override

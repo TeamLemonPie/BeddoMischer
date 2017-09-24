@@ -1,7 +1,9 @@
 package de.lemonpie.beddomischer.model;
 
+import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListListener;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -16,6 +18,13 @@ public class PlayerList implements Iterable<Player> {
 
     public Player add() {
         Player player = new Player();
+        try {
+            if (BeddoMischerMain.getPlayerDao().queryForId(player.getId()) == null) {
+                BeddoMischerMain.getPlayerDao().create(player);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         fireListener(l -> l.addPlayer(player));
         return data.add(player) == true ? player : null;
     }
