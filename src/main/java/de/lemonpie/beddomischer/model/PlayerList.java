@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 public class PlayerList implements Iterable<Player> {
 
     private List<Player> data = new ArrayList<>();
-    private int playerIndex = 0;
     private List<PlayerListListener> listeners;
 
     public PlayerList() {
@@ -16,7 +15,7 @@ public class PlayerList implements Iterable<Player> {
     }
 
     public Player add() {
-        Player player = new Player(playerIndex++);
+        Player player = new Player();
         fireListener(l -> l.addPlayer(player));
         return data.add(player) == true ? player : null;
     }

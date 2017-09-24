@@ -19,7 +19,7 @@ public class Player {
 
     private List<PlayerListener> listeners;
 
-    @DatabaseField(unique = true, id = true)
+    @DatabaseField(unique = true, generatedId = true)
     private int id;
     @DatabaseField
     private String name;
@@ -38,7 +38,7 @@ public class Player {
     private CalculatedHand calculatedHand;
 
     public Player() {
-        listeners = new LinkedList<>();
+        this(0);
     }
 
     public Player(int id) {
