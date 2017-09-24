@@ -29,18 +29,20 @@ function handlePlayerCallback(command, key, value) {
         } else if (value === "remove") {
             removePlayer(key);
         }
+    } else if (command === "winprobability") {
+        var winprobability = $(playerContainer).find("#percentage-banner");
+        winprobability.text(value)
     }
 }
 
 function loadPlayer(id) {
     $.get("player/" + id, function (data) {
-        $(".left-container").append(data);
+        var container = $(".left-container");
+        container.append(data);
 
-        var $wrapper = $('.left-container');
-        $wrapper.find('.player-container').sort(function (a, b) {
+        container.find('.player-container').sort(function (a, b) {
             return +a.dataset.id - +b.dataset.id;
-        })
-            .appendTo($wrapper);
+        }).appendTo(container);
 
     });
 }

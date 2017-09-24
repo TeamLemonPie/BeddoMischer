@@ -9,24 +9,23 @@ import de.lemonpie.beddomischer.model.card.CardValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Calculation
 {
-	private ArrayList<Player> players;
-	private Board board;
+    private List<Player> players;
+    private Board board;
 
-	public Calculation(ArrayList<Player> players, Board board)
-	{
+    public Calculation(List<Player> players, Board board) {
 		this.players = players;
 		this.board = board;
 	}
 
-	public ArrayList<Double> calculate(int numberOfRounds)
-	{
-		ArrayList<Double> probabilities = new ArrayList<>();
-		ArrayList<Integer> wonRounds = new ArrayList<>();
-		for(int i = 0; i < players.size(); i++)
+    public List<Double> calculate(int numberOfRounds) {
+        List<Double> probabilities = new ArrayList<>();
+        List<Integer> wonRounds = new ArrayList<>();
+        for(int i = 0; i < players.size(); i++)
 		{
 			probabilities.add(0.0);
 			wonRounds.add(0);
@@ -56,8 +55,7 @@ public class Calculation
 		return probabilities;
 	}
 
-	private ArrayList<Integer> calculateOneRound(ArrayList<Integer> wonRounds, ArrayList<Card> remainingDeck, int numberOfMissingCardsInBoard)
-	{
+    private List<Integer> calculateOneRound(List<Integer> wonRounds, List<Card> remainingDeck, int numberOfMissingCardsInBoard) {
 		Board fullBoard = new Board();
 		for(int i = 0; i < 5; i++)
 		{

@@ -8,6 +8,7 @@ import de.lemonpie.beddomischer.model.card.CardValue;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -38,8 +39,8 @@ public class TestWinProbaility
 		board.setCard(3, new Card(CardSymbol.DIAMONDS, CardValue.SIX));
 		
 		Calculation calculation = new Calculation(players, board);
-		ArrayList<Double> probabilities = calculation.calculate(1);		
-		ArrayList<Integer> percentages = new ArrayList<>();
+        List<Double> probabilities = calculation.calculate(1);
+        ArrayList<Integer> percentages = new ArrayList<>();
 		
 		for(int i = 0; i < players.size(); i++)
 		{
@@ -80,8 +81,8 @@ public class TestWinProbaility
 		board.setCard(3, new Card(CardSymbol.DIAMONDS, CardValue.SIX));
 		
 		Calculation calculation = new Calculation(players, board);
-		ArrayList<Double> probabilities = calculation.calculate(10000);		
-		ArrayList<Integer> percentages = new ArrayList<>();
+        List<Double> probabilities = calculation.calculate(10000);
+        ArrayList<Integer> percentages = new ArrayList<>();
 		
 		for(int i = 0; i < players.size(); i++)
 		{

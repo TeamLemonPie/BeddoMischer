@@ -35,7 +35,9 @@ public class Player {
 
     @DatabaseField
     private int chips;
+
     private CalculatedHand calculatedHand;
+    private double winprobability;
 
     public Player() {
         this(0);
@@ -112,6 +114,14 @@ public class Player {
         fireListener(listener -> listener.chipsDidChange(chips));
     }
 
+    public double getWinprobability() {
+        return winprobability;
+    }
+
+    public void setWinprobability(double winprobability) {
+        this.winprobability = winprobability;
+    }
+
     public CalculatedHand getCalculatedHand() {
         return calculatedHand;
     }
@@ -145,6 +155,7 @@ public class Player {
         map.put("card2", cardRight != null ? cardRight.getName() : "back");
 
         map.put("chips", chips);
+        map.put("winprobability", winprobability);
         return map;
     }
 

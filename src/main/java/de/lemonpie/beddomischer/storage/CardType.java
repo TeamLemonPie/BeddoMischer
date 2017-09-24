@@ -20,7 +20,7 @@ public class CardType extends StringType {
     @Override
     public Object javaToSqlArg(FieldType fieldType, Object javaObject) {
         Card card = (Card) javaObject;
-        return card != null ? card.toString() : null;
+        return card != null ? card.getName() : null;
     }
 
     @Override

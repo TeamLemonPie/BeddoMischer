@@ -11,6 +11,7 @@ public enum CommandName {
     PLAYER_HIDE("hide"),
     PLAYER_CHIP("chip"),
     PLAYER_OP("player-op"),
+    WINPROBABILITY("winprobability"),
 
     DATA("data");
 

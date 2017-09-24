@@ -1,6 +1,5 @@
 <#macro playerContainer player>
 <div class="player-container" id="player-${player.id}" data-id="${player.id}">
-
     <div class="deck">
         <div class="card ${player.card1}" id="card0"></div>
         <div class="card ${player.card2}" id="card1"></div>
@@ -17,8 +16,7 @@
     </div>
     <div class="percentage">
         <div class="percentage-banner">
-            <!--TODO: replace-->
-            92%
+        ${player.winprobability}%
         </div>
     </div>
 </div>

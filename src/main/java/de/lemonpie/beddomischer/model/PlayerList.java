@@ -40,6 +40,10 @@ public class PlayerList implements Iterable<Player> {
         return data.stream().filter(r -> r.getId() == id).findFirst();
     }
 
+    public List<Player> getData() {
+        return data;
+    }
+
     public void clear() {
         for (Player player : data) {
             fireListener(l -> l.removePlayer(player));
