@@ -1,3 +1,14 @@
+@font-face {
+    font-family: Affogato;
+    src: url(../fonts/Affogato-Medium.otf);
+}
+
+@font-face {
+    font-family: Affogato;
+    src: url(../fonts/Affogato-Bold.otf);
+	font-weight: bold;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -116,6 +127,50 @@ body {
 
 .out{
 	background-color: #444444;
+}
+
+.countdown{
+	width: 494px;
+	height: 104px;
+	margin-left: 510px;
+	background-color: #151826;
+    color: #FFFFFF;
+    text-align: center;
+	border: 3px solid black;
+	border-radius: 10px;	
+	position: absolute;
+	top: 916px;
+}
+
+.countdown-spacer{
+	border-right: 3px solid black;
+}
+
+.countdown-time{
+	font-size: 60px;
+}
+
+.countdown-text{
+	font-size: 17px;
+}
+
+.countdown-bottom{
+	font-size: 8px;
+}
+
+.countdown-transparent{
+    color: #FFFFFF;
+    text-align: center;
+	font-family: Affogato, Sans-Serif;
+}
+
+.countdown-transparent-time{
+	font-size: 70px;
+	font-weight: bold;
+}
+
+.countdown-transparent-text{
+	font-size: 25px;
 }
 
 .debug {
