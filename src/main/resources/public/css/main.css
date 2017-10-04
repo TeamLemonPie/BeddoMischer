@@ -77,9 +77,19 @@ body {
     text-align: center;
 }
 
+.card-stack {
+	height: 100%;
+    width: 76px;
+    display: inline-block;
+	position: relative;
+}
+
 .card {
     height: 100%;
     width: 76px;
+	position: absolute;
+	top: 0;
+	left: 0;
     display: inline-block;
     background: no-repeat center center;
     background-size: contain;
