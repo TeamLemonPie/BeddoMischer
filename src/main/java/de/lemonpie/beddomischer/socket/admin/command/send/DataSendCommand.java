@@ -31,8 +31,8 @@ public class DataSendCommand extends CommandData {
 
             obj.addProperty("chips", player.getChips());
 
-            obj.addProperty("cardLeft", player.getCardLeft().toString());
-            obj.addProperty("cardRight", player.getCardRight().toString());
+			obj.addProperty("cardLeft", player.getCardLeft().getName());
+			obj.addProperty("cardRight", player.getCardRight().getName());
 
             players.add(obj);
         });
