@@ -35,5 +35,7 @@ public class AdminServerSocket extends ControlServerSocket {
 		addCommand(new PlayerStateReadCommand());
 
 		addCommand(new DataReadCommand());
+
+		addCommand(new CountdownSetReadCommand());
 	}
 }

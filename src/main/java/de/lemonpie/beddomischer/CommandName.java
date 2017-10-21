@@ -14,7 +14,9 @@ public enum CommandName {
     PLAYER_OP("player-op"),
     WINPROBABILITY("winprobability"),
 
-    DATA("data");
+	DATA("data"),
+
+	COUNTDOWN("countdown");
 
     private String name;
 
