@@ -1,5 +1,6 @@
 package de.lemonpie.beddomischer.listener;
 
+import de.lemonpie.beddomischer.model.PlayerState;
 import de.lemonpie.beddomischer.model.card.Card;
 
 public interface PlayerListener {
@@ -7,7 +8,7 @@ public interface PlayerListener {
 
 	void twitchNameDidChange(String twitchName);
 
-    void hideDidChange(boolean hide);
+	void stateDidChange(PlayerState state);
 
 	/**
 	 * Update player card.

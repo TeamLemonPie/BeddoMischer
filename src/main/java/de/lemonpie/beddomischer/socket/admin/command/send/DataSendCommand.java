@@ -27,7 +27,7 @@ public class DataSendCommand extends CommandData {
             obj.addProperty("id", player.getId());
             obj.addProperty("name", player.getName());
             obj.addProperty("twitchName", player.getTwitchName());
-            obj.addProperty("hide", player.isHide());
+            obj.addProperty("state", player.getPlayerState().name());
 
             obj.addProperty("chips", player.getChips());
 

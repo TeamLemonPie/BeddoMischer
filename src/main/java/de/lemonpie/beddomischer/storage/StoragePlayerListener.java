@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer.storage;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.PlayerState;
 import de.lemonpie.beddomischer.model.card.Card;
 
 import java.sql.SQLException;
@@ -34,8 +35,8 @@ public class StoragePlayerListener implements PlayerListener {
     }
 
     @Override
-    public void hideDidChange(boolean hide) {
-        try {
+	public void stateDidChange(PlayerState state) {
+		try {
             BeddoMischerMain.getPlayerDao().update(player);
         } catch (SQLException e) {
             e.printStackTrace();

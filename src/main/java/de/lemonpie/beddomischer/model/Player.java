@@ -26,7 +26,7 @@ public class Player {
 	@DatabaseField
 	private String twitchName;
 	@DatabaseField
-	private boolean hide;
+	private PlayerState state;
 
 	@DatabaseField(persisterClass = CardType.class)
 	private Card cardLeft;
@@ -49,7 +49,7 @@ public class Player {
 		this.id = id;
 		this.name = "[Player]";
 		this.twitchName = "[TwitchName]";
-		this.hide = false;
+		this.state = PlayerState.ACTIVE;
 	}
 
 	public int getId() {
@@ -74,13 +74,13 @@ public class Player {
 		fireListener(listener -> listener.twitchNameDidChange(twitchName));
 	}
 
-	public boolean isHide() {
-		return hide;
+	public PlayerState getPlayerState() {
+		return state;
 	}
 
-	public void setHide(boolean hide) {
-		this.hide = hide;
-		fireListener(listener -> listener.hideDidChange(hide));
+	public void setPlayerState(PlayerState state) {
+		this.state = state;
+		fireListener(listener -> listener.stateDidChange(state));
 	}
 
 	public Card getCardLeft() {
@@ -149,7 +149,7 @@ public class Player {
 		map.put("id", id);
 		map.put("name", name);
 		map.put("twitchName", twitchName);
-		map.put("hide", hide);
+		map.put("state", state);
 
 		map.put("card1", cardLeft != null ? cardLeft.getName() : "back");
 		map.put("card2", cardRight != null ? cardRight.getName() : "back");

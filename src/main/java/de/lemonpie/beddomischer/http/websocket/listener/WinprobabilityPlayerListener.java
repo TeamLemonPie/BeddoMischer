@@ -11,6 +11,7 @@ import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerList;
+import de.lemonpie.beddomischer.model.PlayerState;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.model.winprobability.Calculation;
 
@@ -33,8 +34,8 @@ public class WinprobabilityPlayerListener implements PlayerListener, BoardListen
     }
 
     @Override
-    public void hideDidChange(boolean hide) {
-    }
+	public void stateDidChange(PlayerState state) {
+	}
 
     // Method from Player and Board Listener
     @Override

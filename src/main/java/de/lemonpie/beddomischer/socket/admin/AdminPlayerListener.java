@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer.socket.admin;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.PlayerState;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.socket.admin.command.send.CardSendCommand;
 
@@ -23,8 +24,8 @@ public class AdminPlayerListener implements PlayerListener {
     }
 
     @Override
-    public void hideDidChange(boolean hide) {
-    }
+	public void stateDidChange(PlayerState state) {
+	}
 
     @Override
     public void cardDidChangeAtIndex(int index, Card card) {
