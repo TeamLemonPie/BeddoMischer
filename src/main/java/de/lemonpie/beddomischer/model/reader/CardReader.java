@@ -4,7 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 public abstract  class CardReader {
 
-	@DatabaseField(unique = true, generatedId = true)
+	@DatabaseField(unique = true, id = true)
 	private int readerId;
 
     public CardReader() {
