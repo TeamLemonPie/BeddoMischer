@@ -25,6 +25,7 @@ public class AdminServerSocket extends ControlServerSocket {
 	protected void init() {
         addCommand(new ClearReadCommand());
         addCommand(new ReaderReadCommand());
+		addCommand(new BoardCardSetReadCommand());
 
         addCommand(new PlayerOpReadCommand());
 
