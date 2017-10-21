@@ -41,6 +41,7 @@ public class BeddoMischerMain {
     private static PlayerList players;
     private static Board board;
     private static CardReaderList cardReaders;
+	private static long countdownEndTime = System.currentTimeMillis() + 1000 * 20;
 
     private static WebSocketHandler webSocketHandler;
 
@@ -181,4 +182,12 @@ public class BeddoMischerMain {
     public static CardReaderList getCardReaders() {
         return cardReaders;
     }
+
+	public static long getCountdownEndTime() {
+		return countdownEndTime;
+	}
+
+	public static void setCountdownEndTime(long countdownEndTime) {
+		BeddoMischerMain.countdownEndTime = countdownEndTime;
+	}
 }

@@ -1,13 +1,16 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/results.css">
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/Countdown.js"></script>
 </head>
 <body>
 <div class="main-container">
     <table class="countdown" cellspacing="0" cellpadding="0">
         <tr>
-            <td class="countdown-time countdown-spacer">08:37</td>
-            <td class="countdown-time">${time}</td>
+            <td class="countdown-time countdown-spacer" id="countdown" data="${time?c}">00:00</td>
+            <td class="countdown-time">${endTime}</td>
         </tr>
         <tr>
             <td class="countdown-text countdown-spacer">MINUTEN</td>

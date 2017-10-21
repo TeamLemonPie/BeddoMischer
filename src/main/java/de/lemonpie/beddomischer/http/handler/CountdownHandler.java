@@ -1,10 +1,12 @@
 package de.lemonpie.beddomischer.http.handler;
 
+import de.lemonpie.beddomischer.BeddoMischerMain;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +21,18 @@ public class CountdownHandler implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 		Map<String, Object> model = new HashMap<>();
-		model.put("time", "19:24");
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+
+		long countdownEndTime = BeddoMischerMain.getCountdownEndTime();
+		long currentTime = System.currentTimeMillis();
+
+		long difference = countdownEndTime - currentTime;
+		difference /= 1000;
+
+		model.put("time", countdownEndTime);
+		model.put("timeDifference", difference);
+		model.put("endTime", dateFormat.format(countdownEndTime));
 
 		if (!transparent) {
 			return new ModelAndView(model, "Countdown.ftl");

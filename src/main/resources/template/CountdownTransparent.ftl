@@ -1,12 +1,15 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/results.css">
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/Countdown.js"></script>
 </head>
-<body style="background-color: red;">
+<body>
 <div class="main-container">
     <table class="countdown-transparent" cellspacing="0" cellpadding="0">
         <tr>
-            <td class="countdown-transparent-time">08:37</td>
+            <td class="countdown-transparent-time" id="countdown" data="${time?c}">00:00</td>
         </tr>
         <tr>
             <td class="countdown-transparent-text">MINUTEN</td>
@@ -17,7 +20,7 @@
             </td>
         </tr>
         <tr>
-            <td class="countdown-transparent-time">19:35</td>
+            <td class="countdown-transparent-time">${endTime}</td>
         </tr>
         <tr>
             <td class="countdown-transparent-text">WEITER UM</td>
