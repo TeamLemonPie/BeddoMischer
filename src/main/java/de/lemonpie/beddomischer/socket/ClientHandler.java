@@ -67,7 +67,7 @@ public class ClientHandler implements Runnable {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Connection closed: " + e.getMessage());
 		} finally {
 			try {
 				close();

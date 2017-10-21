@@ -29,9 +29,9 @@ public class Player {
 	private PlayerState state;
 
 	@DatabaseField(persisterClass = CardType.class)
-	private Card cardLeft;
+	private Card cardLeft = Card.EMPTY;
 	@DatabaseField(persisterClass = CardType.class)
-	private Card cardRight;
+	private Card cardRight = Card.EMPTY;
 
 	@DatabaseField
 	private int chips;
