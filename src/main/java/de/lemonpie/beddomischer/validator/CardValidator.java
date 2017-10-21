@@ -17,32 +17,29 @@ public class CardValidator {
         return INSTANCE;
     }
 
-    private Set<Card> detactedCards = new HashSet<>();
+    private Set<Card> detectedCards = new HashSet<>();
 
     public boolean validateCard(Card card) {
-        System.out.println(detactedCards);
         if (card != Card.EMPTY) {
-            for (Card c : detactedCards) {
-
-                if (card.equals(card)) {
+            for (Card c : detectedCards) {
+                if (card.equals(c)) {
                     return false;
                 }
             }
-            detactedCards.add(card);
+            detectedCards.add(card);
             return true;
         } else {
             return true;
         }
-
     }
 
     public void clear() {
-        detactedCards.clear();
+        detectedCards.clear();
     }
 
     public void clear(Card... cards) {
-        for (int i = 0; i < cards.length; i++) {
-            detactedCards.remove(cards[i]);
+        for (Card card : cards) {
+            detectedCards.remove(card);
         }
     }
 }

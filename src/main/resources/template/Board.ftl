@@ -12,7 +12,10 @@
     <div class="board-container center-text">
         <div class="board center-text">
         <#list board as card>
-            <div class="card ${card}"></div>
+            <div class="card-stack">
+                <div class="card ${card}" id="card${card?index}"></div>
+                <div class="card" id="card${card?index}_ghost"></div>
+            </div>
         </#list>
         </div>
         <div class="banner-board">

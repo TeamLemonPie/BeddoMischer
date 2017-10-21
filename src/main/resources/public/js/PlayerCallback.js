@@ -18,11 +18,23 @@ function handlePlayerCallback(command, key, value) {
         }
     } else if (command === "card") {
         var cardId = value.index;
-        var playerCard1 = $(playerContainer).find("#card" + cardId);
 
-        playerCard1.removeAttr("class");
-        playerCard1.addClass("card");
-        playerCard1.addClass(value.card);
+        var playerCard = $(playerContainer).find("#card" + cardId);
+        var ghostCard = $(playerContainer).find("#card" + cardId + "_ghost");
+
+        ghostCard.removeAttr("class");
+        ghostCard.addClass("card");
+        ghostCard.addClass(value.card);
+        ghostCard.fadeOut(0);
+
+        ghostCard.fadeIn(1000, function () {
+            playerCard.removeAttr("class");
+            playerCard.addClass("card");
+            playerCard.addClass(value.card);
+            playerCard.fadeIn(0);
+            ghostCard.removeAttr("class");
+        });
+
     } else if (command === "player-op") {
         if (value === "add") {
             loadPlayer(key);
@@ -44,9 +56,15 @@ function loadPlayer(id) {
             return +a.dataset.id - +b.dataset.id;
         }).appendTo(container);
 
+        var player = $("#player-" + id);
+        player.fadeOut(0);
+        player.fadeIn(1000);
     });
 }
 
 function removePlayer(id) {
-    $("#player-" + id).remove();
+    var player = $("#player-" + id);
+    player.fadeOut(750, function () {
+        player.remove();
+    });
 }

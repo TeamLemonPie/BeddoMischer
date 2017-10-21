@@ -136,6 +136,8 @@ public class BeddoMischerMain {
         cardReaders.addAll(boardCardReaderDao.queryForAll());
         cardReaders.addAll(playerCardReaderDao.queryForAll());
 
+        get("/countdown", new CountdownHandler(false), new FreeMarkerEngine(freeMarkerConfiguration));
+        get("/countdown_transparent", new CountdownHandler(true), new FreeMarkerEngine(freeMarkerConfiguration));
         get("/chips", new ChipListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
         get("/chips/:id", new ChipGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
         get("/player", new PlayerListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));

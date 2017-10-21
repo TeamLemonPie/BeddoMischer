@@ -34,9 +34,7 @@ public class CardCommand implements Command {
             } else if (reader instanceof PlayerCardReader) {
 				PlayerCardReader playerCardReader = (PlayerCardReader) reader;
 				Optional<Player> player = BeddoMischerMain.getPlayers().getPlayer(playerCardReader.getPlayerId());
-				player.ifPresent(p -> {
-                    p.setCard(card);
-                });
+				player.ifPresent(p -> p.setCard(card));
 			}
 		});
 	}
