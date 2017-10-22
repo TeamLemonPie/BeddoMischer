@@ -15,7 +15,7 @@
             <div class="card-stack">
                 <div class="card ${card}" id="card${card?index}"></div>
                 <div class="card" id="card${card?index}_ghost"></div>
-            </div>
+            </div>&nbsp;
         </#list>
         </div>
         <div class="banner-board">
@@ -27,7 +27,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 </body>
