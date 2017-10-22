@@ -57,14 +57,16 @@ function loadPlayer(id) {
         }).appendTo(container);
 
         var player = $("#player-" + id);
-        player.fadeOut(0);
-        player.fadeIn(1000);
+        player.stop(true).fadeIn({
+            duration: 1000,
+            queue: false
+        }).css('display', 'none').slideDown(1000);
     });
 }
 
 function removePlayer(id) {
     var player = $("#player-" + id);
-    player.fadeOut(750, function () {
+    player.animate({ height: 'toggle', opacity: 'toggle' }, 1000, function(){
         player.remove();
     });
-}
+ }
