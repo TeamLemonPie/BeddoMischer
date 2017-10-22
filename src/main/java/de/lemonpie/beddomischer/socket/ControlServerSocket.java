@@ -47,7 +47,9 @@ public abstract class ControlServerSocket implements Closeable {
     }
 
 	public void writeAll(String data) {
-		connectionHandler.getClientHandlers().forEach(client -> client.write(data));
+		for (ClientHandler client : connectionHandler.getClientHandlers()) {
+			client.write(data);
+		}
 	}
 
 	public void addCommand(Command command) {

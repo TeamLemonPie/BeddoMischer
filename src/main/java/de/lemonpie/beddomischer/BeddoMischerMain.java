@@ -18,6 +18,7 @@ import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
+import de.lemonpie.beddomischer.socket.admin.AdminBoardListener;
 import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
@@ -128,6 +129,8 @@ public class BeddoMischerMain {
         players.addListener(new PlayerListWebListener(webSocketHandler));
         players.addListener(new AdminPlayerListListener());
         players.addListener(new StoragePlayerListListener());
+
+		board.addListener(new AdminBoardListener());
 
         cardReaders.addListener(new StorageCardReaderListListener());
 

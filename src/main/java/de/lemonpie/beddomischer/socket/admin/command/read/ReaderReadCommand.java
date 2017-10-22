@@ -51,6 +51,5 @@ public class ReaderReadCommand implements Command {
                 }
             }
         }
-        System.out.println(BeddoMischerMain.getCardReaders());
     }
 }
