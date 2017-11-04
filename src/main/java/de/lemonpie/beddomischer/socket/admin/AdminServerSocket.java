@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.socket.admin;
 
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
 import de.lemonpie.beddomischer.socket.admin.command.read.*;
+import de.lemonpie.beddomischer.socket.admin.command.read.player.*;
 
 import java.io.IOException;
 import java.net.InetAddress;

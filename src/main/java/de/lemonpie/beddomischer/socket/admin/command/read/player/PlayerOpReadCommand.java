@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.socket.admin.command.read;
+package de.lemonpie.beddomischer.socket.admin.command.read.player;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.CommandName;

@@ -171,8 +171,6 @@ public class Player {
 	}
 
 	public void clearCards() {
-		CardValidator.getInstance().clear(cardLeft, cardRight);
-
 		setCard(0, Card.EMPTY);
 		setCard(1, Card.EMPTY);
 	}
