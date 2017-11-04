@@ -41,6 +41,12 @@ function onLoad() {
             } catch (e) {
             } finally {
             }
+        } else if (data.scope === "COUNTDOWN") {
+            try {
+                handleCountdownCallback(data.command, data.key, data.value);
+            } catch (e) {
+            } finally {
+            }
         }
     };
 }

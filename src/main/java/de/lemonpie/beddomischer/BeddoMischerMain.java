@@ -8,7 +8,9 @@ import de.lemonpie.beddomischer.http.handler.*;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
+import de.lemonpie.beddomischer.http.websocket.listener.WebSocketCountdownListener;
 import de.lemonpie.beddomischer.http.websocket.listener.WinProbabilityPlayerListener;
+import de.lemonpie.beddomischer.listener.CountdownListener;
 import de.lemonpie.beddomischer.model.*;
 import de.lemonpie.beddomischer.model.reader.BoardCardReader;
 import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
@@ -31,6 +33,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static spark.Spark.*;
 
@@ -42,7 +47,9 @@ public class BeddoMischerMain {
 	private static BlockOption blockOption;
 
 	private static CardReaderList cardReaders;
+
 	private static long countdownEndTime;
+	private static List<CountdownListener> countdownListeners;
 
 	private static WebSocketHandler webSocketHandler;
 
@@ -78,6 +85,8 @@ public class BeddoMischerMain {
 		board = new Board();
 		blockOption = BlockOption.NONE;
 		cardReaders = new CardReaderList();
+
+		countdownListeners = new LinkedList<>();
 
 		try {
 			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
@@ -134,6 +143,8 @@ public class BeddoMischerMain {
 		board.addListener(new AdminBoardListener());
 
 		cardReaders.addListener(new StorageCardReaderListListener());
+
+		addCountdownListener(new WebSocketCountdownListener(webSocketHandler));
 
 		// Load data from database
 		players.addAll(playerDao.queryForAll());
@@ -196,11 +207,25 @@ public class BeddoMischerMain {
 		return cardReaders;
 	}
 
+	/*
+	Countdown
+	 */
 	public static long getCountdownEndTime() {
 		return countdownEndTime;
 	}
 
 	public static void setCountdownEndTime(long countdownEndTime) {
 		BeddoMischerMain.countdownEndTime = countdownEndTime;
+		fireListener(l -> l.countdownDidChange(countdownEndTime));
+	}
+
+	public static void addCountdownListener(CountdownListener countdownListener) {
+		countdownListeners.add(countdownListener);
+	}
+
+	private static void fireListener(Consumer<CountdownListener> consumer) {
+		for (CountdownListener countdownListener : countdownListeners) {
+			consumer.accept(countdownListener);
+		}
 	}
 }

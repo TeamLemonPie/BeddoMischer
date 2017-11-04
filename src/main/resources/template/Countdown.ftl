@@ -4,8 +4,10 @@
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/Countdown.js"></script>
+    <script src="js/Callback.js"></script>
+    <script src="js/CountdownCallback.js"></script>
 </head>
-<body>
+<body onload="onLoad()">
 <div class="main-container">
     <table class="countdown" cellspacing="0" cellpadding="0">
         <tr>
