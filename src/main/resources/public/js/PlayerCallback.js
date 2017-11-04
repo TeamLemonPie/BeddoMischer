@@ -11,10 +11,10 @@ function handlePlayerCallback(command, key, value) {
         var playerTwitchName = $(playerContainer).find("#player-twitchName");
         playerTwitchName.text(value)
     } else if (command === "state") {
-        if (value !== "active") {
-            playerContainer.addClass("hide");
+        if (value !== "ACTIVE") {
+            playerContainer.animate({height: 'hide', opacity: 'hide'}, 1000);
         } else {
-            playerContainer.removeClass("hide");
+            playerContainer.animate({height: 'show', opacity: 'show'}, 1000);
         }
     } else if (command === "card") {
         var cardId = value.index;
