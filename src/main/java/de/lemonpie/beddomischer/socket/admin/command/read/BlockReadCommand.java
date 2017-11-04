@@ -1,5 +1,6 @@
 package de.lemonpie.beddomischer.socket.admin.command.read;
 
+import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.socket.Command;
@@ -15,13 +16,6 @@ public class BlockReadCommand implements Command {
 	@Override
 	public void execute(CommandData command) {
 		BlockOption option = BlockOption.values()[command.getKey()];
-
-		if (option == BlockOption.NONE) {
-
-		} else if (option == BlockOption.BOARD) {
-
-		} else if (option == BlockOption.ALL) {
-
-		}
+		BeddoMischerMain.setBlockOption(option);
 	}
 }
