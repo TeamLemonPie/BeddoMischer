@@ -26,8 +26,8 @@ public class PlayerList implements Iterable<Player> {
             e.printStackTrace();
         }
         fireListener(l -> l.addPlayer(player));
-        return data.add(player) == true ? player : null;
-    }
+		return data.add(player) ? player : null;
+	}
 
     public boolean addAll(List<Player> players) {
         for (Player player : players) {
@@ -87,4 +87,10 @@ public class PlayerList implements Iterable<Player> {
         return data.spliterator();
     }
 
+	public void updateListener() {
+		for (Player player : this) {
+			player.setCardLeft(player.getCardLeft());
+			player.setCardRight(player.getCardRight());
+		}
+	}
 }

@@ -137,6 +137,7 @@ public class BeddoMischerMain {
 
 		// Load data from database
 		players.addAll(playerDao.queryForAll());
+		players.updateListener();
 
 		cardReaders.addAll(boardCardReaderDao.queryForAll());
 		cardReaders.addAll(playerCardReaderDao.queryForAll());
