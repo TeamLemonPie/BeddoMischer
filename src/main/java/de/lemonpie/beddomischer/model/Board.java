@@ -1,5 +1,6 @@
 package de.lemonpie.beddomischer.model;
 
+import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.BoardListener;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.validator.CardValidator;
@@ -33,6 +34,11 @@ public class Board {
 		if (index < 0 || index >= cards.length) {
 			throw new IndexOutOfBoundsException("Index: " + index + " size: " + cards.length);
 		}
+
+		if (BeddoMischerMain.getBlockOption() != BlockOption.NONE) {
+			return;
+		}
+
 		if (CardValidator.getInstance().validateCard(card)) {
 			cards[index] = card;
 			fireListener(listener -> listener.cardDidChangeAtIndex(index, card));

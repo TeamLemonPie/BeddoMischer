@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
@@ -88,6 +89,10 @@ public class Player {
 	}
 
 	public void setCardLeft(Card cardLeft) {
+		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL) {
+			return;
+		}
+
 		if (CardValidator.getInstance().validateCard(cardLeft)) {
 			this.cardLeft = cardLeft;
 			fireListener(listener -> listener.cardDidChangeAtIndex(this, 0, cardLeft));
@@ -99,6 +104,10 @@ public class Player {
 	}
 
 	public void setCardRight(Card cardRight) {
+		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL) {
+			return;
+		}
+
 		if (CardValidator.getInstance().validateCard(cardRight)) {
 			this.cardRight = cardRight;
 			fireListener(listener -> listener.cardDidChangeAtIndex(this, 1, cardRight));
