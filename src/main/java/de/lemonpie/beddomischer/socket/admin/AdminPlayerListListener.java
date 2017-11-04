@@ -6,8 +6,8 @@ import de.lemonpie.beddomischer.model.Player;
 public class AdminPlayerListListener implements PlayerListListener {
     @Override
     public void addPlayer(Player player) {
-        AdminPlayerListener listener = new AdminPlayerListener(player);
-        player.addListener(listener);
+		AdminPlayerListener listener = new AdminPlayerListener();
+		player.addListener(listener);
     }
 
     @Override

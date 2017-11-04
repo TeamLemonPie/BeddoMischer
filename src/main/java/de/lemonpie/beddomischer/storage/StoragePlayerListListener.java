@@ -9,8 +9,8 @@ import java.sql.SQLException;
 public class StoragePlayerListListener implements PlayerListListener {
     @Override
     public void addPlayer(Player player) {
-        player.addListener(new StoragePlayerListener(player));
-    }
+		player.addListener(new StoragePlayerListener());
+	}
 
     @Override
     public void removePlayer(Player player) {

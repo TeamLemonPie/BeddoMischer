@@ -22,28 +22,28 @@ public class PlayerCallbackListener implements PlayerListener {
 	}
 
 	@Override
-	public void nameDidChange(String name) {
+	public void nameDidChange(Player player, String name) {
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_NAME, player.getId(),
 				new JsonPrimitive(name));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 
 	@Override
-	public void twitchNameDidChange(String twitchName) {
+	public void twitchNameDidChange(Player player, String twitchName) {
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_TWITCH, player.getId(),
 				new JsonPrimitive(twitchName));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 
 	@Override
-	public void stateDidChange(PlayerState state) {
+	public void stateDidChange(Player player, PlayerState state) {
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_STATE, player.getId(),
 				new JsonPrimitive(state.name()));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 
 	@Override
-	public void cardDidChangeAtIndex(int index, Card card) {
+	public void cardDidChangeAtIndex(Player player, int index, Card card) {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("card", card.getName());
 		jsonObject.addProperty("index", index);
@@ -52,9 +52,14 @@ public class PlayerCallbackListener implements PlayerListener {
 	}
 
 	@Override
-	public void chipsDidChange(int chips) {
+	public void chipsDidChange(Player player, int chips) {
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.CHIP, CommandName.PLAYER_CHIP, player.getId(),
 				new JsonPrimitive(chips));
 		webSocketHandler.sendCommand(callbackCommand);
+	}
+
+	@Override
+	public void winProbabilityDidChange(Player player, double value) {
+		// Handled in WinProbabilityPlayerListener
 	}
 }

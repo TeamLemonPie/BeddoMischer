@@ -18,9 +18,12 @@ public class PlayerListWebListener implements PlayerListListener {
 
     @Override
     public void addPlayer(Player player) {
-        player.addListener(new PlayerCallbackListener(player, webSocket));
-        player.addListener(new WinprobabilityPlayerListener(webSocket));
-        webSocket.sendCommand(new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_OP, player.getId(),
+		// Add listener
+		player.addListener(new PlayerCallbackListener(player, webSocket));
+		player.addListener(new WinProbabilityPlayerListener(webSocket));
+
+		// Send new player command to websocket
+		webSocket.sendCommand(new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_OP, player.getId(),
                 new JsonPrimitive("add")));
     }
 

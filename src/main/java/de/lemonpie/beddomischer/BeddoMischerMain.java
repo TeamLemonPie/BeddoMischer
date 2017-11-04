@@ -8,7 +8,7 @@ import de.lemonpie.beddomischer.http.handler.*;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
-import de.lemonpie.beddomischer.http.websocket.listener.WinprobabilityPlayerListener;
+import de.lemonpie.beddomischer.http.websocket.listener.WinProbabilityPlayerListener;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.CardReaderList;
 import de.lemonpie.beddomischer.model.Player;
@@ -171,8 +171,8 @@ public class BeddoMischerMain {
 
     private static void initBoardListener() {
         board.addListener(new BoardCallbackListener(webSocketHandler));
-        board.addListener(new WinprobabilityPlayerListener(webSocketHandler));
-    }
+		board.addListener(new WinProbabilityPlayerListener(webSocketHandler));
+	}
 
     public static ControlServerSocket getRfidServerSocket() {
         return rfidServerSocket;

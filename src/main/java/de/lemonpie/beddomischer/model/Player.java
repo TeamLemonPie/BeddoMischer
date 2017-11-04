@@ -62,7 +62,7 @@ public class Player {
 
 	public void setName(String name) {
 		this.name = name;
-		fireListener(listener -> listener.nameDidChange(name));
+		fireListener(listener -> listener.nameDidChange(this, name));
 	}
 
 	public String getTwitchName() {
@@ -71,7 +71,7 @@ public class Player {
 
 	public void setTwitchName(String twitchName) {
 		this.twitchName = twitchName;
-		fireListener(listener -> listener.twitchNameDidChange(twitchName));
+		fireListener(listener -> listener.twitchNameDidChange(this, twitchName));
 	}
 
 	public PlayerState getPlayerState() {
@@ -80,7 +80,7 @@ public class Player {
 
 	public void setPlayerState(PlayerState state) {
 		this.state = state;
-		fireListener(listener -> listener.stateDidChange(state));
+		fireListener(listener -> listener.stateDidChange(this, state));
 	}
 
 	public Card getCardLeft() {
@@ -90,7 +90,7 @@ public class Player {
 	public void setCardLeft(Card cardLeft) {
 		if (CardValidator.getInstance().validateCard(cardLeft)) {
 			this.cardLeft = cardLeft;
-			fireListener(listener -> listener.cardDidChangeAtIndex(0, cardLeft));
+			fireListener(listener -> listener.cardDidChangeAtIndex(this, 0, cardLeft));
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Player {
 	public void setCardRight(Card cardRight) {
 		if (CardValidator.getInstance().validateCard(cardRight)) {
 			this.cardRight = cardRight;
-			fireListener(listener -> listener.cardDidChangeAtIndex(1, cardRight));
+			fireListener(listener -> listener.cardDidChangeAtIndex(this, 1, cardRight));
 		}
 	}
 
@@ -111,7 +111,7 @@ public class Player {
 
 	public void setChips(int chips) {
 		this.chips = chips;
-		fireListener(listener -> listener.chipsDidChange(chips));
+		fireListener(listener -> listener.chipsDidChange(this, chips));
 	}
 
 	public double getWinprobability() {
@@ -120,6 +120,7 @@ public class Player {
 
 	public void setWinprobability(double winprobability) {
 		this.winprobability = winprobability;
+		fireListener(listener -> listener.winProbabilityDidChange(this, winprobability));
 	}
 
 	public CalculatedHand getCalculatedHand() {
