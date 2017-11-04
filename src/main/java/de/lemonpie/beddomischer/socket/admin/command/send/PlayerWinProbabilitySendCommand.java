@@ -8,7 +8,7 @@ import de.lemonpie.beddomischer.socket.CommandData;
 
 public class PlayerWinProbabilitySendCommand extends CommandData {
 
-	public PlayerWinProbabilitySendCommand(Player player, double value) {
+	public PlayerWinProbabilitySendCommand(Player player, int value) {
 		super(Scope.ADMIN, CommandName.WINPROBABILITY, player.getId(), new JsonPrimitive(value));
 	}
 }

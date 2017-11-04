@@ -14,6 +14,8 @@ public enum CommandName {
     PLAYER_OP("player-op"),
     WINPROBABILITY("winprobability"),
 
+	BLOCK("block"),
+
 	DATA("data"),
 
 	COUNTDOWN("countdown");

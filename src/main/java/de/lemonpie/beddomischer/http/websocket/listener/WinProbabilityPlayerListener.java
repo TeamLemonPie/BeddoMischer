@@ -53,11 +53,11 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 			PlayerList playerList = BeddoMischerMain.getPlayers();
 			Board board = BeddoMischerMain.getBoard();
 			Calculation calculation = new Calculation(playerList.getData(), board);
-			List<Double> probabilities = calculation.calculate(1);
+			List<Double> probabilities = calculation.calculate(10000);
 
 			for (int i = 0; i < playerList.getData().size(); i++) {
 				Player player = playerList.getData().get(i);
-				player.setWinprobability(probabilities.get(i));
+				player.setWinprobability((int) ((probabilities.get(i) * 100)));
 			}
 		}
 	}
@@ -73,7 +73,7 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
     }
 
     @Override
-	public void winProbabilityDidChange(Player player, double value) {
+	public void winProbabilityDidChange(Player player, int value) {
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.WINPROBABILITY, player.getId(),
 				new JsonPrimitive(value));
 		webSocketHandler.sendCommand(callbackCommand);

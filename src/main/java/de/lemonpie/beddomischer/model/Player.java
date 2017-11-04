@@ -37,7 +37,7 @@ public class Player {
 	private int chips;
 
 	private CalculatedHand calculatedHand;
-	private double winprobability;
+	private int winprobability;
 
 	public Player() {
 		this(0);
@@ -114,11 +114,11 @@ public class Player {
 		fireListener(listener -> listener.chipsDidChange(this, chips));
 	}
 
-	public double getWinprobability() {
+	public int getWinprobability() {
 		return winprobability;
 	}
 
-	public void setWinprobability(double winprobability) {
+	public void setWinprobability(int winprobability) {
 		this.winprobability = winprobability;
 		fireListener(listener -> listener.winProbabilityDidChange(this, winprobability));
 	}

@@ -33,7 +33,7 @@ public class AdminPlayerListener implements PlayerListener {
 	}
 
 	@Override
-	public void winProbabilityDidChange(Player player, double value) {
+	public void winProbabilityDidChange(Player player, int value) {
 		PlayerWinProbabilitySendCommand command = new PlayerWinProbabilitySendCommand(player, value);
 		BeddoMischerMain.getControlServerSocket().writeAll(command);
 	}

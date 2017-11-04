@@ -7,39 +7,55 @@ import java.util.Set;
 
 public class CardValidator {
 
-    private static final CardValidator INSTANCE;
+	private static final CardValidator INSTANCE;
 
-    static {
-        INSTANCE = new CardValidator();
-    }
+	static {
+		INSTANCE = new CardValidator();
+	}
 
-    public static CardValidator getInstance() {
-        return INSTANCE;
-    }
+	public static CardValidator getInstance() {
+		return INSTANCE;
+	}
 
-    private Set<Card> detectedCards = new HashSet<>();
+	private Set<Card> detectedCards = new HashSet<>();
 
-    public boolean validateCard(Card card) {
-        if (card != Card.EMPTY) {
-            for (Card c : detectedCards) {
-                if (card.equals(c)) {
-                    return false;
-                }
-            }
-            detectedCards.add(card);
-            return true;
-        } else {
-            return true;
-        }
-    }
+	public boolean validateCard(Card card) {
+		if (isCardSetFromWinProbability()) {
+			return true;
+		}
 
-    public void clear() {
-        detectedCards.clear();
-    }
+		if (card != Card.EMPTY) {
+			for (Card c : detectedCards) {
+				if (card.equals(c)) {
+					return false;
+				}
+			}
+			detectedCards.add(card);
+		}
+		return true;
+	}
 
-    public void clear(Card... cards) {
-        for (Card card : cards) {
-            detectedCards.remove(card);
-        }
-    }
+	public void clear() {
+		detectedCards.clear();
+	}
+
+	public void clear(Card... cards) {
+		for (Card card : cards) {
+			detectedCards.remove(card);
+		}
+	}
+
+	private static boolean isCardSetFromWinProbability() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		for (StackTraceElement element : stackTrace) {
+			try {
+				if (element.getClassName().contains("Calculation")) {
+					return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 }

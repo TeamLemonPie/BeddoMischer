@@ -56,6 +56,6 @@ public class StoragePlayerListener implements PlayerListener {
     }
 
 	@Override
-	public void winProbabilityDidChange(Player player, double value) {
+	public void winProbabilityDidChange(Player player, int value) {
 	}
 }

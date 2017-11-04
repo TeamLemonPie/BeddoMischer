@@ -21,5 +21,5 @@ public interface PlayerListener {
 
 	void chipsDidChange(Player player, int chips);
 
-	void winProbabilityDidChange(Player player, double value);
+	void winProbabilityDidChange(Player player, int value);
 }

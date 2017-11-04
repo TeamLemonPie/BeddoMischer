@@ -59,7 +59,7 @@ public class PlayerCallbackListener implements PlayerListener {
 	}
 
 	@Override
-	public void winProbabilityDidChange(Player player, double value) {
+	public void winProbabilityDidChange(Player player, int value) {
 		// Handled in WinProbabilityPlayerListener
 	}
 }
