@@ -13,37 +13,37 @@ import java.util.stream.Stream;
 
 public class Board {
 
-	private List<BoardListener> listeners;
-	private Card[] cards;
+    private List<BoardListener> listeners;
+    private Card[] cards;
 
-	public Board() {
-		listeners = new LinkedList<>();
-		cards = new Card[5];
+    public Board() {
+        listeners = new LinkedList<>();
+        cards = new Card[5];
 
-		Arrays.fill(cards, Card.EMPTY);
-	}
+        Arrays.fill(cards, Card.EMPTY);
+    }
 
-	public Card getCard(int index) throws IndexOutOfBoundsException {
-		if (index < 0 || index >= cards.length) {
-			throw new IndexOutOfBoundsException("Index: " + index + " size: " + cards.length);
-		}
-		return cards[index];
-	}
+    public Card getCard(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= cards.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + " size: " + cards.length);
+        }
+        return cards[index];
+    }
 
-	public void setCard(int index, Card card) throws IndexOutOfBoundsException {
-		if (index < 0 || index >= cards.length) {
-			throw new IndexOutOfBoundsException("Index: " + index + " size: " + cards.length);
-		}
+    public void setCard(int index, Card card) throws IndexOutOfBoundsException {
+        if (index < 0 || index >= cards.length) {
+            throw new IndexOutOfBoundsException("Index: " + index + " size: " + cards.length);
+        }
 
-		if (BeddoMischerMain.getBlockOption() != BlockOption.NONE) {
-			return;
-		}
+        if (BeddoMischerMain.getBlockOption() != BlockOption.NONE) {
+            return;
+        }
 
-		if (CardValidator.getInstance().validateCard(card)) {
-			cards[index] = card;
-			fireListener(listener -> listener.cardDidChangeAtIndex(index, card));
-		}
-	}
+        if (CardValidator.getInstance().validateCard(card)) {
+            cards[index] = card;
+            fireListener(listener -> listener.cardDidChangeAtIndex(index, card));
+        }
+    }
 
     public void setCard(Card card) throws IndexOutOfBoundsException {
         for (int i = 0; i < cards.length; i++) {
@@ -54,31 +54,36 @@ public class Board {
         }
     }
 
-	public void addListener(BoardListener boardListener) {
-		this.listeners.add(boardListener);
-	}
+    public void addListener(BoardListener boardListener) {
+        this.listeners.add(boardListener);
+    }
 
-	public void removeListener(BoardListener boardListener) {
-		this.listeners.remove(boardListener);
-	}
+    public void removeListener(BoardListener boardListener) {
+        this.listeners.remove(boardListener);
+    }
 
-	private void fireListener(Consumer<BoardListener> consumer) {
-		for (BoardListener boardListener : listeners) {
-			consumer.accept(boardListener);
-		}
-	}
+    private void fireListener(Consumer<BoardListener> consumer) {
+        for (BoardListener boardListener : listeners) {
+            consumer.accept(boardListener);
+        }
+    }
 
-	public Card[] getCards() {
-		return cards;
-	}
+    public Card[] getCards() {
+        return cards;
+    }
 
-	public int getNumberOfMissingCards() {
-		return (int) Stream.of(cards).filter(c -> c == Card.EMPTY).count();
-	}
+    public int getNumberOfMissingCards() {
+        return (int) Stream.of(cards).filter(c -> c == Card.EMPTY).count();
+    }
 
-	public void clearCards() {
-		for (int i = 0; i < getCards().length; i++) {
-			setCard(i, Card.EMPTY);
-		}
-	}
+    public void clearCards() {
+        for (int i = 0; i < getCards().length; i++) {
+            setCard(i, Card.EMPTY);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Board[cards=" + Arrays.toString(cards) + ']';
+    }
 }

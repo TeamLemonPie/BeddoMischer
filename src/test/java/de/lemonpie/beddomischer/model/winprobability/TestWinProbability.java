@@ -1,5 +1,7 @@
 package de.lemonpie.beddomischer.model.winprobability;
 
+import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.card.Card;
@@ -13,11 +15,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestWinProbaility
+public class TestWinProbability
 {
 	@Test
 	public void test()
 	{
+		BeddoMischerMain.setBlockOption(BlockOption.NONE);
 		ArrayList<Player> players = new ArrayList<>();
 		
 		Player player1 = new Player(0);
@@ -54,6 +57,7 @@ public class TestWinProbaility
 	@Test
 	public void test2()
 	{
+		BeddoMischerMain.setBlockOption(BlockOption.NONE);
 		ArrayList<Player> players = new ArrayList<>();
 		
 		Player player1 = new Player(0);
