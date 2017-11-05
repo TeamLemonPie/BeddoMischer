@@ -97,4 +97,36 @@ public class TestWinProbability
 		assertTrue(12 < percentages.get(1) && percentages.get(1) < 16);
 		assertTrue(18 < percentages.get(2) && percentages.get(2) < 23);
 	}
+
+	@Test
+	public void test3()
+	{
+		BeddoMischerMain.setBlockOption(BlockOption.NONE);
+		ArrayList<Player> players = new ArrayList<>();
+
+		Player player1 = new Player(0);
+		player1.setName("1");
+		player1.setCardLeft(new Card(CardSymbol.SPADES, CardValue.QUEEN));
+		player1.setCardRight(new Card(CardSymbol.CROSS, CardValue.EIGHT));
+		players.add(player1);
+
+		Player player2 = new Player(1);
+		player2.setName("2");
+		player2.setCardLeft(new Card(CardSymbol.HEART, CardValue.THREE));
+		player2.setCardRight(new Card(CardSymbol.HEART, CardValue.TWO));
+		players.add(player2);
+
+		Board board = new Board();
+
+		Calculation calculation = new Calculation(players, board);
+		List<Double> probabilities = calculation.calculate(2);
+		ArrayList<Integer> percentages = new ArrayList<>();
+
+		for(int i = 0; i < players.size(); i++)
+		{
+			percentages.add((int)(probabilities.get(i) * 100));
+		}
+
+		assertTrue(percentages.get(0) + percentages.get(1) <= 100);
+	}
 }

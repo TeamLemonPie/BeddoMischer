@@ -47,9 +47,15 @@ public class Calculation
 			}
 		}
 
+		int totalWins = 0;
+		for(int i = 0; i < wonRounds.size(); i++)
+		{
+			totalWins += wonRounds.get(i);
+		}
+
 		for(int i = 0; i < players.size(); i++)
 		{
-			probabilities.set(i, (double)wonRounds.get(i) / numberOfRounds);
+			probabilities.set(i, (double)wonRounds.get(i) / totalWins);
 		}
 
 		return probabilities;
