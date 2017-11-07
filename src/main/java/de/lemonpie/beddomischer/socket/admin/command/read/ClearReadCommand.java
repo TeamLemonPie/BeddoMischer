@@ -10,6 +10,8 @@ import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.reader.ClearSendCommand;
 import de.lemonpie.beddomischer.validator.CardValidator;
 
+import java.util.stream.Stream;
+
 public class ClearReadCommand implements Command {
     @Override
     public CommandName name() {
@@ -29,6 +31,10 @@ public class ClearReadCommand implements Command {
 			Board board = BeddoMischerMain.getBoard();
 			board.clearCards();
 			CardValidator.getInstance().clear();
+		} else if (key == -2) {
+			Board board = BeddoMischerMain.getBoard();
+			Stream.of(board.getCards()).forEach(CardValidator.getInstance()::clear);
+			board.clearCards();
 		} else {
 			BeddoMischerMain.getCardReaders().getCardReader(key).ifPresent(reader -> {
 				if (reader instanceof PlayerCardReader) {
