@@ -89,7 +89,7 @@ public class Player {
 	}
 
 	public void setCardLeft(Card cardLeft) {
-		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL) {
+		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL || state != PlayerState.ACTIVE) {
 			return;
 		}
 
@@ -104,7 +104,7 @@ public class Player {
 	}
 
 	public void setCardRight(Card cardRight) {
-		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL) {
+		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL || state != PlayerState.ACTIVE) {
 			return;
 		}
 
