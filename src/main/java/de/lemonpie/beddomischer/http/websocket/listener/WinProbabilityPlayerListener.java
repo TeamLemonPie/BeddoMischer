@@ -59,6 +59,12 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 				Player player = playerList.getData().get(i);
 				player.setWinprobability((int) ((probabilities.get(i) * 100)));
 			}
+		} else {
+			// Clear win probability on new round
+			PlayerList playerList = BeddoMischerMain.getPlayers();
+			for (Player player : playerList) {
+				player.setWinprobability(0);
+			}
 		}
 	}
 
