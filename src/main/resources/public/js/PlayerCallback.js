@@ -2,6 +2,14 @@
 Handles all player callback events from server.
  */
 
+$(document).ready(function () {
+    $(".player-container").each(function () {
+        if ($(this).attr("data-hide") !== "ACTIVE") {
+            $(this).animate({height: 'hide', opacity: 'hide'}, 0);
+        }
+    })
+});
+
 function handlePlayerCallback(command, key, value) {
     var playerContainer = $("#player-" + key);
     if (command === "name") {

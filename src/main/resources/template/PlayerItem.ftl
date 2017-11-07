@@ -1,5 +1,5 @@
 <#macro playerContainer player>
-<div class="player-container" id="player-${player.id}" data-id="${player.id}">
+<div class="player-container" id="player-${player.id}" data-id="${player.id}" data-hide="${player.state}">
     <div class="deck">
         <div class="card-stack">
             <div class="card ${player.card1}" id="card0"></div>
