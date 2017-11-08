@@ -39,15 +39,17 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 
 	@Override
 	public void cardDidChangeAtIndex(Player player, int index, Card card) {
-		computeWinProperbility();
+		computeWinProbability();
 	}
 
     @Override
 	public void cardDidChangeAtIndex(int index, Card card) {
-		computeWinProperbility();
+		computeWinProbability();
 	}
 
-	private void computeWinProperbility() {
+	private boolean lastComputed = false;
+
+	private void computeWinProbability() {
 		// Check if cards complete
 		if (isPlayerSetComplete()) {
 			PlayerList playerList = BeddoMischerMain.getPlayers();
@@ -59,11 +61,15 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 				Player player = playerList.getData().get(i);
 				player.setWinprobability((int) ((probabilities.get(i) * 100)));
 			}
+			lastComputed = true;
 		} else {
-			// Clear win probability on new round
-			PlayerList playerList = BeddoMischerMain.getPlayers();
-			for (Player player : playerList) {
-				player.setWinprobability(0);
+			if (lastComputed) {
+				// Clear win probability on new round
+				PlayerList playerList = BeddoMischerMain.getPlayers();
+				for (Player player : playerList) {
+					player.setWinprobability(0);
+				}
+				lastComputed = false;
 			}
 		}
 	}
