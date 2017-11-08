@@ -13,10 +13,10 @@ import de.lemonpie.beddomischer.validator.CardValidator;
 import java.util.stream.Stream;
 
 public class ClearReadCommand implements Command {
-    @Override
-    public CommandName name() {
-        return CommandName.CLEAR;
-    }
+	@Override
+	public CommandName name() {
+		return CommandName.CLEAR;
+	}
 
 	@Override
 	public void execute(CommandData command) {
@@ -31,10 +31,18 @@ public class ClearReadCommand implements Command {
 			Board board = BeddoMischerMain.getBoard();
 			board.clearCards();
 			CardValidator.getInstance().clear();
+
+			ClearSendCommand forwardCommandData = new ClearSendCommand(key);
+			BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 		} else if (key == -2) {
 			Board board = BeddoMischerMain.getBoard();
 			Stream.of(board.getCards()).forEach(CardValidator.getInstance()::clear);
 			board.clearCards();
+
+			BeddoMischerMain.getBoardCardReaderDao().forEach(r -> {
+				ClearSendCommand forwardCommandData = new ClearSendCommand(key);
+				BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+			});
 		} else {
 			BeddoMischerMain.getCardReaders().getCardReader(key).ifPresent(reader -> {
 				if (reader instanceof PlayerCardReader) {
@@ -45,9 +53,8 @@ public class ClearReadCommand implements Command {
 					});
 				}
 			});
+			ClearSendCommand forwardCommandData = new ClearSendCommand(key);
+			BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 		}
-
-        ClearSendCommand forwardCommandData = new ClearSendCommand(key);
-        BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 	}
 }
