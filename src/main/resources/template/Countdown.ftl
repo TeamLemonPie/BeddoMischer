@@ -12,7 +12,7 @@
     <table class="countdown" cellspacing="0" cellpadding="0">
         <tr>
             <td class="countdown-time countdown-spacer" id="countdown" data="${time?c}">00:00</td>
-            <td class="countdown-time">${endTime}</td>
+            <td class="countdown-time" id="countdown-endtime">${endTime}</td>
         </tr>
         <tr>
             <td class="countdown-text countdown-spacer">MINUTEN</td>

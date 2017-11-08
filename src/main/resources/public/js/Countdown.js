@@ -5,7 +5,8 @@ $(document).ready(function () {
 var x;
 
 function startCountdown(time) {
-    var countDownDate = new Date(parseInt(time)).getTime();
+    var countDownDate = new Date(parseInt(time));
+    document.getElementById("countdown-endtime").innerHTML = countDownDate.getHours() + ":" + countDownDate.getMinutes();
 
     // Update the count down every 1 second
     x = setInterval(function () {
@@ -14,7 +15,7 @@ function startCountdown(time) {
         var now = new Date().getTime();
 
         // Find the distance between now an the count down date
-        var distance = countDownDate - now;
+        var distance = countDownDate.getTime() - now;
 
         // Time calculations for days, hours, minutes and seconds
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
