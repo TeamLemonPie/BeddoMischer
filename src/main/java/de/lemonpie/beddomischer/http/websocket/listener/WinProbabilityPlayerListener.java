@@ -15,6 +15,7 @@ import de.lemonpie.beddomischer.model.PlayerState;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.model.winprobability.Calculation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WinProbabilityPlayerListener implements PlayerListener, BoardListener {
@@ -35,6 +36,7 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 
     @Override
 	public void stateDidChange(Player player, PlayerState state) {
+		computeWinProbability();
 	}
 
 	@Override
@@ -52,13 +54,19 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 	private void computeWinProbability() {
 		// Check if cards complete
 		if (isPlayerSetComplete()) {
-			PlayerList playerList = BeddoMischerMain.getPlayers();
+			ArrayList<Player> playerList = new ArrayList<>();
+			for (Player player : BeddoMischerMain.getPlayers()) {
+				player.setWinprobability(0);
+				if (player.getPlayerState() == PlayerState.ACTIVE) {
+					playerList.add(player);
+				}
+			}
 			Board board = BeddoMischerMain.getBoard();
-			Calculation calculation = new Calculation(playerList.getData(), board);
+			Calculation calculation = new Calculation(playerList, board);
 			List<Double> probabilities = calculation.calculate(1000);
 
-			for (int i = 0; i < playerList.getData().size(); i++) {
-				Player player = playerList.getData().get(i);
+			for (int i = 0; i < playerList.size(); i++) {
+				Player player = playerList.get(i);
 				player.setWinprobability((int) ((probabilities.get(i) * 100)));
 			}
 			lastComputed = true;
@@ -77,8 +85,11 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
     private boolean isPlayerSetComplete() {
         boolean complete = true;
         for (Player player : BeddoMischerMain.getPlayers()) {
-            if (player.getCardLeft() == Card.EMPTY || player.getCardRight() == Card.EMPTY) {
-                complete = false;
+        	if (player.getPlayerState() == PlayerState.ACTIVE)
+			{
+            	if (player.getCardLeft() == Card.EMPTY || player.getCardRight() == Card.EMPTY) {
+					complete = false;
+				}
             }
         }
         return complete;
