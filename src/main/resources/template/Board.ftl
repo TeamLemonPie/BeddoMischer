@@ -21,9 +21,17 @@
         <div class="banner-board">
             <div class="banner-table">
                 <div class="player-info">
-                    <div class="player-name center-text">
-                        Tisch
-                    </div>
+                    <table id="table-board">
+                        <tr>
+                            <td rowspan="2" class="player-name">Tisch</td>
+                            <td class="blind">SMALL BLIND:</td>
+                            <td class="blind blind-number">8</td>
+                        </tr>
+                        <tr>
+                            <td class="blind">BIG BLIND:</td>
+                            <td class="blind blind-number">20</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

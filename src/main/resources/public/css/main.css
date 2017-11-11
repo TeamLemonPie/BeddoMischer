@@ -121,6 +121,24 @@ body {
 	width: 44px;
 }
 
+#table-board {
+    width: 98%;
+    color: #FFFFFF;
+}
+
+.blind {
+    font-size: 15px;
+    color: #FFFFFF;
+    text-align: right;
+    font-weight: bold;
+    font-family: Tahoma, serif;
+    width: 36%;
+}
+
+.blind-number {
+    width: 6%;
+}
+
 .debug {
     border: 1px solid red;
 }
