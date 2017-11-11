@@ -127,16 +127,22 @@ body {
 }
 
 .blind {
-    font-size: 15px;
+    font-size: 17px;
     color: #FFFFFF;
     text-align: right;
-    font-weight: bold;
     font-family: Tahoma, serif;
-    width: 36%;
+    width: 35%;
 }
 
 .blind-number {
     width: 6%;
+}
+
+#table-text {
+    font-size: 30px;
+    color: #FFFFFF;
+    text-align: right;
+    font-family: Tahoma, serif;
 }
 
 .debug {
