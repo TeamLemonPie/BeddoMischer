@@ -12,119 +12,134 @@ import java.util.Collections;
 
 public class Hand
 {
-	private ArrayList<Card> cards;
-
-	public Hand(ArrayList<Card> cards)
-	{
-		this.cards = cards;
-		Collections.sort(this.cards);
-	}
+	private Board board;
+	private Card cardLeft;
+	private Card cardRight;
+	private ArrayList<ArrayList<ArrayList<Card>>> allLists;
 
 	public Hand(Board board, Card cardLeft, Card cardRight)
 	{
-		cards = new ArrayList<>(Arrays.asList(board.getCards()));
-		cards.add(cardLeft);
-		cards.add(cardRight);
-		Collections.sort(this.cards);
+		this.board = board;
+		this.cardLeft = cardLeft;
+		this.cardRight = cardRight;
+
+		allLists = new ArrayList<>();
+		allLists.add(getCustomCardList(true, false));
+		allLists.add(getCustomCardList(false, true));
+		allLists.add(getCustomCardList(true, true));
 	}
 
 	public CalculatedHand detectHand()
 	{
-		Card highestCard = detectRoyalFlush();
-		if(highestCard != Card.EMPTY)
-			return new CalculatedHand(HandType.ROYAL_FLUSH, highestCard);
+		Card highestCard;
+		ArrayList<Card> highestCards;
 
-		highestCard = detectStraightFlush();
-		if(highestCard != Card.EMPTY)
-			return new CalculatedHand(HandType.STRAIGHT_FLUSH, highestCard);
+		if(detectRoyalFlush())
+			return new CalculatedHand(HandType.ROYAL_FLUSH, Card.EMPTY);
+
+		if(detectStraightFlush())
+			return new CalculatedHand(HandType.STRAIGHT_FLUSH, Card.EMPTY);
 
 		highestCard = detectXOfAKind(4);
 		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.FOUR_OF_A_KIND, highestCard);
-		
-		ArrayList<Card> highestCards = detectFullHouse();		
+
+		highestCards = detectFullHouse();
 		if(!highestCards.contains(Card.EMPTY))
 			return new CalculatedHand(HandType.FULL_HOUSE, highestCards);
 
-		highestCard = detectFlush();
-		if(highestCard != Card.EMPTY)
-			return new CalculatedHand(HandType.FLUSH, highestCard);
-		
+		if(detectFlush())
+			return new CalculatedHand(HandType.FLUSH, Card.EMPTY);
+
 		highestCard = detectStraight();
 		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.STRAIGHT, highestCard);
-		
+
 		highestCard = detectXOfAKind(3);
 		if(highestCard != Card.EMPTY)
-			return new CalculatedHand(HandType.THREE_OF_A_KIND, highestCard);		
-		
+			return new CalculatedHand(HandType.THREE_OF_A_KIND, highestCard);
+
 		highestCards = detectTwoPairs();
 		if(!highestCards.contains(Card.EMPTY))
 			return new CalculatedHand(HandType.TWO_PAIRS, highestCards);
-		
+
 		highestCard = detectXOfAKind(2);
 		if(highestCard != Card.EMPTY)
 			return new CalculatedHand(HandType.PAIR, highestCard);
 
-		return new CalculatedHand(HandType.HIGHEST_CARD, detectHighestCard());
+		return new CalculatedHand(HandType.HIGHEST_CARD, Card.EMPTY);
 	}
-	
-	private Card detectHighestCard()
-	{
-		Card highestCard = cards.get(0);
-		for(Card currentCard : cards)
-		{
-			if(currentCard.getValue().getWeight() > highestCard.getValue().getWeight())
-			{
-				highestCard = currentCard;
-			}
-		}
-		
-		return highestCard;
-	}
-	
+
 	private Card detectXOfAKind(int times)
 	{
-		ArrayList<Integer> occurrences = countOccurencesOValues();
-		
-		if(occurrences.contains(times))
+		ArrayList<Integer> occurrences = countOccurrencesOfValues(new ArrayList<>(Arrays.asList(board.getCards())));
+
+		if(cardLeft.getValue().getWeight() == cardRight.getValue().getWeight())
 		{
-			return new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(times)));
-		}		
-		
-		return Card.EMPTY;
-	}
-	
-	private ArrayList<Card> detectTwoPairs()
-	{
-		ArrayList<Integer> occurrences = countOccurencesOValues();
-		ArrayList<Card> cardPairs = new ArrayList<>();		
-		cardPairs.add(Card.EMPTY);
-		cardPairs.add(Card.EMPTY);
-		
-		for(int i = 0; i < occurrences.size(); i++)
-		{
-			if(occurrences.get(i) == 2)
+			if(occurrences.get(cardLeft.getValue().getWeight()) == times-2)
 			{
-				CardValue curentValue = CardValue.fromWeight(i);
-				if(curentValue.getWeight() > cardPairs.get(0).getValue().getWeight())
-				{
-					cardPairs.set(1, cardPairs.get(0));
-					cardPairs.set(0, new Card(CardSymbol.BACK, curentValue));
-				}
+				return new Card(CardSymbol.BACK, cardLeft.getValue());
 			}
 		}
-		
+		else
+		{
+			if(occurrences.get(cardLeft.getValue().getWeight()) == times-1)
+			{
+				return new Card(CardSymbol.BACK, cardLeft.getValue());
+			}
+
+			if(occurrences.get(cardRight.getValue().getWeight()) == times-1)
+			{
+				return new Card(CardSymbol.BACK, cardRight.getValue());
+			}
+		}
+
+		return Card.EMPTY;
+	}
+
+	private ArrayList<Card> detectTwoPairs()
+	{
+		ArrayList<Integer> occurrences = countOccurrencesOfValues(new ArrayList<>(Arrays.asList(board.getCards())));
+		ArrayList<Card> cardPairs = new ArrayList<>();
+		cardPairs.add(Card.EMPTY);
+		cardPairs.add(Card.EMPTY);
+
+		if(cardLeft.getValue().getWeight() == cardRight.getValue().getWeight())
+		{
+			cardPairs.set(0, cardLeft);
+			if(occurrences.contains(2))
+			{
+				cardPairs.set(1, new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(2))));
+			}
+		}
+		else
+		{
+			if(occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.get(cardRight.getValue().getWeight()) == 1)
+			{
+				cardPairs.set(0, cardLeft);
+				cardPairs.set(1, cardRight);
+			}
+			else if(occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.contains(2))
+			{
+				cardPairs.set(0, cardLeft);
+				cardPairs.set(1, new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(2))));
+			}
+			else if(occurrences.get(cardRight.getValue().getWeight()) == 1 && occurrences.contains(2))
+			{
+				cardPairs.set(0, cardRight);
+				cardPairs.set(1, new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(2))));
+			}
+		}
+
 		return cardPairs;
 	}
-	
-	private Card detectStraight()
+
+	private Card detectStraightFromCardList(ArrayList<Card> cardList)
 	{
-		Card highestCard = Card.EMPTY;
-		
-		for(int k = cards.size() - 1; k >= 0; k--)
+		Card highestCard;
+		for(int k = cardList.size() - 1; k >= 0; k--)
 		{
-			Card currentCard = cards.get(k);
+			Card currentCard = cardList.get(k);
 			// straight is not possible if current card is already below 5
 			if(currentCard.getValue().getWeight() < 5)
 			{
@@ -134,11 +149,16 @@ public class Hand
 			boolean currentRun = true;
 			highestCard = currentCard;
 
-			for(int i = 1; i < 4; i++)
+			for(int i = 1; i < 5; i++)
 			{
 				CardValue nextValue = CardValue.fromWeight(currentCard.getValue().getWeight() - i);
-				if(!listContainsCardWithValue(nextValue))
+				if(!listContainsCardWithValue(cardList, nextValue))
 				{
+					//ace is allowed on first posiiton before a 2( Ace - 2 - 3 ...)
+					if(currentCard.getValue().getWeight() == 2 && listContainsCardWithValue(cardList, CardValue.ACE))
+					{
+						continue;
+					}
 					currentRun = false;
 					highestCard = Card.EMPTY;
 					break;
@@ -151,16 +171,31 @@ public class Hand
 			}
 		}
 
-		return highestCard;
+		return Card.EMPTY;
 	}
-		
-	private Card detectFlush()
+
+	private Card detectStraight()
 	{
-		CardSymbol mostUsedSymbol = getMostUsedSymbol(cards);
+		for(ArrayList<ArrayList<Card>> listList : allLists)
+		{
+			for (ArrayList<Card> currentList : listList)
+			{
+				Card card = detectStraightFromCardList(currentList);
+				if (card != Card.EMPTY)
+					return card;
+			}
+		}
+
+		return Card.EMPTY;
+	}
+
+	private boolean detectFlushFromCardList(ArrayList<Card> cardList)
+	{
+		CardSymbol mostUsedSymbol = getMostUsedSymbol(cardList);
 
 		ArrayList<Card> cardsWithMostUsedSymbol = new ArrayList<>();
 		// find all card that shares the most used symbol
-		for(Card currentCard : cards)
+		for(Card currentCard : cardList)
 		{
 			if(currentCard.getSymbol() == mostUsedSymbol)
 			{
@@ -168,49 +203,66 @@ public class Hand
 			}
 		}
 
-		if(cardsWithMostUsedSymbol.size() == 5)
-		{
-			Card highestCard = cardsWithMostUsedSymbol.get(0);
-			for(Card currentCard : cardsWithMostUsedSymbol)
-			{
-				if(currentCard.getValue().getWeight() > highestCard.getValue().getWeight())
-				{
-					highestCard = currentCard;
-				}
-			}
-			
-			return highestCard;
-		}
-		
-		return Card.EMPTY;
+		return cardsWithMostUsedSymbol.size() == 5;
 	}
-	
+
+	private boolean detectFlush()
+	{
+		for(ArrayList<ArrayList<Card>> listList : allLists)
+		{
+			for (ArrayList<Card> currentList : listList)
+			{
+				if (detectFlushFromCardList(currentList))
+					return true;
+			}
+		}
+
+		return false;
+	}
+
 	private ArrayList<Card> detectFullHouse()
 	{
-		ArrayList<Integer> occurrences = countOccurencesOValues();
-		
-		if(occurrences.contains(3) && occurrences.contains(2))
-		{
-			ArrayList<Card> highestCards = new ArrayList<>();
-			//first card is type of three of a kind
-			highestCards.add(new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(3))));
-			//second card type of pair
-			highestCards.add(new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(2))));
-			return highestCards;
-		}
-		
+		ArrayList<Integer> occurrences = countOccurrencesOfValues(new ArrayList<>(Arrays.asList(board.getCards())));
 		ArrayList<Card> highestCards = new ArrayList<>();
 		highestCards.add(Card.EMPTY);
+		highestCards.add(Card.EMPTY);
+
+		if (cardLeft.getValue().getWeight() == cardRight.getValue().getWeight())
+		{
+			if (occurrences.contains(3))
+			{
+				highestCards.set(0, new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(3))));
+				highestCards.set(1, cardLeft);
+			}
+			else if (occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.contains(2))
+			{
+				highestCards.set(0, cardLeft);
+				highestCards.set(1, new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(2))));
+			}
+		}
+		else
+		{
+			if (occurrences.get(cardLeft.getValue().getWeight()) == 2 && occurrences.get(cardRight.getValue().getWeight()) == 1) {
+				highestCards.set(0, cardLeft);
+				highestCards.set(1, cardRight);
+			}
+
+			if (occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.get(cardRight.getValue().getWeight()) == 2) {
+				highestCards.set(0, cardRight);
+				highestCards.set(1, cardLeft);
+			}
+		}
+
 		return highestCards;
 	}
 
-	private Card detectStraightFlush()
+	private boolean detectStraightFlushFromCardList(ArrayList<Card> cardList)
 	{
-		CardSymbol mostUsedSymbol = getMostUsedSymbol(cards);
+		CardSymbol mostUsedSymbol = getMostUsedSymbol(cardList);
 
 		ArrayList<Card> cardsWithMostUsedSymbol = new ArrayList<>();
 		// find all card that shares the most used symbol
-		for(Card currentCard : cards)
+		for(Card currentCard : cardList)
 		{
 			if(currentCard.getSymbol() == mostUsedSymbol)
 			{
@@ -222,10 +274,10 @@ public class Hand
 
 		// straight flush is only possible with at least 5 cards
 		if(cardsWithMostUsedSymbol.size() < 5)
-			return highestCard;
+			return false;
 
 		for(int k = cardsWithMostUsedSymbol.size() - 1; k >= 0; k--)
-		{		
+		{
 			Card currentCard = cardsWithMostUsedSymbol.get(k);
 			// straight flush is not possible if current card is already below 5
 			if(currentCard.getValue().getWeight() < 5)
@@ -234,70 +286,147 @@ public class Hand
 			}
 
 			boolean currentRun = true;
-			highestCard = currentCard;
 
-			for(int i = 1; i < 4; i++)
+			for(int i = 1; i <= 4; i++)
 			{
 				Card cardToTest = new Card(mostUsedSymbol, CardValue.fromWeight(currentCard.getValue().getWeight() - i));
 				if(!cardsWithMostUsedSymbol.contains(cardToTest))
 				{
 					currentRun = false;
-					highestCard = Card.EMPTY;
 					break;
 				}
 			}
 
 			if(currentRun)
 			{
-				return highestCard;
+				return true;
 			}
 		}
 
-		return highestCard;
+		return false;
 	}
 
-	private Card detectRoyalFlush()
+	private boolean detectStraightFlush()
 	{
-		if(listContainsCard(new Card(CardSymbol.HEART, CardValue.TEN)) 
-				&& listContainsCard(new Card(CardSymbol.HEART, CardValue.JACK)) 
-				&& listContainsCard(new Card(CardSymbol.HEART, CardValue.QUEEN)) 
-				&& listContainsCard(new Card(CardSymbol.HEART, CardValue.KING))
-				&& listContainsCard(new Card(CardSymbol.HEART, CardValue.ACE)))
+		for(ArrayList<ArrayList<Card>> listList : allLists)
 		{
-			return new Card(CardSymbol.HEART, CardValue.ACE);
+			for (ArrayList<Card> currentList : listList)
+			{
+				if (detectStraightFlushFromCardList(currentList))
+					return true;
+			}
 		}
 
-		if(listContainsCard(new Card(CardSymbol.CROSS, CardValue.TEN))
-				&& listContainsCard(new Card(CardSymbol.CROSS, CardValue.JACK)) 
-				&& listContainsCard(new Card(CardSymbol.CROSS, CardValue.QUEEN)) 
-				&& listContainsCard(new Card(CardSymbol.CROSS, CardValue.KING))
-				&& listContainsCard(new Card(CardSymbol.CROSS, CardValue.ACE)))
-		{
-			return new Card(CardSymbol.CROSS, CardValue.ACE);
-		}
-
-		if(listContainsCard(new Card(CardSymbol.DIAMONDS, CardValue.TEN)) 
-				&& listContainsCard(new Card(CardSymbol.DIAMONDS, CardValue.JACK)) 
-				&& listContainsCard(new Card(CardSymbol.DIAMONDS, CardValue.QUEEN)) 
-				&& listContainsCard(new Card(CardSymbol.DIAMONDS, CardValue.KING))
-				&& listContainsCard(new Card(CardSymbol.DIAMONDS, CardValue.ACE)))
-		{
-			return new Card(CardSymbol.DIAMONDS, CardValue.ACE);
-		}
-
-		if(listContainsCard(new Card(CardSymbol.SPADES, CardValue.TEN)) 
-				&& listContainsCard(new Card(CardSymbol.SPADES, CardValue.JACK)) 
-				&& listContainsCard(new Card(CardSymbol.SPADES, CardValue.QUEEN)) 
-				&& listContainsCard(new Card(CardSymbol.SPADES, CardValue.KING))
-				&& listContainsCard(new Card(CardSymbol.SPADES, CardValue.ACE)))
-		{
-			return new Card(CardSymbol.SPADES, CardValue.ACE);
-		}
-
-		return Card.EMPTY;
+		return false;
 	}
 
-	private boolean listContainsCard(Card card)
+	private boolean detectRoyalFlushForCardList(ArrayList<Card> cardList)
+	{
+		if(listContainsCard(cardList, new Card(CardSymbol.HEART, CardValue.TEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.HEART, CardValue.JACK))
+				&& listContainsCard(cardList, new Card(CardSymbol.HEART, CardValue.QUEEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.HEART, CardValue.KING))
+				&& listContainsCard(cardList, new Card(CardSymbol.HEART, CardValue.ACE)))
+		{
+			return true;
+		}
+
+		if(listContainsCard(cardList, new Card(CardSymbol.CROSS, CardValue.TEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.CROSS, CardValue.JACK))
+				&& listContainsCard(cardList, new Card(CardSymbol.CROSS, CardValue.QUEEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.CROSS, CardValue.KING))
+				&& listContainsCard(cardList, new Card(CardSymbol.CROSS, CardValue.ACE)))
+		{
+			return true;
+		}
+
+		if(listContainsCard(cardList, new Card(CardSymbol.DIAMONDS, CardValue.TEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.DIAMONDS, CardValue.JACK))
+				&& listContainsCard(cardList, new Card(CardSymbol.DIAMONDS, CardValue.QUEEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.DIAMONDS, CardValue.KING))
+				&& listContainsCard(cardList, new Card(CardSymbol.DIAMONDS, CardValue.ACE)))
+		{
+			return true;
+		}
+
+		if(listContainsCard(cardList, new Card(CardSymbol.SPADES, CardValue.TEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.SPADES, CardValue.JACK))
+				&& listContainsCard(cardList, new Card(CardSymbol.SPADES, CardValue.QUEEN))
+				&& listContainsCard(cardList, new Card(CardSymbol.SPADES, CardValue.KING))
+				&& listContainsCard(cardList, new Card(CardSymbol.SPADES, CardValue.ACE)))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean detectRoyalFlush()
+	{
+		for(ArrayList<ArrayList<Card>> listList : allLists)
+		{
+			for (ArrayList<Card> currentList : listList)
+			{
+				if (detectRoyalFlushForCardList(currentList))
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	private ArrayList<ArrayList<Card>> getCustomCardList(boolean useCardLeft, boolean useCardRight)
+	{
+		ArrayList<ArrayList<Card>> possibleLists = new ArrayList<>();
+
+		if(useCardLeft ^ useCardRight) //XOR
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				ArrayList<Card> currentList = new ArrayList<>(Arrays.asList(board.getCards()));
+				currentList.remove(i);
+				if(useCardLeft)
+				{
+					currentList.add(cardLeft);
+				}
+				else
+				{
+					currentList.add(cardRight);
+				}
+				Collections.sort(currentList);
+				possibleLists.add(currentList);
+			}
+		}
+		else if(useCardLeft && useCardRight)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				for (int k = i+1; k < 5; k++)
+				{
+					Card[] boardCards = board.getCards();
+					ArrayList<Card> allowedCards = new ArrayList<>();
+					for(int j = 0; j < boardCards.length; j++)
+					{
+						if(j != i && j != k)
+						{
+							allowedCards.add(boardCards[j]);
+						}
+					}
+					allowedCards.add(cardLeft);
+					allowedCards.add(cardRight);
+					Collections.sort(allowedCards);
+					possibleLists.add(allowedCards);
+				}
+			}
+		}
+		else
+		{
+			possibleLists.add(new ArrayList<>(Arrays.asList(board.getCards())));
+		}
+		return possibleLists;
+	}
+
+	private boolean listContainsCard(ArrayList<Card> cards, Card card)
 	{
 		for(Card currentCard : cards)
 		{
@@ -309,12 +438,12 @@ public class Hand
 
 		return false;
 	}
-	
-	private boolean listContainsCardWithValue(CardValue value)
+
+	private boolean listContainsCardWithValue(ArrayList<Card> cards, CardValue value)
 	{
 		for(Card currentCard : cards)
 		{
-			if(currentCard.getValue() == value)
+			if(currentCard.getValue().getWeight() == value.getWeight())
 			{
 				return true;
 			}
@@ -367,21 +496,21 @@ public class Hand
 
 		return null;
 	}
-	
-	private ArrayList<Integer> countOccurencesOValues()
+
+	private ArrayList<Integer> countOccurrencesOfValues(ArrayList<Card> cards)
 	{
 		ArrayList<Integer> occurrences = new ArrayList<>();
 		for(int i = 0; i < 15; i++)
 		{
 			occurrences.add(0);
 		}
-		
+
 		for(Card currentCard : cards)
 		{
 			int currentIndex = currentCard.getValue().getWeight();
 			occurrences.set(currentIndex, occurrences.get(currentIndex) + 1);
 		}
-		
+
 		return occurrences;
 	}
 }

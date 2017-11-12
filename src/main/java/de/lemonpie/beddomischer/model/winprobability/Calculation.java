@@ -36,7 +36,6 @@ public class Calculation
 
 		if(numberOfMissingCardsInBoard == 0)
 		{
-			numberOfRounds = 1;
 			wonRounds = calculateOneRound(wonRounds, new ArrayList<>(remainingDeck), numberOfMissingCardsInBoard);
 		}
 		else
@@ -148,10 +147,10 @@ public class Calculation
 		}
 		
 		//two pairs
-		winnerIndices = getHandsFromPlayers(HandType.THREE_OF_A_KIND);
+		winnerIndices = getHandsFromPlayers(HandType.TWO_PAIRS);
 		if(winnerIndices.size() > 0)
 		{
-			return calculateWinnerIndices(winnerIndices, HandType.THREE_OF_A_KIND);
+			return calculateWinnerIndices(winnerIndices, HandType.TWO_PAIRS);
 		}
 		
 		//pair
@@ -171,47 +170,97 @@ public class Calculation
 		return winnerIndices;
 	}
 	
-	private ArrayList<Integer> calculateWinnerBasedOnHighestCard(ArrayList<Integer> winnerIndices, int highestCardIndex)
+	private ArrayList<Integer> calculateWinnerBasedOnHighestCard(ArrayList<Integer> winnerIndices, boolean useHighestCard)
 	{
 		ArrayList<Integer> returnList = new ArrayList<>();
 		returnList.add(winnerIndices.get(0));
-		
+
 		for(int i = 1; i < winnerIndices.size(); i++)
-		{			
-			CardValue highestCardValue = players.get(returnList.get(0)).getCalculatedHand().getHighestCard().get(highestCardIndex).getValue();
-			ArrayList<Card> playerHighestCards = players.get(i).getCalculatedHand().getHighestCard();
-			if(playerHighestCards.size() > highestCardIndex)
-			{				
-				CardValue playerCardValue = playerHighestCards.get(highestCardIndex).getValue();
-				if(playerCardValue.getWeight() > highestCardValue.getWeight())
-				{
-					returnList = new ArrayList<>();				
-					returnList.add(i);
-				}
-				else if(playerCardValue.getWeight() == highestCardValue.getWeight())
-				{
-					if(!returnList.contains(i))
-						returnList.add(i);
-				}
+		{
+			Card highestCard = useHighestCard ? players.get(winnerIndices.get(i)).getHighestCard() : players.get(winnerIndices.get(i)).getLowestCard();
+			Card winnerCard = useHighestCard ? players.get(returnList.get(0)).getHighestCard() : players.get(returnList.get(0)).getLowestCard();
+			if(highestCard.getValue().getWeight() > winnerCard.getValue().getWeight())
+			{
+				returnList = new ArrayList<>();
+				returnList.add(winnerIndices.get(i));
+			}
+			else if(highestCard.getValue().getWeight() == winnerCard.getValue().getWeight())
+			{
+				returnList.add(winnerIndices.get(i));
 			}
 		}
-	
+
+		return returnList;
+	}
+
+	private ArrayList<Integer> calculateWinnerBasedOnCalculatedCards(ArrayList<Integer> winnerIndices, boolean useHighestCard)
+	{
+		ArrayList<Integer> returnList = new ArrayList<>();
+		returnList.add(winnerIndices.get(0));
+
+		for(int i = 1; i < winnerIndices.size(); i++)
+		{
+			Card highestCard = useHighestCard ? players.get(winnerIndices.get(i)).getCalculatedHand().getHighestCard().get(0) : players.get(winnerIndices.get(i)).getCalculatedHand().getHighestCard().get(1);
+			Card winnerCard = useHighestCard ? players.get(returnList.get(0)).getCalculatedHand().getHighestCard().get(0) : players.get(returnList.get(0)).getCalculatedHand().getHighestCard().get(1);
+			if(highestCard.getValue().getWeight() > winnerCard.getValue().getWeight())
+			{
+				returnList = new ArrayList<>();
+				returnList.add(winnerIndices.get(i));
+			}
+			else if(highestCard.getValue().getWeight() == winnerCard.getValue().getWeight())
+			{
+				returnList.add(winnerIndices.get(i));
+			}
+		}
+
+		return returnList;
+	}
+
+	private ArrayList<Integer> calculateWinnerBasedOnStraight(ArrayList<Integer> winnerIndices)
+	{
+		ArrayList<Integer> returnList = new ArrayList<>();
+		returnList.add(winnerIndices.get(0));
+
+		for(int i = 1; i < winnerIndices.size(); i++)
+		{
+			Card highestCard = players.get(winnerIndices.get(i)).getCalculatedHand().getHighestCard().get(0);
+			Card winnerCard = players.get(returnList.get(0)).getCalculatedHand().getHighestCard().get(0);
+			if(highestCard.getValue().getWeight() > winnerCard.getValue().getWeight())
+			{
+				returnList = new ArrayList<>();
+				returnList.add(winnerIndices.get(i));
+			}
+			else if(highestCard.getValue().getWeight() == winnerCard.getValue().getWeight())
+			{
+				returnList.add(winnerIndices.get(i));
+			}
+		}
+
 		return returnList;
 	}
 	
 	private ArrayList<Integer> calculateWinnerIndices(ArrayList<Integer> winnerIndices, HandType handType)
 	{
 		if(winnerIndices.size() > 1)
-		{			
-			ArrayList<Integer> returnList = calculateWinnerBasedOnHighestCard(winnerIndices, 0);			
-			
-			if(returnList.size() > 1 && (handType == HandType.FULL_HOUSE || handType == HandType.TWO_PAIRS))
-			{
-				return calculateWinnerBasedOnHighestCard(returnList, 1);
-			}
-			else
-			{
-				return returnList;
+		{
+			ArrayList<Integer> winners = new ArrayList<>();
+			switch(handType) {
+				case FULL_HOUSE:
+					winners = calculateWinnerBasedOnCalculatedCards(winnerIndices, true);
+					return winners.size() > 1 ? calculateWinnerBasedOnCalculatedCards(winners, false) : winners;
+				case STRAIGHT:
+					winners = calculateWinnerBasedOnStraight(winnerIndices);
+					return winners.size() > 1 ? calculateWinnerBasedOnHighestCard(winners, true) : winners;
+				case THREE_OF_A_KIND:
+					winners = calculateWinnerBasedOnHighestCard(winnerIndices, true);
+					return winners.size() > 1 ? calculateWinnerBasedOnHighestCard(winners, false) : winners;
+				// rules state that three of a kind build with a pair in hand wins over a pair in board + one card from player deck
+				case TWO_PAIRS:
+					winners = calculateWinnerBasedOnCalculatedCards(winnerIndices, true);
+					return winners.size() > 1 ? calculateWinnerBasedOnCalculatedCards(winners, false) : winners;
+				default:
+					winners = calculateWinnerBasedOnHighestCard(winnerIndices, true);
+					return winners.size() > 1 ? calculateWinnerBasedOnHighestCard(winners, false) : winners;
 			}
 		}
 		else				
@@ -219,7 +268,7 @@ public class Calculation
 			ArrayList<Integer> returnList = new ArrayList<>();
 			returnList.add(winnerIndices.get(0));
 			return returnList;
-		}		
+		}
 	}
 
 	private ArrayList<Integer> getHandsFromPlayers(HandType handtype)

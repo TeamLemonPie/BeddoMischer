@@ -191,4 +191,29 @@ public class Player {
             setCardRight(card);
         }
 	}
+
+	public Card getHighestCard()
+	{
+		return cardLeft.getValue().getWeight() > cardRight.getValue().getWeight() ? cardLeft : cardRight;
+	}
+
+	public Card getLowestCard()
+	{
+		return cardLeft.getValue().getWeight() < cardRight.getValue().getWeight() ? cardLeft : cardRight;
+	}
+
+	@Override
+	public String toString() {
+		return "Player{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", twitchName='" + twitchName + '\'' +
+				", state=" + state +
+				", cardLeft=" + cardLeft +
+				", cardRight=" + cardRight +
+				", chips=" + chips +
+				", calculatedHand=" + calculatedHand +
+				", winprobability=" + winprobability +
+				'}';
+	}
 }
