@@ -154,7 +154,7 @@ public class Hand
 				CardValue nextValue = CardValue.fromWeight(currentCard.getValue().getWeight() - i);
 				if(!listContainsCardWithValue(cardList, nextValue))
 				{
-					//ace is allowed on first posiiton before a 2( Ace - 2 - 3 ...)
+					//ace is allowed on first position before a 2( Ace - 2 - 3 ...)
 					if(currentCard.getValue().getWeight() == 2 && listContainsCardWithValue(cardList, CardValue.ACE))
 					{
 						continue;
@@ -176,17 +176,18 @@ public class Hand
 
 	private Card detectStraight()
 	{
+		Card highestCard = Card.EMPTY;
 		for(ArrayList<ArrayList<Card>> listList : allLists)
 		{
 			for (ArrayList<Card> currentList : listList)
 			{
 				Card card = detectStraightFromCardList(currentList);
-				if (card != Card.EMPTY)
-					return card;
+				if (card.getValue().getWeight() > highestCard.getValue().getWeight())
+					highestCard = card;
 			}
 		}
 
-		return Card.EMPTY;
+		return highestCard;
 	}
 
 	private boolean detectFlushFromCardList(ArrayList<Card> cardList)
@@ -441,6 +442,9 @@ public class Hand
 
 	private boolean listContainsCardWithValue(ArrayList<Card> cards, CardValue value)
 	{
+		if(value == null)
+			return false;
+
 		for(Card currentCard : cards)
 		{
 			if(currentCard.getValue().getWeight() == value.getWeight())
