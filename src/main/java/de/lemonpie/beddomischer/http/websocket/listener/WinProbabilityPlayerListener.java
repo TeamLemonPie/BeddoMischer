@@ -105,4 +105,12 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 	@Override
 	public void chipsDidChange(Player player, int chips) {
 	}
+
+	@Override
+	public void smallBlindDidChange(int newValue) {
+	}
+
+	@Override
+	public void bigBlindDidChange(int newValue) {
+	}
 }

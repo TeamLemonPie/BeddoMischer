@@ -4,4 +4,8 @@ import de.lemonpie.beddomischer.model.card.Card;
 
 public interface BoardListener {
 	void cardDidChangeAtIndex(int index, Card card);
+
+	void smallBlindDidChange(int newValue);
+
+	void bigBlindDidChange(int newValue);
 }

@@ -20,5 +20,9 @@ function handleBoardCallback(command, key, value) {
             ghostCard.removeAttr("class");
         });
 
+    } else if (command === "small-blind") {
+        $("#small-blind").text(value);
+    } else if (command === "big-blind") {
+        $("#big-blind").text(value);
     }
 }

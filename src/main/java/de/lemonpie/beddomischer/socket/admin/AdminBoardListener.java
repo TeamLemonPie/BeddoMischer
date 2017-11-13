@@ -11,4 +11,12 @@ public class AdminBoardListener implements BoardListener {
 		CardSendCommand cardSendCommand = new CardSendCommand(index, card);
 		BeddoMischerMain.getControlServerSocket().writeAll(cardSendCommand);
 	}
+
+	@Override
+	public void smallBlindDidChange(int newValue) {
+	}
+
+	@Override
+	public void bigBlindDidChange(int newValue) {
+	}
 }

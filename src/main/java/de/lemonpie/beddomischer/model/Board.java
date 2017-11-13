@@ -16,6 +16,9 @@ public class Board {
     private List<BoardListener> listeners;
     private Card[] cards;
 
+	private int smallBlind;
+	private int bigBlind;
+
     public Board() {
         listeners = new LinkedList<>();
         cards = new Card[5];
@@ -54,8 +57,26 @@ public class Board {
         }
     }
 
-    public void addListener(BoardListener boardListener) {
-        this.listeners.add(boardListener);
+	public int getSmallBlind() {
+		return smallBlind;
+	}
+
+	public void setSmallBlind(int smallBlind) {
+		this.smallBlind = smallBlind;
+		fireListener(listener -> listener.smallBlindDidChange(smallBlind));
+	}
+
+	public int getBigBlind() {
+		return bigBlind;
+	}
+
+	public void setBigBlind(int bigBlind) {
+		this.bigBlind = bigBlind;
+		fireListener(listener -> listener.bigBlindDidChange(bigBlind));
+	}
+
+	public void addListener(BoardListener boardListener) {
+		this.listeners.add(boardListener);
     }
 
     public void removeListener(BoardListener boardListener) {

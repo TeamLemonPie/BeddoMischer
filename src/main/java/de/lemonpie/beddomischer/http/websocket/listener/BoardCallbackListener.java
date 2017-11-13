@@ -22,4 +22,18 @@ public class BoardCallbackListener implements BoardListener {
 				new JsonPrimitive(card.getName()));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
+
+	@Override
+	public void smallBlindDidChange(int newValue) {
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.BOARD, CommandName.SMALL_BLIND, -1,
+				new JsonPrimitive(newValue));
+		webSocketHandler.sendCommand(callbackCommand);
+	}
+
+	@Override
+	public void bigBlindDidChange(int newValue) {
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.BOARD, CommandName.BIG_BLIND, -1,
+				new JsonPrimitive(newValue));
+		webSocketHandler.sendCommand(callbackCommand);
+	}
 }
