@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class Board {
 
-    private List<BoardListener> listeners;
+    private transient List<BoardListener> listeners;
     private Card[] cards;
 
     private Set<Integer> readerIds;

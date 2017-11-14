@@ -43,7 +43,7 @@ public class DataSendCommand extends CommandData {
         for (int i = 0; i < b.getCards().length; i++) {
             JsonObject obj = new JsonObject();
             obj.addProperty("id", i);
-            obj.addProperty("card", b.getCard(i).toString());
+            obj.addProperty("card", b.getCard(i).getName());
             board.add(obj);
         }
 

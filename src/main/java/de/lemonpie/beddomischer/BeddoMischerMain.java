@@ -22,6 +22,8 @@ import de.lemonpie.beddomischer.socket.admin.AdminBoardListener;
 import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
+import de.lemonpie.beddomischer.storage.BoardSerializer;
+import de.lemonpie.beddomischer.storage.StorageBoardListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
@@ -80,7 +82,7 @@ public class BeddoMischerMain {
 		}
 
 		players = new PlayerList();
-		board = new Board();
+		board = BoardSerializer.loadBoard();
 		blockOption = BlockOption.NONE;
 
 		countdownListeners = new LinkedList<>();
@@ -133,8 +135,6 @@ public class BeddoMischerMain {
 		players.addListener(new AdminPlayerListListener());
 		players.addListener(new StoragePlayerListListener());
 
-		board.addListener(new AdminBoardListener());
-
 		addCountdownListener(new WebSocketCountdownListener(webSocketHandler));
 
 		// Load data from database
@@ -173,6 +173,8 @@ public class BeddoMischerMain {
 	private static void initBoardListener() {
 		board.addListener(new BoardCallbackListener(webSocketHandler));
 		board.addListener(new WinProbabilityPlayerListener(webSocketHandler));
+		board.addListener(new AdminBoardListener());
+		board.addListener(new StorageBoardListener());
 	}
 
 	public static ControlServerSocket getRfidServerSocket() {
