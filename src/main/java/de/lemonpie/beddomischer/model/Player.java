@@ -37,6 +37,9 @@ public class Player {
 	@DatabaseField
 	private int chips;
 
+	@DatabaseField
+	private int readerId = BeddoMischerMain.READER_NULL_ID;
+
 	private CalculatedHand calculatedHand;
 	private int winprobability;
 
@@ -140,6 +143,15 @@ public class Player {
 		this.calculatedHand = calculatedHand;
 	}
 
+	public int getReaderId() {
+		return readerId;
+	}
+
+	public void setReaderId(int readerId) {
+		this.readerId = readerId;
+		fireListener(listener -> listener.readerIdDidChange(this, readerId));
+	}
+
 	public void addListener(PlayerListener playerListener) {
 		this.listeners.add(playerListener);
 	}
@@ -205,13 +217,15 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player{" +
-				"id=" + id +
+				"listeners=" + listeners +
+				", id=" + id +
 				", name='" + name + '\'' +
 				", twitchName='" + twitchName + '\'' +
 				", state=" + state +
 				", cardLeft=" + cardLeft +
 				", cardRight=" + cardRight +
 				", chips=" + chips +
+				", readerId=" + readerId +
 				", calculatedHand=" + calculatedHand +
 				", winprobability=" + winprobability +
 				'}';

@@ -5,9 +5,7 @@ import de.lemonpie.beddomischer.listener.BoardListener;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.validator.CardValidator;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -16,12 +14,15 @@ public class Board {
     private List<BoardListener> listeners;
     private Card[] cards;
 
+    private Set<Integer> readerIds;
+
 	private int smallBlind;
 	private int bigBlind;
 
     public Board() {
         listeners = new LinkedList<>();
         cards = new Card[5];
+        readerIds = new HashSet<>();
 
         Arrays.fill(cards, Card.EMPTY);
     }
@@ -73,6 +74,18 @@ public class Board {
 	public void setBigBlind(int bigBlind) {
 		this.bigBlind = bigBlind;
 		fireListener(listener -> listener.bigBlindDidChange(bigBlind));
+	}
+
+	public Set<Integer> getReaderIds() {
+		return readerIds;
+	}
+
+	public void addReaderId(int readerId) {
+    	readerIds.add(readerId);
+	}
+
+	public void removeReaderId(int readerId) {
+    	readerIds.remove(readerId);
 	}
 
 	public void addListener(BoardListener boardListener) {

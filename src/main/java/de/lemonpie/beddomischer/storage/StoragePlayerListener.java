@@ -37,7 +37,16 @@ public class StoragePlayerListener implements PlayerListener {
         }
     }
 
-    @Override
+	@Override
+	public void readerIdDidChange(Player player, int readerId) {
+		try {
+			BeddoMischerMain.getPlayerDao().update(player);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	public void cardDidChangeAtIndex(Player player, int index, Card card) {
 		try {
             BeddoMischerMain.getPlayerDao().update(player);

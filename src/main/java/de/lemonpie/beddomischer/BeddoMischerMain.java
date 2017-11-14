@@ -11,9 +11,10 @@ import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
 import de.lemonpie.beddomischer.http.websocket.listener.WebSocketCountdownListener;
 import de.lemonpie.beddomischer.http.websocket.listener.WinProbabilityPlayerListener;
 import de.lemonpie.beddomischer.listener.CountdownListener;
-import de.lemonpie.beddomischer.model.*;
-import de.lemonpie.beddomischer.model.reader.BoardCardReader;
-import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
+import de.lemonpie.beddomischer.model.BlockOption;
+import de.lemonpie.beddomischer.model.Board;
+import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.PlayerList;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
@@ -21,7 +22,6 @@ import de.lemonpie.beddomischer.socket.admin.AdminBoardListener;
 import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
-import de.lemonpie.beddomischer.storage.StorageCardReaderListListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
@@ -41,12 +41,12 @@ import static spark.Spark.*;
 
 public class BeddoMischerMain {
 
+	public static final int READER_NULL_ID = -3;
+
 	private static PlayerList players;
 	private static Board board;
 
 	private static BlockOption blockOption;
-
-	private static CardReaderList cardReaders;
 
 	private static long countdownEndTime;
 	private static List<CountdownListener> countdownListeners;
@@ -66,8 +66,6 @@ public class BeddoMischerMain {
 	}
 
 	private static Dao<Player, Integer> playerDao;
-	private static Dao<BoardCardReader, Integer> boardCardReaderDao;
-	private static Dao<PlayerCardReader, Integer> playerCardReaderDao;
 
 	public static void main(String[] args) throws SQLException {
 		Path settingsPath = Paths.get("settings.properties");
@@ -84,7 +82,6 @@ public class BeddoMischerMain {
 		players = new PlayerList();
 		board = new Board();
 		blockOption = BlockOption.NONE;
-		cardReaders = new CardReaderList();
 
 		countdownListeners = new LinkedList<>();
 
@@ -105,11 +102,7 @@ public class BeddoMischerMain {
 		final JdbcConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl);
 
 		playerDao = DaoManager.createDao(connectionSource, Player.class);
-		boardCardReaderDao = DaoManager.createDao(connectionSource, BoardCardReader.class);
-		playerCardReaderDao = DaoManager.createDao(connectionSource, PlayerCardReader.class);
 		TableUtils.createTableIfNotExists(connectionSource, Player.class);
-		TableUtils.createTableIfNotExists(connectionSource, BoardCardReader.class);
-		TableUtils.createTableIfNotExists(connectionSource, PlayerCardReader.class);
 
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			try {
@@ -142,16 +135,11 @@ public class BeddoMischerMain {
 
 		board.addListener(new AdminBoardListener());
 
-		cardReaders.addListener(new StorageCardReaderListListener());
-
 		addCountdownListener(new WebSocketCountdownListener(webSocketHandler));
 
 		// Load data from database
 		players.addAll(playerDao.queryForAll());
 		players.updateListener();
-
-		cardReaders.addAll(boardCardReaderDao.queryForAll());
-		cardReaders.addAll(playerCardReaderDao.queryForAll());
 
 		get("/countdown", new CountdownHandler(false), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/countdown_transparent", new CountdownHandler(true), new FreeMarkerEngine(freeMarkerConfiguration));
@@ -164,14 +152,6 @@ public class BeddoMischerMain {
 
 	public static Dao<Player, Integer> getPlayerDao() {
 		return playerDao;
-	}
-
-	public static Dao<BoardCardReader, Integer> getBoardCardReaderDao() {
-		return boardCardReaderDao;
-	}
-
-	public static Dao<PlayerCardReader, Integer> getPlayerCardReaderDao() {
-		return playerCardReaderDao;
 	}
 
 	public static PlayerList getPlayers() {
@@ -201,10 +181,6 @@ public class BeddoMischerMain {
 
 	public static ControlServerSocket getControlServerSocket() {
 		return controlServerSocket;
-	}
-
-	public static CardReaderList getCardReaders() {
-		return cardReaders;
 	}
 
 	/*

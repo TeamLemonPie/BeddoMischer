@@ -2,12 +2,11 @@ package de.lemonpie.beddomischer.socket.admin.command.send;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.model.reader.BoardCardReader;
-import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
 import de.lemonpie.beddomischer.socket.CommandData;
 
 public class DataSendCommand extends CommandData {
@@ -18,7 +17,7 @@ public class DataSendCommand extends CommandData {
         JsonObject data = new JsonObject();
         JsonArray players = new JsonArray();
         JsonArray board = new JsonArray();
-        JsonArray reader = new JsonArray();
+        JsonArray boardReader = new JsonArray();
 
         // Serialize player
         BeddoMischerMain.getPlayers().forEach(player -> {
@@ -34,6 +33,8 @@ public class DataSendCommand extends CommandData {
 			obj.addProperty("cardLeft", player.getCardLeft().getName());
 			obj.addProperty("cardRight", player.getCardRight().getName());
 
+			obj.addProperty("readerId", player.getReaderId());
+
             players.add(obj);
         });
 
@@ -46,23 +47,13 @@ public class DataSendCommand extends CommandData {
             board.add(obj);
         }
 
-        // Serialize reader
-        BeddoMischerMain.getCardReaders().forEach(r -> {
-            JsonObject obj = new JsonObject();
-            obj.addProperty("readerId", r.getReaderId());
-            if (r instanceof BoardCardReader) {
-                obj.addProperty("type", "board");
-            } else if (r instanceof PlayerCardReader) {
-                obj.addProperty("type", "player");
-                obj.addProperty("playerId", ((PlayerCardReader) r).getPlayerId());
-            }
-
-            reader.add(obj);
-        });
+        for (int readerId : b.getReaderIds()) {
+        	boardReader.add(new JsonPrimitive(readerId));
+		}
 
         data.add("players", players);
         data.add("board", board);
-        data.add("reader", reader);
+        data.add("board-reader", boardReader);
 
         setValue(data);
     }

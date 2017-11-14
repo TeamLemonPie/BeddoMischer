@@ -4,7 +4,6 @@ import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.model.reader.PlayerCardReader;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.reader.ClearSendCommand;
@@ -39,20 +38,18 @@ public class ClearReadCommand implements Command {
 			Stream.of(board.getCards()).forEach(CardValidator.getInstance()::clear);
 			board.clearCards();
 
-			BeddoMischerMain.getBoardCardReaderDao().forEach(r -> {
-				ClearSendCommand forwardCommandData = new ClearSendCommand(key);
+			BeddoMischerMain.getBoard().getReaderIds().forEach(r -> {
+				ClearSendCommand forwardCommandData = new ClearSendCommand(r);
 				BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 			});
 		} else {
-			BeddoMischerMain.getCardReaders().getCardReader(key).ifPresent(reader -> {
-				if (reader instanceof PlayerCardReader) {
-					int playerId = ((PlayerCardReader) reader).getPlayerId();
-					BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(player -> {
-						CardValidator.getInstance().clear(player.getCardLeft(), player.getCardRight());
-						player.clearCards();
-					});
+			BeddoMischerMain.getPlayers().forEach(player -> {
+				if (player.getReaderId() == key) {
+					CardValidator.getInstance().clear(player.getCardLeft(), player.getCardRight());
+					player.clearCards();
 				}
 			});
+
 			ClearSendCommand forwardCommandData = new ClearSendCommand(key);
 			BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 		}
