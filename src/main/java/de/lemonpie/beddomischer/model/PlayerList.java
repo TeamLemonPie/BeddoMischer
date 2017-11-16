@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.model;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListListener;
+import logger.Logger;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -23,7 +24,7 @@ public class PlayerList implements Iterable<Player> {
                 BeddoMischerMain.getPlayerDao().create(player);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
         fireListener(l -> l.addPlayer(player));
 		return data.add(player) ? player : null;

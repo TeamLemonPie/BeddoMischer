@@ -27,10 +27,16 @@ import de.lemonpie.beddomischer.storage.StorageBoardListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
+import logger.FileOutputMode;
+import logger.LogLevel;
+import logger.Logger;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
+import tools.PathUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,13 +69,33 @@ public class BeddoMischerMain {
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 	}
 
 	private static Dao<Player, Integer> playerDao;
 
+	private static void prepareLogger()
+	{
+		Logger.setLevel(LogLevel.ALL);
+
+		try
+		{
+			File logFolder = Paths.get(BeddoMischerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent().toFile();
+			PathUtils.checkFolder(logFolder);
+			Logger.enableFileOutput(logFolder, System.out, System.err, FileOutputMode.COMBINED);
+		}
+		catch(URISyntaxException e1)
+		{
+			Logger.error(e1);
+		}
+
+		Logger.appInfo("BeddoMischer", "1.0.0", "1", "16.11.17");
+	}
+
 	public static void main(String[] args) throws SQLException {
+		prepareLogger();
+
 		Path settingsPath = Paths.get("settings.properties");
 		Settings settings = new Settings();
 		try {
@@ -78,7 +104,7 @@ public class BeddoMischerMain {
 			}
 			settings = SettingsHandler.loader().load(settingsPath);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 
 		players = new PlayerList();
@@ -90,13 +116,13 @@ public class BeddoMischerMain {
 		try {
 			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 
 		try {
 			controlServerSocket = new AdminServerSocket(settings.controlInterface(), settings.controlPort());
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 
 		// Setup jdbc
@@ -110,7 +136,7 @@ public class BeddoMischerMain {
 			try {
 				connectionSource.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}));
 
@@ -118,7 +144,7 @@ public class BeddoMischerMain {
 		port(settings.httpPort());
 
 		exception(Exception.class, (exception, req, res) -> {
-			exception.printStackTrace();
+			Logger.error(exception);
 			Spark.halt(500, "internal error: " + exception.getLocalizedMessage());
 		});
 

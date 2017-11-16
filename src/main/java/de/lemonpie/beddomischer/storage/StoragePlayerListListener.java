@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer.storage;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListListener;
 import de.lemonpie.beddomischer.model.Player;
+import logger.Logger;
 
 import java.sql.SQLException;
 
@@ -17,7 +18,7 @@ public class StoragePlayerListListener implements PlayerListListener {
         try {
             BeddoMischerMain.getPlayerDao().delete(player);
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
     }
 }

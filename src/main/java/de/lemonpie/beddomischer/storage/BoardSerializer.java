@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.storage;
 
 import com.google.gson.Gson;
 import de.lemonpie.beddomischer.model.Board;
+import logger.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +22,7 @@ public class BoardSerializer {
 		try {
 			Files.write(path, s.getBytes(), StandardOpenOption.CREATE);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 	}
 
@@ -34,7 +35,7 @@ public class BoardSerializer {
 			try {
 				board = gson.fromJson(Files.newBufferedReader(path), Board.class);
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 		return board;

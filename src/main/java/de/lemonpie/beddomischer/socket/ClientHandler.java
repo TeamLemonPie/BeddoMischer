@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.socket;
 
 import com.google.gson.Gson;
+import logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class ClientHandler implements Runnable {
 		try {
 			while ((line = inputStream.readLine()) != null) {
 				// Handle line
-				System.out.printf("[%s]: %s\n", socket.getRemoteSocketAddress(), line);
+				Logger.info("[" + socket.getRemoteSocketAddress() + "]: " + line + "\n");
 
 				CommandData commandData = gson.fromJson(line, CommandData.class);
 
@@ -67,12 +68,12 @@ public class ClientHandler implements Runnable {
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("Connection closed: " + e.getMessage());
+			Logger.info("Connection closed: " + e.getMessage());
 		} finally {
 			try {
 				close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 	}
@@ -81,6 +82,6 @@ public class ClientHandler implements Runnable {
 		outputStream.close();
 		inputStream.close();
 		socket.close();
-		System.out.printf("[%s]: Connection closed\n", socket.getRemoteSocketAddress());
+		Logger.info("[" + socket.getRemoteSocketAddress() + "]: Connection closed\n");
 	}
 }

@@ -1,5 +1,7 @@
 package de.lemonpie.beddomischer.socket;
 
+import logger.Logger;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class ConnectionHandler implements Runnable {
 		try {
 			Socket socket;
 			while ((socket = serverSocket.getServerSocket().accept()) != null) {
-				System.out.printf("[%s]: Connection established\n", socket.getRemoteSocketAddress());
+				Logger.info("[" + socket.getRemoteSocketAddress() + "]: Connection established\n");
 
 				// Handle Client
 				ClientHandler clientHandler = new ClientHandler(socket, serverSocket);
@@ -51,7 +53,7 @@ public class ConnectionHandler implements Runnable {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 	}
 

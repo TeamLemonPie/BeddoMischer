@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.http.websocket;
 
 import com.google.gson.Gson;
+import logger.Logger;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -39,7 +40,7 @@ public class WebSocketHandler {
 			try {
 				session.getRemote().sendString(json);
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		});
 	}

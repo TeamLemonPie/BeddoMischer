@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.validator;
 
 import de.lemonpie.beddomischer.model.card.Card;
+import logger.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +56,7 @@ public class CardValidator {
 					return true;
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 		return false;
