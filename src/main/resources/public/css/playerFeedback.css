@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111111;
+}
+
+#table-main {
+	width: 90vw;
+	height: 90vh;
+	margin: auto;
+	margin-top: 5vh;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.spacer {
+    width: 7.5vw;
+}
+
+.player {
+    width: 20vw;
+    height: 12vh;
+    background-color: #444444;
+    border-radius: 10px;
+    margin: auto;
+    padding: 2vmin;
+}
+
+.table-player {
+    width: 100%;
+}
+
+.player-name {
+    font-size: 4.5vmin;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: bold;
+    font-family: Tahoma, serif;
+}
+
+.red {
+    height: 3vh;
+    display: block;
+    background-color: #FF0000;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.player-spacer {
+    width: 2vw;
+}
+
+.player-spacer-line {
+    height: 2vh;
+}
+
+.hide {
+    display: none;
+}
