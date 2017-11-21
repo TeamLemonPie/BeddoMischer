@@ -57,3 +57,19 @@ body {
 .hide {
     display: none;
 }
+
+.countdown-text {
+	font-size: 6vmin;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: Tahoma, serif;
+}
+
+.countdown {
+	font-size: 13vmin;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: bold;
+    font-family: Tahoma, serif;
+	margin-top: 5vh;
+}
