@@ -40,7 +40,7 @@ public class ConnectionHandler implements Runnable {
 		try {
 			Socket socket;
 			while ((socket = serverSocket.getServerSocket().accept()) != null) {
-				Logger.info("[" + socket.getRemoteSocketAddress() + "]: Connection established\n");
+				Logger.info("[" + socket.getRemoteSocketAddress() + "]: Connection established");
 
 				// Handle Client
 				ClientHandler clientHandler = new ClientHandler(socket, serverSocket);

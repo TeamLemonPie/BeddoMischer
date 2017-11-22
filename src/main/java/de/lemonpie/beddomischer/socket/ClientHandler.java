@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable {
 		try {
 			while ((line = inputStream.readLine()) != null) {
 				// Handle line
-				Logger.info("[" + socket.getRemoteSocketAddress() + "]: " + line + "\n");
+				Logger.info("[" + socket.getRemoteSocketAddress() + "]: " + line);
 
 				CommandData commandData = gson.fromJson(line, CommandData.class);
 
@@ -82,6 +82,6 @@ public class ClientHandler implements Runnable {
 		outputStream.close();
 		inputStream.close();
 		socket.close();
-		Logger.info("[" + socket.getRemoteSocketAddress() + "]: Connection closed\n");
+		Logger.info("[" + socket.getRemoteSocketAddress() + "]: Connection closed");
 	}
 }
