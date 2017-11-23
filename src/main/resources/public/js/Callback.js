@@ -30,12 +30,6 @@ function onLoad() {
             } finally {
             }
 
-            try {
-                handlePlayerFeedbackCallback(data.command, data.key, data.value);
-            } catch (e) {
-            } finally {
-            }
-
         } else if (data.scope === "BOARD") {
             try {
                 handleBoardCallback(data.command, data.key, data.value);
@@ -54,6 +48,7 @@ function onLoad() {
             } catch (e) {
             } finally {
             }
+        } else if (data.scope === "PLAYER_FEEDBACK") {
 
             try {
                 handlePlayerFeedbackCallback(data.command, data.key, data.value);

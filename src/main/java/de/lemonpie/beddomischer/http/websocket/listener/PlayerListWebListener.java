@@ -19,7 +19,7 @@ public class PlayerListWebListener implements PlayerListListener {
     @Override
     public void addPlayer(Player player) {
 		// Add listener
-		player.addListener(new PlayerCallbackListener(player, webSocket));
+		player.addListener(new PlayerCallbackListener(webSocket));
 		player.addListener(new WinProbabilityPlayerListener(webSocket));
 
 		// Send new player command to websocket

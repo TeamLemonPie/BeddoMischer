@@ -222,7 +222,7 @@ public class BeddoMischerMain {
 	}
 
 	public static long getPauseStartTime() {
-		return pauseEndTime;
+		return pauseStartTime;
 	}
 
 	public static void setPauseStartTime(long pauseStartTime) {

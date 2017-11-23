@@ -13,11 +13,9 @@ import de.lemonpie.beddomischer.model.card.Card;
 
 public class PlayerCallbackListener implements PlayerListener {
 
-	private Player player;
 	private WebSocketHandler webSocketHandler;
 
-	public PlayerCallbackListener(Player player, WebSocketHandler webSocketHandler) {
-		this.player = player;
+	public PlayerCallbackListener(WebSocketHandler webSocketHandler) {
 		this.webSocketHandler = webSocketHandler;
 	}
 
@@ -26,6 +24,10 @@ public class PlayerCallbackListener implements PlayerListener {
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_NAME, player.getId(),
 				new JsonPrimitive(name));
 		webSocketHandler.sendCommand(callbackCommand);
+
+		CallbackCommand callbackFeedbackCommand = new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.PLAYER_NAME, player.getId(),
+				new JsonPrimitive(name));
+		webSocketHandler.sendCommand(callbackFeedbackCommand);
 	}
 
 	@Override
@@ -53,6 +55,9 @@ public class PlayerCallbackListener implements PlayerListener {
 		jsonObject.addProperty("index", index);
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.CARD, player.getId(), jsonObject);
 		webSocketHandler.sendCommand(callbackCommand);
+
+		CallbackCommand feedbackCallbackCommand = new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.CARD, player.getId(), new JsonPrimitive(player.getCardLeft() != Card.EMPTY && player.getCardRight() != Card.EMPTY));
+		webSocketHandler.sendCommand(feedbackCallbackCommand);
 	}
 
 	@Override

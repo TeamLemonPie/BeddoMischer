@@ -24,7 +24,8 @@ public class PlayerFeedbackGetHandler implements TemplateViewRoute {
 		for (Player player : players) {
 			playerModel.add(player.toMap());
 		}
-
+		long countdownEndTime = BeddoMischerMain.getPauseStartTime();
+		model.put("time", countdownEndTime);
 		model.put("players", playerModel);
 		return new ModelAndView(model, "PlayerFeedback.ftl");
 	}

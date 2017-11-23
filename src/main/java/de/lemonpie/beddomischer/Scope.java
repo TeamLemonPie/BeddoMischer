@@ -9,5 +9,6 @@ public enum Scope {
 	PLAYER,
     BOARD,
 	CHIP,
+	PLAYER_FEEDBACK,
 	COUNTDOWN
 }

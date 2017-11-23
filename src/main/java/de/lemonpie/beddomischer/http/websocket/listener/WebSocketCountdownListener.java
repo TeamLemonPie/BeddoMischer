@@ -23,7 +23,7 @@ public class WebSocketCountdownListener implements CountdownListener {
 
 	@Override
 	public void gameCountdownDidChange(long value) {
-		CallbackCommand callbackCommand = new CallbackCommand(Scope.COUNTDOWN, CommandName.NEXT_PAUSE, -1, new JsonPrimitive(value));
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.NEXT_PAUSE, -1, new JsonPrimitive(value));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
 }

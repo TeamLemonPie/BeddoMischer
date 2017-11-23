@@ -18,7 +18,7 @@
         </td>
         <td colspan="3" rowspan="2" class="countdown-text">
             <div class="countdown-text">nächste Pause:</div>
-            <div class="countdown" id="countdown">08:32</div>
+            <div class="countdown" id="countdown" data="${time?c}">00:00</div>
         </td>
         <td colspan="2">
             <div class="player">
@@ -64,14 +64,14 @@
 </html>
 
 <#macro player id>
-<table class="table-player" id="player-${id}">
+<table class="table-player" id="player-<#if id < players?size>${players[id].id}<#else>-${id}</#if>">
     <tr>
         <td class="player-name"><#if id < players?size>${players[id].name}</#if></td>
     </tr>
     <tr class="player-spacer-line"></tr>
     <tr>
         <td>
-            <div class="<#if id < players?size && players[id].card1 == "back" && players[id].card2 == "back">red<#else></#if>"></div>
+            <div class="card <#if id < players?size && players[id].card1 == "back" && players[id].card2 == "back">red<#else></#if>"></div>
         </td>
     </tr>
 </table>
