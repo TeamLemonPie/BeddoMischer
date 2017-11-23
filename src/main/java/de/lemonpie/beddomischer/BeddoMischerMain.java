@@ -173,6 +173,7 @@ public class BeddoMischerMain {
 		get("/chips/:id", new ChipGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/player", new PlayerListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/player/:id", new PlayerGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
+		get("/player_feedback", new PlayerFeedbackGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 
