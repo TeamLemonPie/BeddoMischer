@@ -1,5 +1,7 @@
 package de.lemonpie.beddomischer.listener;
 
 public interface CountdownListener {
-	void countdownDidChange(long value);
+	void pauseCountdownDidChange(long value);
+
+	void gameCountdownDidChange(long value);
 }

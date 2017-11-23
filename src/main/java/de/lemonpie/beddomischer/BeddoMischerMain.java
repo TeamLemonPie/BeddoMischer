@@ -56,7 +56,8 @@ public class BeddoMischerMain {
 
 	private static BlockOption blockOption;
 
-	private static long countdownEndTime;
+	private static long pauseEndTime;
+	private static long pauseStartTime;
 	private static List<CountdownListener> countdownListeners;
 
 	private static WebSocketHandler webSocketHandler;
@@ -75,18 +76,14 @@ public class BeddoMischerMain {
 
 	private static Dao<Player, Integer> playerDao;
 
-	private static void prepareLogger()
-	{
+	private static void prepareLogger() {
 		Logger.setLevel(LogLevel.ALL);
 
-		try
-		{
+		try {
 			File logFolder = Paths.get(BeddoMischerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent().toFile();
 			PathUtils.checkFolder(logFolder);
 			Logger.enableFileOutput(logFolder, System.out, System.err, FileOutputMode.COMBINED);
-		}
-		catch(URISyntaxException e1)
-		{
+		} catch (URISyntaxException e1) {
 			Logger.error(e1);
 		}
 
@@ -215,13 +212,22 @@ public class BeddoMischerMain {
 	/*
 	Countdown
 	 */
-	public static long getCountdownEndTime() {
-		return countdownEndTime;
+	public static long getPauseEndTime() {
+		return pauseEndTime;
 	}
 
-	public static void setCountdownEndTime(long countdownEndTime) {
-		BeddoMischerMain.countdownEndTime = countdownEndTime;
-		fireListener(l -> l.countdownDidChange(countdownEndTime));
+	public static void setPauseEndTime(long pauseEndTime) {
+		BeddoMischerMain.pauseEndTime = pauseEndTime;
+		fireListener(l -> l.pauseCountdownDidChange(pauseEndTime));
+	}
+
+	public static long getPauseStartTime() {
+		return pauseEndTime;
+	}
+
+	public static void setPauseStartTime(long pauseStartTime) {
+		BeddoMischerMain.pauseStartTime = pauseStartTime;
+		fireListener(l -> l.gameCountdownDidChange(pauseStartTime));
 	}
 
 	public static void addCountdownListener(CountdownListener countdownListener) {

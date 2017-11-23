@@ -22,6 +22,6 @@ public class ReaderServerSocket extends ControlServerSocket {
 
 	@Override
 	protected void init() {
-		addCommand(new CardCommand());
+		addCommand(new CardReadCommand());
 	}
 }

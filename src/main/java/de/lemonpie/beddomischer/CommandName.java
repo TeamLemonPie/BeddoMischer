@@ -18,7 +18,8 @@ public enum CommandName {
 
 	DATA("data"),
 
-	COUNTDOWN("countdown"),
+	PAUSE("pause"),
+	NEXT_PAUSE("next-pause"),
 
 	SMALL_BLIND("small-blind"),
 	BIG_BLIND("big-blind");

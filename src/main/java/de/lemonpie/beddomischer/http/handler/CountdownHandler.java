@@ -24,7 +24,7 @@ public class CountdownHandler implements TemplateViewRoute {
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 
-		long countdownEndTime = BeddoMischerMain.getCountdownEndTime();
+		long countdownEndTime = BeddoMischerMain.getPauseEndTime();
 		long currentTime = System.currentTimeMillis();
 
 		long difference = countdownEndTime - currentTime;

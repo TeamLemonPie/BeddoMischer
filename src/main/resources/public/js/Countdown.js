@@ -6,7 +6,11 @@ var x;
 
 function startCountdown(time) {
     var countDownDate = new Date(parseInt(time));
-    document.getElementById("countdown-endtime").innerHTML = countDownDate.getHours() + ":" + countDownDate.getMinutes();
+    try {
+        document.getElementById("countdown-endtime").innerHTML = countDownDate.getHours() + ":" + countDownDate.getMinutes();
+    } catch (e) {
+    } finally {
+    }
 
     // Update the count down every 1 second
     x = setInterval(function () {
@@ -18,7 +22,8 @@ function startCountdown(time) {
         var distance = countDownDate.getTime() - now;
 
         // Time calculations for days, hours, minutes and seconds
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 60)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + hours * 60;
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Display the result in the element with id="demo"

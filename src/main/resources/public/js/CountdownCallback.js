@@ -1,4 +1,6 @@
 function handleCountdownCallback(command, key, value) {
-    clearInterval(x);
-    startCountdown(value);
+    if (command === "pause") {
+        clearInterval(x);
+        startCountdown(value);
+    }
 }

@@ -11,16 +11,16 @@ import de.lemonpie.beddomischer.socket.CommandData;
  * <code>key = reader id</code>
  * <code>value = card-code</code>
  */
-public class CardCommand implements Command {
+public class CardReadCommand implements Command {
 	@Override
-    public CommandName name() {
-        return CommandName.CARD;
-    }
+	public CommandName name() {
+		return CommandName.CARD;
+	}
 
 	@Override
 	public void execute(CommandData command) {
-        int readerId = command.getKey();
-        String cardCode = command.getValue().getAsJsonPrimitive().getAsString();
+		int readerId = command.getKey();
+		String cardCode = command.getValue().getAsJsonPrimitive().getAsString();
 		Card card = Card.fromString(cardCode);
 
 		BeddoMischerMain.getPlayers().forEach(player -> {

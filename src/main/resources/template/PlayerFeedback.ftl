@@ -4,10 +4,10 @@
     <link rel="stylesheet" href="css/playerFeedback.css">
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/Callback.js"></script>
+    <script src="js/Countdown.js"></script>
     <script src="js/PlayerFeedbackCallback.js"></script>
 </head>
-<#--<body onload="onLoad()">-->
-<body>
+<body onload="onLoad()">
 <#-- @ftlvariable name="players" type="java.util.List<de.lemonpie.beddomischer.model.Player>" -->
 <table id="table-main">
     <tr>
@@ -18,7 +18,7 @@
         </td>
         <td colspan="3" rowspan="2" class="countdown-text">
             <div class="countdown-text">nächste Pause:</div>
-            <div class="countdown">08:32</div>
+            <div class="countdown" id="countdown">08:32</div>
         </td>
         <td colspan="2">
             <div class="player">

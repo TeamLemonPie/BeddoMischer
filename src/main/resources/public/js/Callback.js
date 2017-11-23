@@ -29,6 +29,13 @@ function onLoad() {
             } catch (e) {
             } finally {
             }
+
+            try {
+                handlePlayerFeedbackCallback(data.command, data.key, data.value);
+            } catch (e) {
+            } finally {
+            }
+
         } else if (data.scope === "BOARD") {
             try {
                 handleBoardCallback(data.command, data.key, data.value);
@@ -44,6 +51,12 @@ function onLoad() {
         } else if (data.scope === "COUNTDOWN") {
             try {
                 handleCountdownCallback(data.command, data.key, data.value);
+            } catch (e) {
+            } finally {
+            }
+
+            try {
+                handlePlayerFeedbackCallback(data.command, data.key, data.value);
             } catch (e) {
             } finally {
             }
