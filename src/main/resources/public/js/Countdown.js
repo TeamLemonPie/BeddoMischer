@@ -7,7 +7,7 @@ var x;
 function startCountdown(time) {
     var countDownDate = new Date(parseInt(time));
     try {
-        document.getElementById("countdown-endtime").innerHTML = countDownDate.getHours() + ":" + countDownDate.getMinutes();
+        document.getElementById("countdown-endtime").innerHTML = pad(countDownDate.getHours(), 2) + ":" + pad(countDownDate.getMinutes(), 2);
     } catch (e) {
     } finally {
     }
