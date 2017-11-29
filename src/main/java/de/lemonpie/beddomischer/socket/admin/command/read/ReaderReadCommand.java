@@ -34,6 +34,8 @@ public class ReaderReadCommand implements Command {
 					player.setReaderId(readerId);
 				});
             } else if (type == 1) { // BOARD
+                int oldReaderId = value.get("oldReaderId").getAsInt();
+                BeddoMischerMain.getBoard().removeReaderId(oldReaderId);
 				BeddoMischerMain.getBoard().addReaderId(readerId);
             }
         }
