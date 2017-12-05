@@ -47,6 +47,10 @@ public class ConnectionHandler implements Runnable {
 				clientHandler.start();
 				clientHandlers.add(clientHandler);
 
+				if (serverSocket.getSocketListener() != null) {
+					serverSocket.getSocketListener().connectionEstablished(socket);
+				}
+
 				// Stop Thread
 				if (thread.isInterrupted()) {
 					break;

@@ -19,6 +19,8 @@ public abstract class ControlServerSocket implements Closeable {
 	private ServerSocket serverSocket;
 	private ConnectionHandler connectionHandler;
 
+	private SocketListener socketListener;
+
 	public ControlServerSocket(String host, int port) throws IOException {
 		this(new InetSocketAddress(host, port));
 	}
@@ -40,8 +42,15 @@ public abstract class ControlServerSocket implements Closeable {
 
 	protected abstract void init();
 
+	public SocketListener getSocketListener() {
+		return socketListener;
+	}
 
-    public void writeAll(CommandData command) {
+	public void setSocketListener(SocketListener socketListener) {
+		this.socketListener = socketListener;
+	}
+
+	public void writeAll(CommandData command) {
         Gson gson = new Gson();
         writeAll(gson.toJson(command));
     }
@@ -75,5 +84,9 @@ public abstract class ControlServerSocket implements Closeable {
 
     public Map<CommandName, Command> getCommands() {
         return commands;
+	}
+
+	public int count() {
+		return connectionHandler.getClientHandlers().size();
 	}
 }

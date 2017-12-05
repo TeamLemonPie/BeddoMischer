@@ -101,7 +101,7 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 
     @Override
 	public void winProbabilityDidChange(Player player, int value) {
-		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.WINPROBABILITY, player.getId(),
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.WIN_PROBABILITY, player.getId(),
 				new JsonPrimitive(value));
 		webSocketHandler.sendCommand(callbackCommand);
 	}

@@ -55,6 +55,8 @@ public class DataSendCommand extends CommandData {
         data.add("board", board);
         data.add("board-reader", boardReader);
 
+		data.addProperty("reader-count", BeddoMischerMain.getRfidServerSocket().count());
+
         setValue(data);
     }
 }
