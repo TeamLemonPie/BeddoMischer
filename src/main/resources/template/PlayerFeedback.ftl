@@ -17,7 +17,7 @@
             </div>
         </td>
         <td colspan="3" rowspan="2" class="countdown-text">
-            <div class="countdown-text">nächste Pause:</div>
+            <div class="countdown-text" id="countdown-description">nächste Pause:</div>
             <div class="countdown" id="countdown" data="${time?c}">00:00</div>
         </td>
         <td colspan="2">

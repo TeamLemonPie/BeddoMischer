@@ -4,13 +4,18 @@ $(document).ready(function () {
 
 var x;
 
-function startCountdown(time) {
+function startCountdown(time, warn = false) {
     var countDownDate = new Date(parseInt(time));
     try {
         document.getElementById("countdown-endtime").innerHTML = pad(countDownDate.getHours(), 2) + ":" + pad(countDownDate.getMinutes(), 2);
     } catch (e) {
     } finally {
     }
+
+    var $countdown = $(".countdown-text");
+    $countdown.removeClass("warning-none");
+    $countdown.removeClass("warning-red");
+    $countdown.removeClass("warning-orange");
 
     // Update the count down every 1 second
     x = setInterval(function () {
@@ -29,7 +34,22 @@ function startCountdown(time) {
         // Display the result in the element with id="demo"
         document.getElementById("countdown").innerHTML = pad(minutes, 2) + ":" + pad(seconds, 2);
 
-        // If the count down is finished, write some text
+        if (warn && minutes === 0) {
+            if (seconds <= 30) {
+                $countdown.addClass("warning-red");
+                $countdown.removeClass("warning-orange");
+                $countdown.removeClass("warning-none");
+            } else if (seconds <= 60) {
+                $countdown.addClass("warning-orange");
+                $countdown.removeClass("warning-red");
+                $countdown.removeClass("warning-none");
+            } else {
+                $countdown.addClass("warning-none");
+                $countdown.removeClass("warning-red");
+                $countdown.removeClass("warning-orange");
+            }
+        }
+
         if (distance <= 0) {
             clearInterval(x);
             document.getElementById("countdown").innerHTML = "00:00";

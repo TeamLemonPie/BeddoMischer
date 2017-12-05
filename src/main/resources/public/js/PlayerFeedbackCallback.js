@@ -15,6 +15,11 @@ function handlePlayerFeedbackCallback(command, key, value) {
 
     } else if (command === "next-pause") {
         clearInterval(x);
-        startCountdown(value);
+        startCountdown(value, true);
+        $("#countdown-description").text("nächste Pause:");
+    } else if (command === "pause") {
+        clearInterval(x);
+        startCountdown(value, true);
+        $("#countdown-description").text("Pause:");
     }
 }
