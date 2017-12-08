@@ -82,7 +82,11 @@ public abstract class ControlServerSocket implements Closeable {
 		return serverSocket;
 	}
 
-    public Map<CommandName, Command> getCommands() {
+	ConnectionHandler getConnectionHandler() {
+		return connectionHandler;
+	}
+
+	public Map<CommandName, Command> getCommands() {
         return commands;
 	}
 

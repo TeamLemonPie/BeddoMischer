@@ -70,8 +70,9 @@ public class ClientHandler implements Runnable {
 		} catch (IOException e) {
 			Logger.info("Connection closed: " + e.getMessage());
 			if (controlServerSocket.getSocketListener() != null) {
-				controlServerSocket.getSocketListener().connectionClosed(socket);
+				controlServerSocket.getConnectionHandler().getClientHandlers().remove(this);
 			}
+			controlServerSocket.getSocketListener().connectionClosed(socket);
 		} finally {
 			try {
 				close();
@@ -85,6 +86,7 @@ public class ClientHandler implements Runnable {
 		if (controlServerSocket.getSocketListener() != null) {
 			controlServerSocket.getSocketListener().connectionClosed(socket);
 		}
+		controlServerSocket.getConnectionHandler().getClientHandlers().remove(this);
 		outputStream.close();
 		inputStream.close();
 		socket.close();
