@@ -22,39 +22,39 @@
         </td>
         <td colspan="2">
             <div class="player">
+            <@player 6/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="player">
             <@player 1/>
             </div>
         </td>
-    </tr>
-    <tr>
         <td colspan="2">
-            <div class="player">
-            <@player 2/>
-            </div>
-        </td>
-        <td colspan="2">
-            <div class="player">
-            <@player 3/>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td class="spacer"></td>
-        <td>
-            <div class="player">
-            <@player 4/>
-            </div>
-        </td>
-        <td class="spacer"></td>
-        <td>
             <div class="player">
             <@player 5/>
             </div>
         </td>
+    </tr>
+    <tr>
         <td class="spacer"></td>
         <td>
             <div class="player">
-            <@player 6/>
+            <@player 2/>
+            </div>
+        </td>
+        <td class="spacer"></td>
+        <td>
+            <div class="player">
+            <@player 3/>
+            </div>
+        </td>
+        <td class="spacer"></td>
+        <td>
+            <div class="player">
+            <@player 4/>
             </div>
         </td>
         <td class="spacer"></td>

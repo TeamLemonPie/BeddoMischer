@@ -8,15 +8,14 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PlayerFeedbackGetHandler implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 		PlayerList players = BeddoMischerMain.getPlayers();
+
+		players.getData().sort(Comparator.comparingInt(Player::getReaderId));
 
 		Map<String, Object> model = new HashMap<>();
 		List<Map<String, Object>> playerModel = new ArrayList<>();
@@ -24,6 +23,7 @@ public class PlayerFeedbackGetHandler implements TemplateViewRoute {
 		for (Player player : players) {
 			playerModel.add(player.toMap());
 		}
+
 		long countdownEndTime = BeddoMischerMain.getPauseStartTime();
 		model.put("time", countdownEndTime);
 		model.put("players", playerModel);
