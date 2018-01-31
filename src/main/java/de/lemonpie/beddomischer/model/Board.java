@@ -1,5 +1,6 @@
 package de.lemonpie.beddomischer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.BoardListener;
 import de.lemonpie.beddomischer.model.card.Card;
@@ -106,9 +107,10 @@ public class Board {
         return cards;
     }
 
-    public int getNumberOfMissingCards() {
-        return (int) Stream.of(cards).filter(c -> c == Card.EMPTY).count();
-    }
+	@JsonIgnore
+	public int getNumberOfMissingCards() {
+		return (int) Stream.of(cards).filter(c -> c == Card.EMPTY).count();
+	}
 
     public void clearCards() {
         for (int i = 0; i < getCards().length; i++) {

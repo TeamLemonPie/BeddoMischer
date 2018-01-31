@@ -1,6 +1,8 @@
 package de.lemonpie.beddomischer.model.card;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Card implements Comparable<Object> {
 	private CardSymbol symbol;
 	private CardValue value;
@@ -41,10 +43,9 @@ public class Card implements Comparable<Object> {
 		return true;
 	}
 
-	public String getName()
-	{
-		if(this == EMPTY)
-		{
+	@JsonIgnore
+	public String getName() {
+		if(this == EMPTY) {
 			return "back";
 		}
 

@@ -1,6 +1,6 @@
 package de.lemonpie.beddomischer.storage;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.lemonpie.beddomischer.model.Board;
 import logger.Logger;
 
@@ -15,25 +15,25 @@ public class BoardSerializer {
 	private static final String fileName = "board.json";
 
 	public static void saveBoard(Board board) {
-		Gson gson = new Gson();
+		ObjectMapper objectMapper = new ObjectMapper();
 		final Path path = Paths.get(fileName);
 
-		final String s = gson.toJson(board);
 		try {
+			final String s = objectMapper.writeValueAsString(board);
 			Files.write(path, s.getBytes(), StandardOpenOption.CREATE);
 		} catch (IOException e) {
-			Logger.error(e);
+			e.printStackTrace();
 		}
 	}
 
 	public static Board loadBoard() {
-		Gson gson = new Gson();
+		ObjectMapper objectMapper = new ObjectMapper();
 		final Path path = Paths.get(fileName);
 
 		Board board = new Board();
 		if (Files.exists(path)) {
 			try {
-				board = gson.fromJson(Files.newBufferedReader(path), Board.class);
+				board = objectMapper.readValue(Files.newBufferedReader(path), Board.class);
 			} catch (IOException e) {
 				Logger.error(e);
 			}
