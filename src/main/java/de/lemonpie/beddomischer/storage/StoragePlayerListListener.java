@@ -10,6 +10,15 @@ import java.sql.SQLException;
 public class StoragePlayerListListener implements PlayerListListener {
     @Override
     public void addPlayer(Player player) {
+		if (BeddoMischerMain.getPlayerDao() != null) {
+			try {
+				if (BeddoMischerMain.getPlayerDao().queryForId(player.getId()) == null) {
+					BeddoMischerMain.getPlayerDao().create(player);
+				}
+			} catch (SQLException e) {
+				Logger.error(e);
+			}
+		}
 		player.addListener(new StoragePlayerListener());
 	}
 

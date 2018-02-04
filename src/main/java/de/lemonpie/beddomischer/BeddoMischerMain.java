@@ -104,24 +104,6 @@ public class BeddoMischerMain {
 			Logger.error(e);
 		}
 
-		players = new PlayerList();
-		board = BoardSerializer.loadBoard();
-		blockOption = BlockOption.NONE;
-
-		countdownListeners = new LinkedList<>();
-
-		try {
-			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
-		} catch (IOException e) {
-			Logger.error(e);
-		}
-
-		try {
-			controlServerSocket = new AdminServerSocket(settings.controlInterface(), settings.controlPort());
-		} catch (IOException e) {
-			Logger.error(e);
-		}
-
 		// Setup jdbc
 		final String databaseUrl = "jdbc:sqlite:BeddoMischer.db";
 		final JdbcConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl);
@@ -137,6 +119,50 @@ public class BeddoMischerMain {
 			}
 		}));
 
+		startUp();
+		loadData();
+		startServer(settings);
+		startWebServer(settings);
+
+	}
+
+	public static void startUp() {
+		players = new PlayerList();
+		board = new Board();
+		blockOption = BlockOption.NONE;
+
+		countdownListeners = new LinkedList<>();
+	}
+
+	public static void loadData() throws SQLException {
+		board = BoardSerializer.loadBoard();
+		board.addListener(new StorageBoardListener());
+
+		// Load data from database
+		players.addListener(new StoragePlayerListListener());
+		players.addAll(playerDao.queryForAll());
+		players.updateListener();
+	}
+
+	public static void startServer(Settings settings) {
+		try {
+			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
+		} catch (IOException e) {
+			Logger.error(e);
+		}
+
+		try {
+			controlServerSocket = new AdminServerSocket(settings.controlInterface(), settings.controlPort());
+		} catch (IOException e) {
+			Logger.error(e);
+		}
+
+		// Add Listener
+		players.addListener(new AdminPlayerListListener());
+		board.addListener(new AdminBoardListener());
+	}
+
+	public static void startWebServer(Settings settings) {
 		ipAddress(settings.httpInterface());
 		port(settings.httpPort());
 
@@ -151,19 +177,13 @@ public class BeddoMischerMain {
 		Spark.staticFileLocation("/public");
 		webSocket("/callback", webSocketHandler = new WebSocketHandler());
 
-		initBoardListener();
-
-		// Add Listener
+		// Add listener
 		players.addListener(new PlayerListWebListener(webSocketHandler));
-		players.addListener(new AdminPlayerListListener());
-		players.addListener(new StoragePlayerListListener());
-
 		addCountdownListener(new WebSocketCountdownListener(webSocketHandler));
+		board.addListener(new BoardCallbackListener(webSocketHandler));
+		board.addListener(new WinProbabilityPlayerListener(webSocketHandler));
 
-		// Load data from database
-		players.addAll(playerDao.queryForAll());
-		players.updateListener();
-
+		// Add routes
 		get("/countdown", new CountdownHandler(false), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/countdown_transparent", new CountdownHandler(true), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/chips", new ChipListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
@@ -173,6 +193,15 @@ public class BeddoMischerMain {
 		get("/player_feedback", new PlayerFeedbackGetHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
+
+	public static void closeServer() throws IOException {
+		controlServerSocket.close();
+		rfidServerSocket.close();
+	}
+
+	/*
+	 * Data accessors
+	 */
 
 	public static Dao<Player, Integer> getPlayerDao() {
 		return playerDao;
@@ -192,13 +221,6 @@ public class BeddoMischerMain {
 
 	public static void setBlockOption(BlockOption blockOption) {
 		BeddoMischerMain.blockOption = blockOption;
-	}
-
-	private static void initBoardListener() {
-		board.addListener(new BoardCallbackListener(webSocketHandler));
-		board.addListener(new WinProbabilityPlayerListener(webSocketHandler));
-		board.addListener(new AdminBoardListener());
-		board.addListener(new StorageBoardListener());
 	}
 
 	public static ControlServerSocket getRfidServerSocket() {

@@ -45,7 +45,7 @@ public class Card implements Comparable<Object> {
 
 	@JsonIgnore
 	public String getName() {
-		if(this == EMPTY) {
+		if (this.equals(EMPTY)) {
 			return "back";
 		}
 

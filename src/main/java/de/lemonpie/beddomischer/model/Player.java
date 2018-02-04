@@ -130,9 +130,9 @@ public class Player {
 		return winprobability;
 	}
 
-	public void setWinprobability(int winprobability) {
-		this.winprobability = winprobability;
-		fireListener(listener -> listener.winProbabilityDidChange(this, winprobability));
+	public void setWinProbability(int winProbability) {
+		this.winprobability = winProbability;
+		fireListener(listener -> listener.winProbabilityDidChange(this, winProbability));
 	}
 
 	public CalculatedHand getCalculatedHand() {
@@ -198,19 +198,21 @@ public class Player {
 
 	public void setCard(Card card) {
 		if (cardLeft == null || cardLeft == Card.EMPTY) {
-            setCardLeft(card);
-        } else {
-            setCardRight(card);
-        }
+			setCardLeft(card);
+		} else if (cardRight == null || cardRight == Card.EMPTY) {
+			setCardRight(card);
+		}
 	}
 
-	public Card getHighestCard()
-	{
+	/*
+	Win Probability
+	 */
+
+	public Card getHighestCard() {
 		return cardLeft.getValue().getWeight() > cardRight.getValue().getWeight() ? cardLeft : cardRight;
 	}
 
-	public Card getLowestCard()
-	{
+	public Card getLowestCard() {
 		return cardLeft.getValue().getWeight() < cardRight.getValue().getWeight() ? cardLeft : cardRight;
 	}
 

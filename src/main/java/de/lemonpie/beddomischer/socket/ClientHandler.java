@@ -46,11 +46,10 @@ public class ClientHandler implements Runnable {
 		outputStream.println(data); // AutoFlush is enable
 	}
 
-	private String line;
-
 	@Override
 	public void run() {
 		try {
+			String line;
 			while ((line = inputStream.readLine()) != null) {
 				// Handle line
 				Logger.info("[" + socket.getRemoteSocketAddress() + "]: " + line);
@@ -70,9 +69,8 @@ public class ClientHandler implements Runnable {
 		} catch (IOException e) {
 			Logger.info("Connection closed: " + e.getMessage());
 			if (controlServerSocket.getSocketListener() != null) {
-				controlServerSocket.getConnectionHandler().getClientHandlers().remove(this);
+				controlServerSocket.getSocketListener().connectionClosed(socket);
 			}
-			controlServerSocket.getSocketListener().connectionClosed(socket);
 		} finally {
 			try {
 				close();
@@ -86,7 +84,7 @@ public class ClientHandler implements Runnable {
 		if (controlServerSocket.getSocketListener() != null) {
 			controlServerSocket.getSocketListener().connectionClosed(socket);
 		}
-		controlServerSocket.getConnectionHandler().getClientHandlers().remove(this);
+
 		outputStream.close();
 		inputStream.close();
 		socket.close();

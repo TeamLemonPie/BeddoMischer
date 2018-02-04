@@ -60,7 +60,7 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 		if (isPlayerSetComplete()) {
 			ArrayList<Player> playerList = new ArrayList<>();
 			for (Player player : BeddoMischerMain.getPlayers()) {
-				player.setWinprobability(0);
+				player.setWinProbability(0);
 				if (player.getPlayerState() == PlayerState.ACTIVE) {
 					playerList.add(player);
 				}
@@ -71,7 +71,7 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 
 			for (int i = 0; i < playerList.size(); i++) {
 				Player player = playerList.get(i);
-				player.setWinprobability((int) ((probabilities.get(i) * 100)));
+				player.setWinProbability((int) ((probabilities.get(i) * 100)));
 			}
 			lastComputed = true;
 		} else {
@@ -79,7 +79,7 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 				// Clear win probability on new round
 				PlayerList playerList = BeddoMischerMain.getPlayers();
 				for (Player player : playerList) {
-					player.setWinprobability(0);
+					player.setWinProbability(0);
 				}
 				lastComputed = false;
 			}
