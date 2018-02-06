@@ -17,10 +17,14 @@ import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerList;
 import de.lemonpie.beddomischer.settings.Settings;
 import de.lemonpie.beddomischer.settings.SettingsHandler;
+import de.lemonpie.beddomischer.socket.CommandExecutor;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
 import de.lemonpie.beddomischer.socket.admin.AdminBoardListener;
 import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
+import de.lemonpie.beddomischer.socket.admin.command.read.*;
+import de.lemonpie.beddomischer.socket.admin.command.read.player.*;
+import de.lemonpie.beddomischer.socket.reader.CardReadCommand;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.BoardSerializer;
 import de.lemonpie.beddomischer.storage.StorageBoardListener;
@@ -123,7 +127,6 @@ public class BeddoMischerMain {
 		loadData();
 		startServer(settings);
 		startWebServer(settings);
-
 	}
 
 	public static void startUp() {
@@ -132,6 +135,8 @@ public class BeddoMischerMain {
 		blockOption = BlockOption.NONE;
 
 		countdownListeners = new LinkedList<>();
+
+		registerCommands();
 	}
 
 	public static void loadData() throws SQLException {
@@ -197,6 +202,36 @@ public class BeddoMischerMain {
 	public static void closeServer() throws IOException {
 		controlServerSocket.close();
 		rfidServerSocket.close();
+	}
+
+	private static void registerCommands() {
+		final CommandExecutor commandExecutor = CommandExecutor.getInstance();
+
+		// Reader Command
+		commandExecutor.addCommand(new CardReadCommand(), Scope.READER);
+
+		// Admin Command
+		commandExecutor.addCommand(new ClearReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new ReaderReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new BoardCardSetReadCommand(), Scope.ADMIN);
+
+		commandExecutor.addCommand(new PlayerOpReadCommand(), Scope.ADMIN);
+
+		commandExecutor.addCommand(new PlayerNameReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new PlayerTwitchNameReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new PlayerChipsReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new PlayerStateReadCommand(), Scope.ADMIN);
+
+		commandExecutor.addCommand(new DataReadCommand(), Scope.ADMIN);
+
+		commandExecutor.addCommand(new BlockReadCommand(), Scope.ADMIN);
+
+		commandExecutor.addCommand(new CountdownSetReadCommand(), Scope.ADMIN);
+
+		commandExecutor.addCommand(new BigBlindReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new SmallBlindReadCommand(), Scope.ADMIN);
+
+
 	}
 
 	/*

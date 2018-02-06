@@ -55,12 +55,7 @@ public class ClientHandler implements Runnable {
 				Logger.info("[" + socket.getRemoteSocketAddress() + "]: " + line);
 
 				CommandData commandData = gson.fromJson(line, CommandData.class);
-
-				controlServerSocket.getCommands().forEach((name, command) -> {
-					if (name.getName().equals(commandData.getCommand())) {
-						command.execute(commandData);
-					}
-				});
+				CommandExecutor.getInstance().execute(commandData);
 
 				if (thread.isInterrupted()) {
 					break;

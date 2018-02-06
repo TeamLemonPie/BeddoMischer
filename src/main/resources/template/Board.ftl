@@ -25,11 +25,11 @@
                         <tr>
                             <td rowspan="2" id="table-text">TISCH</td>
                             <td class="blind">SMALL BLIND:</td>
-                            <td class="blind blind-number" id="small-blind">8</td>
+                            <td class="blind blind-number" id="small-blind"></td>
                         </tr>
                         <tr>
                             <td class="blind">BIG BLIND:</td>
-                            <td class="blind blind-number" id="big-blind">20</td>
+                            <td class="blind blind-number" id="big-blind"></td>
                         </tr>
                     </table>
                 </div>

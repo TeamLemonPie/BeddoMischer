@@ -1,7 +1,6 @@
 package de.lemonpie.beddomischer.validator;
 
 import de.lemonpie.beddomischer.model.card.Card;
-import logger.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -55,8 +54,7 @@ public class CardValidator {
 						|| element.getClassName().contains("TestWinProbability")) {
 					return true;
 				}
-			} catch (Exception e) {
-				Logger.error(e);
+			} catch (Exception ignore) {
 			}
 		}
 		return false;

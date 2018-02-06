@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.socket.admin;
+package de.lemonpie.beddomischer.socket.admin.command.read.player;
 
 import com.google.gson.JsonPrimitive;
 import de.lemonpie.beddomischer.BeddoMischerMain;
@@ -7,23 +7,22 @@ import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.socket.CommandData;
-import de.lemonpie.beddomischer.socket.admin.command.read.player.PlayerNameReadCommand;
+import de.lemonpie.beddomischer.socket.CommandExecutor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class PlayerNameReadCommandTest {
+public class PlayerChipReadCommandTest {
 
 	@Test
 	public void playerNameCommandShouldReturnPlayerName() {
 		Player player = BeddoMischerMain.getPlayers().add();
 
-		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_NAME, player.getId(), new JsonPrimitive("Kevin"));
-		PlayerNameReadCommand command = new PlayerNameReadCommand();
-		command.execute(commandData);
+		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_CHIP, player.getId(), new JsonPrimitive(10000));
+		CommandExecutor.getInstance().execute(commandData);
 
-		Assert.assertEquals("Kevin", player.getName());
+		Assert.assertEquals(10000, player.getChips());
 	}
 
 }

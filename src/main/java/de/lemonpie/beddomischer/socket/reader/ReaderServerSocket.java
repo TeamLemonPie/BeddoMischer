@@ -27,7 +27,6 @@ public class ReaderServerSocket extends ControlServerSocket implements SocketLis
 	@Override
 	protected void init() {
 		setSocketListener(this);
-		addCommand(new CardReadCommand());
 	}
 
 	@Override

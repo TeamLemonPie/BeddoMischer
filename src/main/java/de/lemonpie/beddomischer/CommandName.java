@@ -20,7 +20,7 @@ public enum CommandName {
 	READER_COUNT("reader-count"),
 
 	PAUSE("pause"),
-	NEXT_PAUSE("next-pause"),
+	NEXT_PAUSE("next-pause"), // WEB ONLY
 
 	SMALL_BLIND("small-blind"),
 	BIG_BLIND("big-blind");

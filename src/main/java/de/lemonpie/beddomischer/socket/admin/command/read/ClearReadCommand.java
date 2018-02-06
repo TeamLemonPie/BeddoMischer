@@ -32,7 +32,10 @@ public class ClearReadCommand implements Command {
 			CardValidator.getInstance().clear();
 
 			ClearSendCommand forwardCommandData = new ClearSendCommand(key);
-			BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+
+			if (BeddoMischerMain.getRfidServerSocket() != null) {
+				BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+			}
 		} else if (key == -2) {
 			Board board = BeddoMischerMain.getBoard();
 			Stream.of(board.getCards()).forEach(CardValidator.getInstance()::clear);
@@ -40,7 +43,10 @@ public class ClearReadCommand implements Command {
 
 			BeddoMischerMain.getBoard().getReaderIds().forEach(r -> {
 				ClearSendCommand forwardCommandData = new ClearSendCommand(r);
-				BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+
+				if (BeddoMischerMain.getRfidServerSocket() != null) {
+					BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+				}
 			});
 		} else {
 			BeddoMischerMain.getPlayers().forEach(player -> {
@@ -51,7 +57,9 @@ public class ClearReadCommand implements Command {
 			});
 
 			ClearSendCommand forwardCommandData = new ClearSendCommand(key);
-			BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+			if (BeddoMischerMain.getRfidServerSocket() != null) {
+				BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
+			}
 		}
 	}
 }
