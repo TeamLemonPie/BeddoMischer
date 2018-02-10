@@ -19,7 +19,7 @@ function startCountdown(time, warn = false) {
     } finally {
     }
 
-    var $countdown = $(".countdown-text");
+    var $countdown = $(".countdown");
     $countdown.removeClass("warning-none");
     $countdown.removeClass("warning-red");
     $countdown.removeClass("warning-orange");

@@ -9,17 +9,14 @@
 </head>
 <body onload="onLoad()">
 <#-- @ftlvariable name="players" type="java.util.List<de.lemonpie.beddomischer.model.Player>" -->
-<table id="table-main">
+<table id="table-main" cellspacing="0" cellpadding="0">
     <tr>
         <td colspan="2">
             <div class="player">
             <@player 0/>
             </div>
         </td>
-        <td colspan="3" rowspan="2" class="countdown-text">
-            <div class="countdown-text" id="countdown-description">nächste Pause:</div>
-            <div class="countdown" id="countdown" data="${time?c}">00:00</div>
-        </td>
+        <td colspan="9" class="countdown-text" id="countdown-description">nächste Pause:</td>
         <td colspan="2">
             <div class="player">
             <@player 6/>
@@ -32,6 +29,16 @@
             <@player 1/>
             </div>
         </td>
+        <td class="hide" id="countdown" data="${time?c}"></td>
+        <td></td>
+        <td class="countdown round-left"></td>
+        <td class="countdown" id="countdown-minute-1">0</td>
+        <td class="countdown" id="countdown-minute-2">0</td>
+        <td class="countdown countdown-transparent-colon">:</td>
+        <td class="countdown" id="countdown-second-1">0</td>
+        <td class="countdown" id="countdown-second-2">0</td>
+        <td class="countdown round-right"></td>
+        <td></td>
         <td colspan="2">
             <div class="player">
             <@player 5/>
@@ -46,7 +53,7 @@
             </div>
         </td>
         <td class="spacer"></td>
-        <td>
+        <td colspan="7">
             <div class="player">
             <@player 3/>
             </div>

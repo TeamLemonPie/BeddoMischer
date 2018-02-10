@@ -27,11 +27,11 @@
         </tr>
         <tr>
             <td colspan="5" class="countdown-text countdown-spacer">MINUTEN</td>
-            <td colspan="5" class="countdown-text">WEITER UM</td>
+            <td colspan="5" class="countdown-text countdown-padding-left">WEITER UM</td>
         </tr>
         <tr>
             <td colspan="5" class="countdown-bottom countdown-spacer">&nbsp;</td>
-            <td colspan="5" class="countdown-bottom"></td>
+            <td colspan="5" id="scroll-anchor" class="countdown-bottom"></td>
         </tr>
     </table>
 </div>
