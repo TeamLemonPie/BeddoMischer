@@ -38,6 +38,12 @@ function startCountdown(time, warn = false) {
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + hours * 60;
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+        if(minutes >= 100)
+        {
+            setCountdownDigits("9999");
+            return;
+        }
+
         setCountdownDigits(pad(minutes, 2) + pad(seconds, 2));
 
         if (warn && minutes === 0) {
