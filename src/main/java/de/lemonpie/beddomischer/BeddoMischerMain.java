@@ -199,6 +199,7 @@ public class BeddoMischerMain {
 		}
 
 		// Add routes
+		get("/admin", new AdminHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/countdown", new CountdownHandler(false), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/countdown_transparent", new CountdownHandler(true), new FreeMarkerEngine(freeMarkerConfiguration));
 		get("/chips", new ChipListHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
