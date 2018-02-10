@@ -5,9 +5,16 @@ $(document).ready(function () {
 var x;
 
 function startCountdown(time, warn = false) {
+    if(parseInt(time) === 0)
+    {
+        setCountdownDigits("0000");
+        setEndtimeDigits("0000");
+        return;
+    }
+
     var countDownDate = new Date(parseInt(time));
     try {
-        document.getElementById("countdown-endtime").innerHTML = pad(countDownDate.getHours(), 2) + ":" + pad(countDownDate.getMinutes(), 2);
+        setEndtimeDigits(pad(countDownDate.getHours(), 2) + pad(countDownDate.getMinutes(), 2));
     } catch (e) {
     } finally {
     }
@@ -31,8 +38,7 @@ function startCountdown(time, warn = false) {
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + hours * 60;
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Display the result in the element with id="demo"
-        document.getElementById("countdown").innerHTML = pad(minutes, 2) + ":" + pad(seconds, 2);
+        setCountdownDigits(pad(minutes, 2) + pad(seconds, 2));
 
         if (warn && minutes === 0) {
             if (seconds <= 30) {
@@ -52,9 +58,23 @@ function startCountdown(time, warn = false) {
 
         if (distance <= 0) {
             clearInterval(x);
-            document.getElementById("countdown").innerHTML = "00:00";
+            setCountdownDigits("0000");
         }
     }, 1000);
+}
+
+function setCountdownDigits(countdownString) {
+    document.getElementById("countdown-minute-1").innerHTML = countdownString[0];
+    document.getElementById("countdown-minute-2").innerHTML = countdownString[1];
+    document.getElementById("countdown-second-1").innerHTML = countdownString[2];
+    document.getElementById("countdown-second-2").innerHTML = countdownString[3];
+}
+
+function setEndtimeDigits(countdownString) {
+    document.getElementById("countdown-endtime-hour-1").innerHTML = countdownString[0];
+    document.getElementById("countdown-endtime-hour-2").innerHTML = countdownString[1];
+    document.getElementById("countdown-endtime-minute-1").innerHTML = countdownString[2];
+    document.getElementById("countdown-endtime-minute-2").innerHTML = countdownString[3];
 }
 
 function pad(num, size) {

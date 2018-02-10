@@ -130,7 +130,6 @@ body {
 }
 
 .countdown{
-	width: 494px;
 	height: 104px;
 	margin-left: 510px;
 	background-color: #151826;
@@ -140,14 +139,22 @@ body {
 	border-radius: 10px;	
 	position: absolute;
 	top: 916px;
+	padding: 0 40px 0 40px;
 }
 
 .countdown-spacer{
 	border-right: 3px solid black;
+	padding-right: 40px;
+}
+
+.countdown-padding-left{
+	padding-left: 40px;
 }
 
 .countdown-time{
 	font-size: 60px;
+	text-align: center;
+	width: 35px;
 }
 
 .countdown-text{
@@ -162,16 +169,24 @@ body {
     color: #FFFFFF;
     text-align: center;
 	font-family: Affogato, Sans-Serif;
-	width: 200px;
 }
 
 .countdown-transparent-time{
 	font-size: 70px;
+	width: 45px;
 	font-weight: bold;
+}
+
+.countdown-transparent-colon{
+	width: auto;
 }
 
 .countdown-transparent-text{
 	font-size: 25px;
+}
+
+.hide{
+	display: none;
 }
 
 .debug {
