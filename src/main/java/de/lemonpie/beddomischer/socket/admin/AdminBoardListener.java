@@ -10,7 +10,6 @@ public class AdminBoardListener implements BoardListener {
 	public void cardDidChangeAtIndex(int index, Card card) {
 		CardSendCommand cardSendCommand = new CardSendCommand(index, card);
 		BeddoMischerMain.getControlServerSocket().writeAll(cardSendCommand);
-		System.out.println(card);
 	}
 
 	@Override

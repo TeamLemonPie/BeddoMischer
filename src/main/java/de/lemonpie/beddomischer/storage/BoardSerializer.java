@@ -14,12 +14,12 @@ public class BoardSerializer {
 
 	private static final String fileName = "board.json";
 
-	public static void saveBoard(Board board) {
+	public static synchronized void saveBoard(Board board) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		final Path path = Paths.get(fileName);
 
 		try {
-			final String s = objectMapper.writeValueAsString(board);
+			final String s = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(board);
 			Files.write(path, s.getBytes(), StandardOpenOption.CREATE);
 		} catch (IOException e) {
 			e.printStackTrace();
