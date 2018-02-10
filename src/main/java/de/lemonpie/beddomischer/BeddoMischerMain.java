@@ -163,8 +163,13 @@ public class BeddoMischerMain {
 		}
 
 		// Add Listener
-		players.addListener(new AdminPlayerListListener());
+		AdminPlayerListListener adminPlayerListListener = new AdminPlayerListListener();
+		players.addListener(adminPlayerListListener);
 		board.addListener(new AdminBoardListener());
+		for(Player currentPlayer : players)
+		{
+			adminPlayerListListener.addPlayer(currentPlayer);
+		}
 	}
 
 	public static void startWebServer(Settings settings) {
@@ -183,10 +188,15 @@ public class BeddoMischerMain {
 		webSocket("/callback", webSocketHandler = new WebSocketHandler());
 
 		// Add listener
-		players.addListener(new PlayerListWebListener(webSocketHandler));
+		PlayerListWebListener playerListWebListener = new PlayerListWebListener(webSocketHandler);
+		players.addListener(playerListWebListener);
 		addCountdownListener(new WebSocketCountdownListener(webSocketHandler));
 		board.addListener(new BoardCallbackListener(webSocketHandler));
 		board.addListener(new WinProbabilityPlayerListener(webSocketHandler));
+		for(Player currentPlayer : players)
+		{
+			playerListWebListener.addPlayer(currentPlayer);
+		}
 
 		// Add routes
 		get("/countdown", new CountdownHandler(false), new FreeMarkerEngine(freeMarkerConfiguration));

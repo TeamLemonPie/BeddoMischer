@@ -30,13 +30,15 @@ public class ReaderReadCommand implements Command {
 
             if (type == 0) { // PLAYER
 				int playerId = value.get("playerId").getAsInt();
-				BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(player -> {
-					player.setReaderId(readerId);
-				});
+                if(readerId != BeddoMischerMain.READER_NULL_ID) {
+                    BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(player -> player.setReaderId(readerId));
+                }
             } else if (type == 1) { // BOARD
                 int oldReaderId = value.get("oldReaderId").getAsInt();
                 BeddoMischerMain.getBoard().removeReaderId(oldReaderId);
-				BeddoMischerMain.getBoard().addReaderId(readerId);
+                if(readerId != BeddoMischerMain.READER_NULL_ID) {
+                    BeddoMischerMain.getBoard().addReaderId(readerId);
+                }
             }
         }
     }
