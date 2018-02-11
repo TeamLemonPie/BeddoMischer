@@ -15,7 +15,7 @@ public class PlayerFeedbackGetHandler implements TemplateViewRoute {
 	public ModelAndView handle(Request request, Response response) throws Exception {
 		PlayerList players = BeddoMischerMain.getPlayers();
 
-		players.getData().sort(Comparator.comparingInt(Player::getReaderId));
+		players.getData().sort(Comparator.comparingInt(Player::getId));
 
 		Map<String, Object> model = new HashMap<>();
 		List<Map<String, Object>> playerModel = new ArrayList<>();

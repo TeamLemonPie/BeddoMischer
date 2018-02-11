@@ -8,6 +8,7 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -17,6 +18,8 @@ public class PlayerGetHandler implements TemplateViewRoute {
     public ModelAndView handle(Request request, Response response) throws Exception {
         int id = Integer.valueOf(request.params(":id"));
         PlayerList players = BeddoMischerMain.getPlayers();
+
+		players.getData().sort(Comparator.comparingInt(Player::getId));
 
         Map<String, Object> model = new HashMap<>();
 
