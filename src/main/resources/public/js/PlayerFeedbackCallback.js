@@ -7,9 +7,19 @@ function handlePlayerFeedbackCallback(command, key, value) {
         var playerName = $(playerContainer).find(".player-name");
         playerName.text(value)
     } else if (command === "card") {
-        if (value) {
+        console.log($(playerContainer).find(".card"));
+        console.log(value);
+        if (value === 2) {
             $(playerContainer).find(".card").removeClass("red");
-        } else {
+            $(playerContainer).find(".card").removeClass("orange");
+            $(playerContainer).find(".card").addClass("green");
+        } else if (value === 1) {
+            $(playerContainer).find(".card").removeClass("green");
+            $(playerContainer).find(".card").removeClass("red");
+            $(playerContainer).find(".card").addClass("orange");
+        } else if (value === 0) {
+            $(playerContainer).find(".card").removeClass("green");
+            $(playerContainer).find(".card").removeClass("orange");
             $(playerContainer).find(".card").addClass("red");
         }
 

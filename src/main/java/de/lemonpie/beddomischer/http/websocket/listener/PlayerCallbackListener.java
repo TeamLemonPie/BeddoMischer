@@ -56,7 +56,16 @@ public class PlayerCallbackListener implements PlayerListener {
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.CARD, player.getId(), jsonObject);
 		webSocketHandler.sendCommand(callbackCommand);
 
-		CallbackCommand feedbackCallbackCommand = new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.CARD, player.getId(), new JsonPrimitive(player.getCardLeft() != Card.EMPTY && player.getCardRight() != Card.EMPTY));
+		int detectedCard = 0;
+		if (player.getCardLeft() != Card.EMPTY) {
+			detectedCard++;
+		}
+
+		if (player.getCardRight() != Card.EMPTY) {
+			detectedCard++;
+		}
+
+		CallbackCommand feedbackCallbackCommand = new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.CARD, player.getId(), new JsonPrimitive(detectedCard));
 		webSocketHandler.sendCommand(feedbackCallbackCommand);
 	}
 

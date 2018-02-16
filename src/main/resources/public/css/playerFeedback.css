@@ -46,6 +46,22 @@ body {
     margin: auto;
 }
 
+.orange {
+    height: 3vh;
+    display: block;
+    background-color: orange;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.green {
+    height: 3vh;
+    display: block;
+    background-color: #48DB5E;
+    border-radius: 10px;
+    margin: auto;
+}
+
 .player-spacer {
     width: 2vw;
 }
@@ -77,21 +93,13 @@ body {
 }
 
 .warning-orange {
+    border-radius: 3vmin;
     background-color: #FFA500;
     color: #000000;
 }
 
 .warning-red {
+    border-radius: 3vmin;
     background-color: #CC0000;
     color: #FFFFFF;
-}
-
-.round-left {
-    width: 3vmin;
-    border-radius: 3vmin 0 0 3vmin;
-}
-
-.round-right {
-    width: 3vmin;
-    border-radius: 0 3vmin 3vmin 0;
 }

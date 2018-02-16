@@ -13,20 +13,20 @@
     <tr>
         <td colspan="2">
             <div class="player">
-            <@player 0/>
+            <@player 6/>
             </div>
         </td>
         <td colspan="9" class="countdown-text" id="countdown-description">nächste Pause:</td>
         <td colspan="2">
             <div class="player">
-            <@player 6/>
+            <@player 0/>
             </div>
         </td>
     </tr>
     <tr>
         <td colspan="2">
             <div class="player">
-            <@player 1/>
+            <@player 5/>
             </div>
         </td>
         <td class="hide" id="countdown" data="${time?c}"></td>
@@ -41,7 +41,7 @@
         <td></td>
         <td colspan="2">
             <div class="player">
-            <@player 5/>
+            <@player 1/>
             </div>
         </td>
     </tr>
@@ -49,7 +49,7 @@
         <td class="spacer"></td>
         <td>
             <div class="player">
-            <@player 2/>
+            <@player 4/>
             </div>
         </td>
         <td class="spacer"></td>
@@ -61,7 +61,7 @@
         <td class="spacer"></td>
         <td>
             <div class="player">
-            <@player 4/>
+            <@player 2/>
             </div>
         </td>
         <td class="spacer"></td>
