@@ -77,10 +77,12 @@ function setCountdownDigits(countdownString) {
 }
 
 function setEndtimeDigits(countdownString) {
-    document.getElementById("countdown-endtime-hour-1").innerHTML = countdownString[0];
-    document.getElementById("countdown-endtime-hour-2").innerHTML = countdownString[1];
-    document.getElementById("countdown-endtime-minute-1").innerHTML = countdownString[2];
-    document.getElementById("countdown-endtime-minute-2").innerHTML = countdownString[3];
+    if (document.getElementById("countdown-endtime-hour-1") != null) {
+        document.getElementById("countdown-endtime-hour-1").innerHTML = countdownString[0];
+        document.getElementById("countdown-endtime-hour-2").innerHTML = countdownString[1];
+        document.getElementById("countdown-endtime-minute-1").innerHTML = countdownString[2];
+        document.getElementById("countdown-endtime-minute-2").innerHTML = countdownString[3];
+    }
 }
 
 function pad(num, size) {
