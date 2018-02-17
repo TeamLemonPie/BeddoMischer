@@ -66,6 +66,28 @@
         </td>
         <td class="spacer"></td>
     </tr>
+    <tr>
+        <td class="spacer"></td>
+        <td>
+            <div class="player-name">
+                Small Blind:
+                <div class="blind" id="small-blind">
+                ${small_blind}
+                </div>
+            </div>
+        </td>
+        <td></td>
+        <td colspan="7">
+            <div class="player-name">
+                Big Blind:
+                <div class="blind" id="big-blind">
+                ${big_blind}
+                </div>
+            </div>
+        </td>
+        <td class="blind" id="big-blind">
+        </td>
+    </tr>
 </table>
 </body>
 </html>

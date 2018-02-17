@@ -33,3 +33,11 @@ function handlePlayerFeedbackCallback(command, key, value) {
         $("#countdown-description").text("Pause:");
     }
 }
+
+function handleBoardCallback(command, key, value) {
+    if (command === "small-blind") {
+        $("#small-blind").text(value.toLocaleString());
+    } else if (command === "big-blind") {
+        $("#big-blind").text(value.toLocaleString());
+    }
+}
