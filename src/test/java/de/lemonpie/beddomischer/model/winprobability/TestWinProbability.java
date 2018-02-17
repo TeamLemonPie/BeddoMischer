@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestWinProbability
@@ -52,6 +51,45 @@ public class TestWinProbability
 
 		assertTrue(percentages.get(0) > 89);
 		assertTrue(percentages.get(1) < 10);
+	}
+
+	@Test
+	public void testLive() {
+		BeddoMischerMain.setBlockOption(BlockOption.NONE);
+		ArrayList<Player> players = new ArrayList<>();
+
+		Player player1 = new Player(0);
+		player1.setName("1");
+		player1.setCardLeft(new Card(CardSymbol.HEART, CardValue.SIX));
+		player1.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.FIVE));
+
+		Player player2 = new Player(1);
+		player2.setName("2");
+		player2.setCardLeft(new Card(CardSymbol.SPADES, CardValue.KING));
+		player2.setCardRight(new Card(CardSymbol.SPADES, CardValue.TWO));
+
+		players.add(player1);
+		players.add(player2);
+
+		Board board = new Board();
+		board.setCard(new Card(CardSymbol.DIAMONDS, CardValue.EIGHT));
+		board.setCard(new Card(CardSymbol.SPADES, CardValue.QUEEN));
+		board.setCard(new Card(CardSymbol.SPADES, CardValue.SIX));
+		board.setCard(new Card(CardSymbol.DIAMONDS, CardValue.THREE));
+		board.setCard(new Card(CardSymbol.DIAMONDS, CardValue.TWO));
+
+		Calculation calculation = new Calculation(players, board);
+		List<Double> probabilities = calculation.calculate(10);
+		ArrayList<Integer> percentages = new ArrayList<>();
+
+		for (int i = 0; i < players.size(); i++) {
+			percentages.add((int) (probabilities.get(i) * 100));
+		}
+
+		System.out.println(probabilities);
+
+//		assertTrue(percentages.get(0) > 89);
+//		assertTrue(percentages.get(1) < 10);
 	}
 	
 	@Test
