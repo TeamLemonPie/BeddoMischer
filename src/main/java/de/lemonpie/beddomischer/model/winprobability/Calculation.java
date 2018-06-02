@@ -6,6 +6,7 @@ import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.model.card.CardSymbol;
 import de.lemonpie.beddomischer.model.card.CardValue;
+import logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,9 +48,8 @@ public class Calculation
 		}
 
 		int totalWins = 0;
-		for(int i = 0; i < wonRounds.size(); i++)
-		{
-			totalWins += wonRounds.get(i);
+		for (Integer wonRound : wonRounds) {
+			totalWins += wonRound;
 		}
 
 		for(int i = 0; i < players.size(); i++)
@@ -57,7 +57,48 @@ public class Calculation
 			probabilities.set(i, (double)wonRounds.get(i) / totalWins);
 		}
 
+		return checkAndCorrectProbabilities(probabilities);
+	}
+
+	private List<Double> checkAndCorrectProbabilities(List<Double> probabilities)
+	{
+		// sum of win probabilities should equal 1.0
+		double sum = 0;
+		for(double currentProbability : probabilities)
+		{
+			sum += currentProbability;
+		}
+
+		// correct win probabilities if necessary
+		double difference = sum - 1.0;
+		double maxValue = getMaxValue(probabilities);
+		if(difference > 0)
+		{
+			double newValue = maxValue - difference;
+			Logger.debug("Corrected win probability for player " + probabilities.indexOf(maxValue) + " from: " + maxValue  + " to: " + newValue);
+			probabilities.set(probabilities.indexOf(maxValue), newValue);
+		}
+		else if(difference < 0)
+		{
+			double newValue = maxValue + difference;
+			Logger.debug("Corrected win probability for player " + probabilities.indexOf(maxValue) + " from: " + maxValue  + " to: " + newValue);
+			probabilities.set(probabilities.indexOf(maxValue), newValue);
+		}
+
 		return probabilities;
+	}
+
+	private Double getMaxValue(List<Double> values)
+	{
+		double max = 0;
+		for(double value : values)
+		{
+			if(value > max)
+			{
+				max = value;
+			}
+		}
+		return max;
 	}
 
     private List<Integer> calculateOneRound(List<Integer> wonRounds, List<Card> remainingDeck, int numberOfMissingCardsInBoard) {
