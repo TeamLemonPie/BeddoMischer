@@ -109,7 +109,7 @@ public class Board {
 
 	@JsonIgnore
 	public int getNumberOfMissingCards() {
-		return (int) Stream.of(cards).filter(c -> c == Card.EMPTY).count();
+		return (int) Stream.of(cards).filter(c -> c.equals(Card.EMPTY)).count();
 	}
 
     public void clearCards() {

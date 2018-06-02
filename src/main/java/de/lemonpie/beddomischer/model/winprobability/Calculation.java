@@ -1,6 +1,5 @@
 package de.lemonpie.beddomischer.model.winprobability;
 
-import com.j256.ormlite.stmt.query.In;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.HandType;
 import de.lemonpie.beddomischer.model.Player;
@@ -329,7 +328,7 @@ public class Calculation
 	{
 		if(winnerIndices.size() > 1)
 		{
-			ArrayList<Integer> winners = new ArrayList<>();
+			ArrayList<Integer> winners;
 			switch(handType) {
 				case FULL_HOUSE:
 					winners = calculateWinnerBasedOnCalculatedCards(winnerIndices, true);
@@ -346,7 +345,7 @@ public class Calculation
 					return winners.size() > 1 ? calculateWinnerBasedOnCalculatedCards(winners, false) : winners;
 				case PAIR:
 					winners = calculateWinnerBasedOnPair(winnerIndices);
-					return winners.size() > 1 ? calculateWinnerBasedOnCalculatedCards(winners, false) : winners;
+					return winners.size() > 1 ? calculateWinnerBasedOnHighestCard(winners, true) : winners;
 				default:
 					winners = calculateWinnerBasedOnHighestCard(winnerIndices, true);
 					return winners.size() > 1 ? calculateWinnerBasedOnHighestCard(winners, false) : winners;

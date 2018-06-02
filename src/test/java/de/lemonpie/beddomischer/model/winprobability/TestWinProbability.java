@@ -295,4 +295,51 @@ public class TestWinProbability
 		assertTrue(1 < percentages.get(2) && percentages.get(2) < 5);
 		assertTrue(73 < percentages.get(3) && percentages.get(3) < 80);
 	}
+
+	@Test
+	public void testPreFlop()
+	{
+		BeddoMischerMain.setBlockOption(BlockOption.NONE);
+		ArrayList<Player> players = new ArrayList<>();
+
+		Player player1 = new Player(0);
+		player1.setName("1");
+		player1.setCardLeft(new Card(CardSymbol.SPADES, CardValue.QUEEN));
+		player1.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.EIGHT));
+		players.add(player1);
+
+		Player player2 = new Player(1);
+		player2.setName("2");
+		player2.setCardLeft(new Card(CardSymbol.HEART, CardValue.NINE));
+		player2.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.SIX));
+		players.add(player2);
+
+		Player player3 = new Player(2);
+		player3.setName("3");
+		player3.setCardLeft(new Card(CardSymbol.HEART, CardValue.TEN));
+		player3.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.NINE));
+		players.add(player3);
+
+		Player player4 = new Player(3);
+		player4.setName("4");
+		player4.setCardLeft(new Card(CardSymbol.DIAMONDS, CardValue.QUEEN));
+		player4.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.FIVE));
+		players.add(player4);
+
+		Board board = new Board();
+
+		Calculation calculation = new Calculation(players, board);
+		List<Double> probabilities = calculation.calculate(10000);
+		ArrayList<Integer> percentages = new ArrayList<>();
+
+		for(int i = 0; i < players.size(); i++)
+		{
+			percentages.add((int)(probabilities.get(i) * 100));
+		}
+
+		assertTrue(20 < percentages.get(0) && percentages.get(0) < 40);
+		assertTrue(6 < percentages.get(1) && percentages.get(1) < 26);
+		assertTrue(22 < percentages.get(2) && percentages.get(2) < 42);
+		assertTrue(10 < percentages.get(3) && percentages.get(3) < 30);
+	}
 }
