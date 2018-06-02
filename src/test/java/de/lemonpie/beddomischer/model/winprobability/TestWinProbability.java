@@ -54,15 +54,17 @@ public class TestWinProbability
 	}
 
 	@Test
-	public void testLive() {
+	public void testUnequalPairs() {
 		BeddoMischerMain.setBlockOption(BlockOption.NONE);
 		ArrayList<Player> players = new ArrayList<>();
 
+		// player 1 has the highest pair (pair of SIX)
 		Player player1 = new Player(0);
 		player1.setName("1");
 		player1.setCardLeft(new Card(CardSymbol.HEART, CardValue.SIX));
 		player1.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.FIVE));
 
+		// player 2 has a pair of TWO but his highest card is a KING
 		Player player2 = new Player(1);
 		player2.setName("2");
 		player2.setCardLeft(new Card(CardSymbol.SPADES, CardValue.KING));
@@ -86,10 +88,47 @@ public class TestWinProbability
 			percentages.add((int) (probabilities.get(i) * 100));
 		}
 
-		System.out.println(probabilities);
+		assertTrue(percentages.get(0) == 100);
+		assertTrue(percentages.get(1) == 0);
+	}
 
-//		assertTrue(percentages.get(0) > 89);
-//		assertTrue(percentages.get(1) < 10);
+	@Test
+	public void testEqualPairs() {
+		BeddoMischerMain.setBlockOption(BlockOption.NONE);
+		ArrayList<Player> players = new ArrayList<>();
+
+		// player 1 has the pair of SIX)
+		Player player1 = new Player(0);
+		player1.setName("1");
+		player1.setCardLeft(new Card(CardSymbol.HEART, CardValue.SIX));
+		player1.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.FIVE));
+
+		// player 2 has also a pair of six a KING as highest card
+		Player player2 = new Player(1);
+		player2.setName("2");
+		player2.setCardLeft(new Card(CardSymbol.SPADES, CardValue.KING));
+		player2.setCardRight(new Card(CardSymbol.DIAMONDS, CardValue.SIX));
+
+		players.add(player1);
+		players.add(player2);
+
+		Board board = new Board();
+		board.setCard(new Card(CardSymbol.DIAMONDS, CardValue.EIGHT));
+		board.setCard(new Card(CardSymbol.SPADES, CardValue.QUEEN));
+		board.setCard(new Card(CardSymbol.SPADES, CardValue.SIX));
+		board.setCard(new Card(CardSymbol.DIAMONDS, CardValue.THREE));
+		board.setCard(new Card(CardSymbol.DIAMONDS, CardValue.TWO));
+
+		Calculation calculation = new Calculation(players, board);
+		List<Double> probabilities = calculation.calculate(10);
+		ArrayList<Integer> percentages = new ArrayList<>();
+
+		for (int i = 0; i < players.size(); i++) {
+			percentages.add((int) (probabilities.get(i) * 100));
+		}
+
+		assertTrue(percentages.get(0) == 0);
+		assertTrue(percentages.get(1) == 100);
 	}
 	
 	@Test

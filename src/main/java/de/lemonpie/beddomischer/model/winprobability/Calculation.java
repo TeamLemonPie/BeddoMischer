@@ -1,5 +1,6 @@
 package de.lemonpie.beddomischer.model.winprobability;
 
+import com.j256.ormlite.stmt.query.In;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.HandType;
 import de.lemonpie.beddomischer.model.Player;
@@ -279,6 +280,50 @@ public class Calculation
 
 		return returnList;
 	}
+
+	private ArrayList<Integer> calculateWinnerBasedOnPair(ArrayList<Integer> winnerIndices)
+	{
+		ArrayList<Integer> returnList = new ArrayList<>();
+		returnList.add(winnerIndices.get(0));
+
+		// check if all pairs are equal and get highest pair
+		CardValue pairValue = players.get(winnerIndices.get(0)).getCalculatedHand().getHighestCard().get(0).getValue();
+		CardValue highestPairValue = pairValue;
+		boolean allPairsEqual = true;
+		for(int i = 1; i < winnerIndices.size(); i++)
+		{
+			CardValue currentPairValue = players.get(winnerIndices.get(i)).getCalculatedHand().getHighestCard().get(0).getValue();
+
+			if(!currentPairValue.equals(pairValue))
+			{
+				allPairsEqual = false;
+			}
+
+			if(currentPairValue.getWeight() > highestPairValue.getWeight())
+			{
+				highestPairValue = currentPairValue;
+			}
+		}
+
+		if(allPairsEqual)
+		{
+			return calculateWinnerBasedOnHighestCard(winnerIndices, true);
+		}
+		else
+		{
+			// if pairs are different then highest pair(s) win
+			returnList = new ArrayList<>();
+			for(Integer winnerIndice : winnerIndices)
+			{
+				if (players.get(winnerIndice).getCalculatedHand().getHighestCard().get(0).getValue().equals(highestPairValue))
+				{
+					returnList.add(winnerIndice);
+				}
+			}
+		}
+
+		return returnList;
+	}
 	
 	private ArrayList<Integer> calculateWinnerIndices(ArrayList<Integer> winnerIndices, HandType handType)
 	{
@@ -298,6 +343,9 @@ public class Calculation
 				// rules state that three of a kind build with a pair in hand wins over a pair in board + one card from player deck
 				case TWO_PAIRS:
 					winners = calculateWinnerBasedOnCalculatedCards(winnerIndices, true);
+					return winners.size() > 1 ? calculateWinnerBasedOnCalculatedCards(winners, false) : winners;
+				case PAIR:
+					winners = calculateWinnerBasedOnPair(winnerIndices);
 					return winners.size() > 1 ? calculateWinnerBasedOnCalculatedCards(winners, false) : winners;
 				default:
 					winners = calculateWinnerBasedOnHighestCard(winnerIndices, true);
