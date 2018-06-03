@@ -85,7 +85,14 @@
                 </div>
             </div>
         </td>
-        <td class="blind" id="big-blind">
+        <td></td>
+        <td>
+            <div class="player-name">
+                Ante:
+                <div class="blind" id="ante">
+                ${ante}
+                </div>
+            </div>
         </td>
     </tr>
 </table>

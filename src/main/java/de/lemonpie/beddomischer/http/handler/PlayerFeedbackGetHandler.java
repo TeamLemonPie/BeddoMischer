@@ -30,6 +30,7 @@ public class PlayerFeedbackGetHandler implements TemplateViewRoute {
 		model.put("time", countdownEndTime);
 		model.put("small_blind", board.getSmallBlind());
 		model.put("big_blind", board.getBigBlind());
+		model.put("ante", board.getAnte());
 		model.put("players", playerModel);
 		return new ModelAndView(model, "PlayerFeedback.ftl");
 	}

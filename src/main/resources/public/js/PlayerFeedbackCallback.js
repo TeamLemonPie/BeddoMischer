@@ -57,5 +57,7 @@ function handleBoardCallback(command, key, value) {
         $("#small-blind").text(value.toLocaleString());
     } else if (command === "big-blind") {
         $("#big-blind").text(value.toLocaleString());
+    } else if (command === "ante") {
+        $("#ante").text(value.toLocaleString());
     }
 }
