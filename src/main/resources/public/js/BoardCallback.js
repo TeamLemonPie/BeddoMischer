@@ -24,5 +24,7 @@ function handleBoardCallback(command, key, value) {
         $("#small-blind").text(value);
     } else if (command === "big-blind") {
         $("#big-blind").text(value);
+    } else if (command === "ante") {
+        $("#ante").text(value);
     }
 }

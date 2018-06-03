@@ -117,4 +117,8 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 	@Override
 	public void bigBlindDidChange(int newValue) {
 	}
+
+	@Override
+	public void anteDidChange(int newValue) {
+	}
 }

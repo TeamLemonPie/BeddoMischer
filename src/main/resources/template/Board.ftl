@@ -23,13 +23,17 @@
                 <div class="player-info">
                     <table id="table-board" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td rowspan="2" id="table-text">TISCH</td>
+                            <td rowspan="3" id="table-text">TISCH</td>
                             <td class="blind">SMALL BLIND:</td>
                             <td class="blind blind-number" id="small-blind"></td>
                         </tr>
                         <tr>
                             <td class="blind">BIG BLIND:</td>
                             <td class="blind blind-number" id="big-blind"></td>
+                        </tr>
+                        <tr>
+                            <td class="blind">ANTE:</td>
+                            <td class="blind blind-number" id="ante"></td>
                         </tr>
                     </table>
                 </div>

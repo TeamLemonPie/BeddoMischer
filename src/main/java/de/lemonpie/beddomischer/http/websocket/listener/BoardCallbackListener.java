@@ -36,4 +36,11 @@ public class BoardCallbackListener implements BoardListener {
 				new JsonPrimitive(newValue));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
+
+	@Override
+	public void anteDidChange(int newValue) {
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.BOARD, CommandName.ANTE, -1,
+				new JsonPrimitive(newValue));
+		webSocketHandler.sendCommand(callbackCommand);
+	}
 }

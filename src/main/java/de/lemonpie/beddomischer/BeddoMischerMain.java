@@ -241,8 +241,7 @@ public class BeddoMischerMain {
 
 		commandExecutor.addCommand(new BigBlindReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new SmallBlindReadCommand(), Scope.ADMIN);
-
-
+		commandExecutor.addCommand(new AnteReadCommand(), Scope.ADMIN);
 	}
 
 	/*

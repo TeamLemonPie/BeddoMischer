@@ -9,8 +9,5 @@
         <module name="BeddoMischer" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="BeddoMischer" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
