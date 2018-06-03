@@ -36,6 +36,8 @@ public class Player {
 
 	@DatabaseField
 	private int chips;
+	@DatabaseField
+	private long timestampDeactivate;
 
 	@DatabaseField
 	private int readerId = BeddoMischerMain.READER_NULL_ID;
@@ -85,6 +87,11 @@ public class Player {
 	public void setPlayerState(PlayerState state) {
 		this.state = state;
 		fireListener(listener -> listener.stateDidChange(this, state));
+		if (state == PlayerState.OUT_OF_GAME) {
+			timestampDeactivate = System.currentTimeMillis();
+		} else {
+			timestampDeactivate = Long.MAX_VALUE;
+		}
 	}
 
 	public Card getCardLeft() {
@@ -177,6 +184,7 @@ public class Player {
 		map.put("card2", cardRight != null ? cardRight.getName() : "back");
 
 		map.put("chips", chips);
+		map.put("timestampDeactivate", timestampDeactivate);
 		map.put("winprobability", winprobability);
 		return map;
 	}
