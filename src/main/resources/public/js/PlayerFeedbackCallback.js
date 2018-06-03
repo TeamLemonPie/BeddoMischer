@@ -22,7 +22,6 @@ function handlePlayerFeedbackCallback(command, key, value) {
             $(playerContainer).find(".card").removeClass("orange");
             $(playerContainer).find(".card").addClass("red");
         }
-
     } else if (command === "next-pause") {
         clearInterval(x);
         startCountdown(value, true);
@@ -31,6 +30,25 @@ function handlePlayerFeedbackCallback(command, key, value) {
         clearInterval(x);
         startCountdown(value, true);
         $("#countdown-description").text("Pause:");
+    }
+}
+
+function handlePlayerCallback(command, key, value) {
+    var playerContainer = $("#player-" + key);
+    if (command === "state") {
+        if (value === "OUT_OF_ROUND") {
+            playerContainer.find(".card").addClass("out-of-round");
+            playerContainer.removeClass("out-of-game");
+            playerContainer.removeClass("active");
+        } else if (value === "OUT_OF_GAME") {
+            playerContainer.find(".card").removeClass("out-of-round");
+            playerContainer.addClass("out-of-game");
+            playerContainer.removeClass("active");
+        } else if (value === "ACTIVE") {
+            playerContainer.find(".card").removeClass("out-of-round");
+            playerContainer.removeClass("out-of-game");
+            playerContainer.addClass("active");
+        }
     }
 }
 

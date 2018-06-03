@@ -115,3 +115,11 @@ body {
     font-weight: bold;
     font-family: Tahoma, serif;
 }
+
+.out-of-game {
+    opacity: 0;
+}
+
+.out-of-round {
+    background-color: #000000;
+}
