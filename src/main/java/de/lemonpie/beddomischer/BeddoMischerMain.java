@@ -123,6 +123,9 @@ public class BeddoMischerMain {
 			}
 		}));
 
+		Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
+		discoveryThread.start();
+
 		startUp();
 		loadData();
 		startServer(settings);
