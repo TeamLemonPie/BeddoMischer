@@ -15,8 +15,6 @@ import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerList;
-import de.lemonpie.beddomischer.settings.Settings;
-import de.lemonpie.beddomischer.settings.SettingsHandler;
 import de.lemonpie.beddomischer.socket.CommandExecutor;
 import de.lemonpie.beddomischer.socket.ControlServerSocket;
 import de.lemonpie.beddomischer.socket.admin.AdminBoardListener;
@@ -30,6 +28,8 @@ import de.lemonpie.beddomischer.storage.BoardSerializer;
 import de.lemonpie.beddomischer.storage.StorageBoardListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
 import de.tobias.utils.net.DiscoveryThread;
+import de.tobias.utils.settings.Storage;
+import de.tobias.utils.settings.StorageTypes;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import logger.FileOutputMode;
@@ -42,7 +42,6 @@ import tools.PathUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -108,20 +107,8 @@ public class BeddoMischerMain
 	{
 		prepareLogger();
 
-		Path settingsPath = Paths.get("settings.properties");
-		Settings settings = new Settings();
-		try
-		{
-			if(Files.notExists(settingsPath))
-			{
-				SettingsHandler.saver().defaultSettings(settingsPath);
-			}
-			settings = SettingsHandler.loader().load(settingsPath);
-		}
-		catch(IOException e)
-		{
-			Logger.error(e);
-		}
+		Path settingsPath = Paths.get("./settings.yml");
+		ServerSettings serverSettings = Storage.load(settingsPath, StorageTypes.YAML, ServerSettings.class);
 
 		// Setup jdbc
 		final String databaseUrl = "jdbc:sqlite:BeddoMischer.db";
@@ -151,8 +138,8 @@ public class BeddoMischerMain
 
 		startUp();
 		loadData();
-		startServer(settings);
-		startWebServer(settings);
+		startServer(serverSettings);
+		startWebServer(serverSettings);
 	}
 
 	public static void startUp()
@@ -177,11 +164,11 @@ public class BeddoMischerMain
 		players.updateListener();
 	}
 
-	public static void startServer(Settings settings)
+	public static void startServer(ServerSettings settings)
 	{
 		try
 		{
-			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
+			rfidServerSocket = new ReaderServerSocket(settings.readerInterface, settings.readerPort);
 		}
 		catch(IOException e)
 		{
@@ -190,7 +177,7 @@ public class BeddoMischerMain
 
 		try
 		{
-			controlServerSocket = new AdminServerSocket(settings.controlInterface(), settings.controlPort());
+			controlServerSocket = new AdminServerSocket(settings.controlInterface, settings.controlPort);
 		}
 		catch(IOException e)
 		{
@@ -207,10 +194,10 @@ public class BeddoMischerMain
 		}
 	}
 
-	public static void startWebServer(Settings settings)
+	public static void startWebServer(ServerSettings settings)
 	{
-		ipAddress(settings.httpInterface());
-		port(settings.httpPort());
+		ipAddress(settings.httpInterface);
+		port(settings.httpPort);
 
 		exception(Exception.class, (exception, req, res) -> {
 			Logger.error(exception);

@@ -57,3 +57,4 @@ target/
 settings.properties
 *.db
 board.json
+settings.yml
