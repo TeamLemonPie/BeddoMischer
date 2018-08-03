@@ -12,9 +12,10 @@ import de.lemonpie.beddomischer.model.card.CardSymbol;
 import de.lemonpie.beddomischer.model.card.CardValue;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.CommandExecutor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(BeddoMischerTestRunner.class)
 public class CardReadCommandTest
@@ -30,7 +31,7 @@ public class CardReadCommandTest
 
 		CommandExecutor.getInstance().execute(commandData);
 
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.TWO), player.getCardLeft());
+		assertThat(new Card(CardSymbol.CROSS, CardValue.TWO)).isEqualTo(player.getCardLeft());
 	}
 
 	@Test
@@ -45,8 +46,8 @@ public class CardReadCommandTest
 		CommandExecutor.getInstance().execute(commandData);
 		CommandExecutor.getInstance().execute(commandData2);
 
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.TWO), player.getCardLeft());
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.THREE), player.getCardRight());
+		assertThat(new Card(CardSymbol.CROSS, CardValue.TWO)).isEqualTo(player.getCardLeft());
+		assertThat(new Card(CardSymbol.CROSS, CardValue.THREE)).isEqualTo(player.getCardRight());
 	}
 
 	@Test
@@ -63,8 +64,8 @@ public class CardReadCommandTest
 		CommandExecutor.getInstance().execute(commandData2);
 		CommandExecutor.getInstance().execute(commandData3);
 
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.TWO), player.getCardLeft());
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.THREE), player.getCardRight());
+		assertThat(new Card(CardSymbol.CROSS, CardValue.TWO)).isEqualTo(player.getCardLeft());
+		assertThat(new Card(CardSymbol.CROSS, CardValue.THREE)).isEqualTo(player.getCardRight());
 	}
 
 	@Test

@@ -10,9 +10,10 @@ import de.lemonpie.beddomischer.model.card.CardSymbol;
 import de.lemonpie.beddomischer.model.card.CardValue;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.CommandExecutor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(BeddoMischerTestRunner.class)
 public class BoardCardReadCommandTest
@@ -24,7 +25,7 @@ public class BoardCardReadCommandTest
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.BOARD_CARD, 0, new JsonPrimitive("Kr-3"));
 		CommandExecutor.getInstance().execute(commandData);
 
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.THREE), BeddoMischerMain.getBoard().getCard(0));
+		assertThat(new Card(CardSymbol.CROSS, CardValue.THREE)).isEqualTo(BeddoMischerMain.getBoard().getCard(0));
 	}
 
 	@Test
@@ -36,8 +37,8 @@ public class BoardCardReadCommandTest
 		CommandExecutor.getInstance().execute(commandData);
 		CommandExecutor.getInstance().execute(commandData2);
 
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.THREE), BeddoMischerMain.getBoard().getCard(0));
-		Assert.assertEquals(Card.EMPTY, BeddoMischerMain.getBoard().getCard(1));
+		assertThat(new Card(CardSymbol.CROSS, CardValue.THREE)).isEqualTo(BeddoMischerMain.getBoard().getCard(0));
+		assertThat(BeddoMischerMain.getBoard().getCard(1)).isEqualTo(Card.EMPTY);
 	}
 
 }

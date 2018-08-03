@@ -8,9 +8,10 @@ import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.CommandExecutor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(BeddoMischerTestRunner.class)
 public class PlayerOpReadCommandTest
@@ -22,7 +23,7 @@ public class PlayerOpReadCommandTest
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_OP, 0, new JsonPrimitive("add"));
 		CommandExecutor.getInstance().execute(commandData);
 
-		Assert.assertEquals(1, BeddoMischerMain.getPlayers().getData().size());
+		assertThat(BeddoMischerMain.getPlayers().getData()).hasSize(1);
 	}
 
 	@Test
@@ -33,7 +34,7 @@ public class PlayerOpReadCommandTest
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_OP, player.getId(), new JsonPrimitive("remove"));
 		CommandExecutor.getInstance().execute(commandData);
 
-		Assert.assertEquals(0, BeddoMischerMain.getPlayers().getData().size());
+		assertThat(BeddoMischerMain.getPlayers().getData()).isEmpty();
 	}
 
 	@Test
@@ -44,7 +45,7 @@ public class PlayerOpReadCommandTest
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_OP, 2, new JsonPrimitive("remove"));
 		CommandExecutor.getInstance().execute(commandData);
 
-		Assert.assertEquals(1, BeddoMischerMain.getPlayers().getData().size());
+		assertThat(BeddoMischerMain.getPlayers().getData()).hasSize(1);
 	}
 
 }

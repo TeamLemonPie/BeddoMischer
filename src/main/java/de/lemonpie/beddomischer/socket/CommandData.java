@@ -12,6 +12,13 @@ public class CommandData
 	private int key;
 	private JsonElement value;
 
+	public CommandData(Scope scope, CommandName command, int key)
+	{
+		this.scope = scope;
+		this.command = command.getName();
+		this.key = key;
+	}
+
 	public CommandData(Scope scope, CommandName command, int key, JsonElement value)
 	{
 		this.scope = scope;

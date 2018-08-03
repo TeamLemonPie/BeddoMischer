@@ -9,9 +9,10 @@ import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerState;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.CommandExecutor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(BeddoMischerTestRunner.class)
 public class PlayerStateReadCommandTest
@@ -25,7 +26,7 @@ public class PlayerStateReadCommandTest
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_STATE, player.getId(), new JsonPrimitive(PlayerState.OUT_OF_GAME.name()));
 		CommandExecutor.getInstance().execute(commandData);
 
-		Assert.assertEquals(PlayerState.OUT_OF_GAME, player.getPlayerState());
+		assertThat(player.getPlayerState()).isEqualTo(PlayerState.OUT_OF_GAME);
 	}
 
 }

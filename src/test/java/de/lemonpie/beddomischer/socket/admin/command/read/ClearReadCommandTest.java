@@ -11,10 +11,11 @@ import de.lemonpie.beddomischer.model.card.CardSymbol;
 import de.lemonpie.beddomischer.model.card.CardValue;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.CommandExecutor;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(BeddoMischerTestRunner.class)
 public class ClearReadCommandTest
@@ -42,11 +43,11 @@ public class ClearReadCommandTest
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, player.getId(), null);
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertEquals(Card.EMPTY, player.getCardLeft());
-		Assert.assertEquals(Card.EMPTY, player.getCardRight());
+		assertThat(player.getCardLeft()).isEqualTo(Card.EMPTY);
+		assertThat(player.getCardRight()).isEqualTo(Card.EMPTY);
 
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.FIVE), board.getCard(0));
-		Assert.assertEquals(new Card(CardSymbol.DIAMONDS, CardValue.FIVE), board.getCard(1));
+		assertThat(new Card(CardSymbol.CROSS, CardValue.FIVE)).isEqualTo(board.getCard(0));
+		assertThat(new Card(CardSymbol.DIAMONDS, CardValue.FIVE)).isEqualTo(board.getCard(1));
 	}
 
 	@Test
@@ -55,11 +56,11 @@ public class ClearReadCommandTest
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, -2, null);
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertEquals(new Card(CardSymbol.CROSS, CardValue.ACE), player.getCardLeft());
-		Assert.assertEquals(new Card(CardSymbol.HEART, CardValue.TEN), player.getCardRight());
+		assertThat(new Card(CardSymbol.CROSS, CardValue.ACE)).isEqualTo(player.getCardLeft());
+		assertThat(new Card(CardSymbol.HEART, CardValue.TEN)).isEqualTo(player.getCardRight());
 
-		Assert.assertEquals(Card.EMPTY, board.getCard(0));
-		Assert.assertEquals(Card.EMPTY, board.getCard(1));
+		assertThat(board.getCard(0)).isEqualTo(Card.EMPTY);
+		assertThat(board.getCard(1)).isEqualTo(Card.EMPTY);
 	}
 
 	@Test
@@ -68,11 +69,11 @@ public class ClearReadCommandTest
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, -1, null);
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertEquals(Card.EMPTY, player.getCardLeft());
-		Assert.assertEquals(Card.EMPTY, player.getCardRight());
+		assertThat(player.getCardLeft()).isEqualTo(Card.EMPTY);
+		assertThat(player.getCardRight()).isEqualTo(Card.EMPTY);
 
-		Assert.assertEquals(Card.EMPTY, board.getCard(0));
-		Assert.assertEquals(Card.EMPTY, board.getCard(1));
+		assertThat(board.getCard(0)).isEqualTo(Card.EMPTY);
+		assertThat(board.getCard(1)).isEqualTo(Card.EMPTY);
 	}
 
 }

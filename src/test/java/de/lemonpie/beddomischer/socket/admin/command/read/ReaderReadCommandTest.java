@@ -8,9 +8,10 @@ import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.CommandExecutor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(BeddoMischerTestRunner.class)
 public class ReaderReadCommandTest
@@ -28,7 +29,7 @@ public class ReaderReadCommandTest
 
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertEquals(3, player.getReaderId());
+		assertThat(player.getReaderId()).isEqualTo(3);
 	}
 
 	@Test
@@ -44,7 +45,7 @@ public class ReaderReadCommandTest
 
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertEquals(3, player.getReaderId());
+		assertThat(player.getReaderId()).isEqualTo(3);
 	}
 
 	@Test
@@ -60,8 +61,8 @@ public class ReaderReadCommandTest
 
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertFalse(BeddoMischerMain.getBoard().getReaderIds().contains(3));
-		Assert.assertEquals(3, player.getReaderId());
+		assertThat(BeddoMischerMain.getBoard().getReaderIds().contains(3)).isFalse();
+		assertThat(player.getReaderId()).isEqualTo(3);
 	}
 
 	@Test
@@ -75,7 +76,7 @@ public class ReaderReadCommandTest
 
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertTrue(BeddoMischerMain.getBoard().getReaderIds().contains(3));
+		assertThat(BeddoMischerMain.getBoard().getReaderIds().contains(3)).isTrue();
 	}
 
 	@Test
@@ -92,7 +93,7 @@ public class ReaderReadCommandTest
 
 		CommandExecutor.getInstance().execute(data);
 
-		Assert.assertEquals(-3, player.getReaderId());
-		Assert.assertTrue(BeddoMischerMain.getBoard().getReaderIds().contains(3));
+		assertThat(player.getReaderId()).isEqualTo(-3);
+		assertThat(BeddoMischerMain.getBoard().getReaderIds().contains(3)).isTrue();
 	}
 }
