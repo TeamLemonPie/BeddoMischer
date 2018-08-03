@@ -171,6 +171,11 @@
         </dependency>
 
         <dependency>
+            <groupId>de.tobias</groupId>
+            <artifactId>libNetwork</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>de.deadlocker8</groupId>
             <artifactId>tools</artifactId>
             <version>1.0.0</version>

@@ -29,6 +29,7 @@ import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.BoardSerializer;
 import de.lemonpie.beddomischer.storage.StorageBoardListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
+import de.tobias.utils.net.DiscoveryThread;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import logger.FileOutputMode;
@@ -123,7 +124,12 @@ public class BeddoMischerMain {
 			}
 		}));
 
-		Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
+		// Starting discovery thread
+		final DiscoveryThread discovery = DiscoveryThread.getInstance();
+		discovery.setMessageKey("BEDDOMISCHER");
+		discovery.setPort(9990);
+
+		Thread discoveryThread = new Thread(discovery);
 		discoveryThread.start();
 
 		startUp();
