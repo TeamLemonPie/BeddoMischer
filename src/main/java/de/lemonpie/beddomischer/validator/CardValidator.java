@@ -5,28 +5,36 @@ import de.lemonpie.beddomischer.model.card.Card;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CardValidator {
+public class CardValidator
+{
 
 	private static final CardValidator INSTANCE;
 
-	static {
+	static
+	{
 		INSTANCE = new CardValidator();
 	}
 
-	public static CardValidator getInstance() {
+	public static CardValidator getInstance()
+	{
 		return INSTANCE;
 	}
 
 	private Set<Card> detectedCards = new HashSet<>();
 
-	public boolean validateCard(Card card) {
-		if (isCardSetFromWinProbability()) {
+	public boolean validateCard(Card card)
+	{
+		if(isCardSetFromWinProbability())
+		{
 			return true;
 		}
 
-		if (card != Card.EMPTY) {
-			for (Card c : detectedCards) {
-				if (card.equals(c)) {
+		if(card != Card.EMPTY)
+		{
+			for(Card c : detectedCards)
+			{
+				if(card.equals(c))
+				{
 					return false;
 				}
 			}
@@ -35,26 +43,35 @@ public class CardValidator {
 		return true;
 	}
 
-	public void clear() {
+	public void clear()
+	{
 		detectedCards.clear();
 	}
 
-	public void clear(Card... cards) {
-		for (Card card : cards) {
+	public void clear(Card... cards)
+	{
+		for(Card card : cards)
+		{
 			detectedCards.remove(card);
 		}
 	}
 
-	private static boolean isCardSetFromWinProbability() {
+	private static boolean isCardSetFromWinProbability()
+	{
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		for (StackTraceElement element : stackTrace) {
-			try {
-				if (element.getClassName().contains("Calculation")
+		for(StackTraceElement element : stackTrace)
+		{
+			try
+			{
+				if(element.getClassName().contains("Calculation")
 						|| element.getClassName().contains("TestHandDetection")
-						|| element.getClassName().contains("TestWinProbability")) {
+						|| element.getClassName().contains("TestWinProbability"))
+				{
 					return true;
 				}
-			} catch (Exception ignore) {
+			}
+			catch(Exception ignore)
+			{
 			}
 		}
 		return false;

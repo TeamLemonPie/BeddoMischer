@@ -7,16 +7,19 @@ import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.CountdownListener;
 
-public class WebSocketCountdownListener implements CountdownListener {
+public class WebSocketCountdownListener implements CountdownListener
+{
 
 	private WebSocketHandler webSocketHandler;
 
-	public WebSocketCountdownListener(WebSocketHandler webSocketHandler) {
+	public WebSocketCountdownListener(WebSocketHandler webSocketHandler)
+	{
 		this.webSocketHandler = webSocketHandler;
 	}
 
 	@Override
-	public void pauseCountdownDidChange(long value) {
+	public void pauseCountdownDidChange(long value)
+	{
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.COUNTDOWN, CommandName.PAUSE, -1, new JsonPrimitive(value));
 		CallbackCommand callbackCommandFeedback = new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.PAUSE, -1, new JsonPrimitive(value));
 		webSocketHandler.sendCommand(callbackCommand);
@@ -24,7 +27,8 @@ public class WebSocketCountdownListener implements CountdownListener {
 	}
 
 	@Override
-	public void gameCountdownDidChange(long value) {
+	public void gameCountdownDidChange(long value)
+	{
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.NEXT_PAUSE, -1, new JsonPrimitive(value));
 		webSocketHandler.sendCommand(callbackCommand);
 	}

@@ -6,35 +6,43 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
-public class BeddoMischerTestListener extends RunListener {
+public class BeddoMischerTestListener extends RunListener
+{
 
 	@Override
-	public void testRunStarted(Description description) throws Exception {
+	public void testRunStarted(Description description)
+	{
 	}
 
 	@Override
-	public void testRunFinished(Result result) throws Exception {
+	public void testRunFinished(Result result)
+	{
 	}
 
 	@Override
-	public void testStarted(Description description) throws Exception {
+	public void testStarted(Description description)
+	{
 		BeddoMischerMain.startUp();
 		CardValidator.getInstance().clear();
 	}
 
 	@Override
-	public void testFinished(Description description) throws Exception {
+	public void testFinished(Description description)
+	{
 	}
 
 	@Override
-	public void testFailure(Failure failure) throws Exception {
+	public void testFailure(Failure failure)
+	{
 	}
 
 	@Override
-	public void testAssumptionFailure(Failure failure) {
+	public void testAssumptionFailure(Failure failure)
+	{
 	}
 
 	@Override
-	public void testIgnored(Description description) throws Exception {
+	public void testIgnored(Description description)
+	{
 	}
 }

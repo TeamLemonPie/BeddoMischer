@@ -7,18 +7,18 @@ package de.lemonpie.beddomischer.settings
   */
 object SettingsHandler {
 
-	/**
-	  * Get the current loader.
-	  *
-	  * @return loader.
-	  */
-	def loader = new PropertiesSettingsHandler()
+  /**
+    * Get the current loader.
+    *
+    * @return loader.
+    */
+  def loader = new PropertiesSettingsHandler()
 
-	/**
-	  * Get the current saver.
-	  *
-	  * @return saver.
-	  */
-	def saver = new PropertiesSettingsHandler()
+  /**
+    * Get the current saver.
+    *
+    * @return saver.
+    */
+  def saver = new PropertiesSettingsHandler()
 
 }

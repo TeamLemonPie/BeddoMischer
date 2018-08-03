@@ -10,13 +10,13 @@ import java.nio.file.Path
   */
 trait SettingsLoader {
 
-	/**
-	  * Load a file and create a de.lemonpie.beddomischer.settings object.
-	  *
-	  * @param path path of de.lemonpie.beddomischer.settings file.
-	  * @throws IOException file could not be read
-	  * @return de.lemonpie.beddomischer.settings object.
-	  */
-	@throws[IOException]
-	def load(path: Path): Settings
+  /**
+    * Load a file and create a de.lemonpie.beddomischer.settings object.
+    *
+    * @param path path of de.lemonpie.beddomischer.settings file.
+    * @throws IOException file could not be read
+    * @return de.lemonpie.beddomischer.settings object.
+    */
+  @throws[IOException]
+  def load(path: Path): Settings
 }

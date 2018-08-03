@@ -7,13 +7,16 @@ import spark.TemplateViewRoute;
 
 import java.util.HashMap;
 
-public class AdminHandler implements TemplateViewRoute {
+public class AdminHandler implements TemplateViewRoute
+{
 
-	public AdminHandler() {
+	public AdminHandler()
+	{
 	}
 
 	@Override
-	public ModelAndView handle(Request request, Response response) throws Exception {
+	public ModelAndView handle(Request request, Response response)
+	{
 		return new ModelAndView(new HashMap<>(), "Admin.ftl");
 	}
 }

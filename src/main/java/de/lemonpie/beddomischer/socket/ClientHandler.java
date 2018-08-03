@@ -9,11 +9,13 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable {
+public class ClientHandler implements Runnable
+{
 
 	private static Gson gson;
 
-	static {
+	static
+	{
 		gson = new Gson();
 	}
 
@@ -24,7 +26,8 @@ public class ClientHandler implements Runnable {
 	private BufferedReader inputStream;
 	private PrintStream outputStream;
 
-	public ClientHandler(Socket socket, ControlServerSocket controlServerSocket) throws IOException {
+	public ClientHandler(Socket socket, ControlServerSocket controlServerSocket) throws IOException
+	{
 		this.controlServerSocket = controlServerSocket;
 
 		this.socket = socket;
@@ -34,49 +37,66 @@ public class ClientHandler implements Runnable {
 		this.thread = new Thread(this);
 	}
 
-	public void start() {
+	public void start()
+	{
 		this.thread.start();
 	}
 
-	public void interrupt() {
+	public void interrupt()
+	{
 		this.thread.interrupt();
 	}
 
-	public void write(String data) {
+	public void write(String data)
+	{
 		outputStream.println(data); // AutoFlush is enable
 	}
 
 	@Override
-	public void run() {
-		try {
+	public void run()
+	{
+		try
+		{
 			String line;
-			while ((line = inputStream.readLine()) != null) {
+			while((line = inputStream.readLine()) != null)
+			{
 				// Handle line
 				Logger.info("[" + socket.getRemoteSocketAddress() + "]: " + line);
 
 				CommandData commandData = gson.fromJson(line, CommandData.class);
 				CommandExecutor.getInstance().execute(commandData);
 
-				if (thread.isInterrupted()) {
+				if(thread.isInterrupted())
+				{
 					break;
 				}
 			}
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			Logger.info("Connection closed: " + e.getMessage());
-			if (controlServerSocket.getSocketListener() != null) {
+			if(controlServerSocket.getSocketListener() != null)
+			{
 				controlServerSocket.getSocketListener().connectionClosed(socket);
 			}
-		} finally {
-			try {
+		}
+		finally
+		{
+			try
+			{
 				close();
-			} catch (IOException e) {
+			}
+			catch(IOException e)
+			{
 				Logger.error(e);
 			}
 		}
 	}
 
-	public void close() throws IOException {
-		if (controlServerSocket.getSocketListener() != null) {
+	public void close() throws IOException
+	{
+		if(controlServerSocket.getSocketListener() != null)
+		{
 			controlServerSocket.getSocketListener().connectionClosed(socket);
 		}
 

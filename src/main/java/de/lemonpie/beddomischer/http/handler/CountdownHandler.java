@@ -10,16 +10,19 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountdownHandler implements TemplateViewRoute {
+public class CountdownHandler implements TemplateViewRoute
+{
 
 	private boolean transparent;
 
-	public CountdownHandler(boolean transparent) {
+	public CountdownHandler(boolean transparent)
+	{
 		this.transparent = transparent;
 	}
 
 	@Override
-	public ModelAndView handle(Request request, Response response) throws Exception {
+	public ModelAndView handle(Request request, Response response)
+	{
 		Map<String, Object> model = new HashMap<>();
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
@@ -34,9 +37,12 @@ public class CountdownHandler implements TemplateViewRoute {
 		model.put("timeDifference", difference);
 		model.put("endTime", dateFormat.format(countdownEndTime));
 
-		if (!transparent) {
+		if(!transparent)
+		{
 			return new ModelAndView(model, "Countdown.ftl");
-		} else {
+		}
+		else
+		{
 			return new ModelAndView(model, "CountdownTransparent.ftl");
 		}
 	}

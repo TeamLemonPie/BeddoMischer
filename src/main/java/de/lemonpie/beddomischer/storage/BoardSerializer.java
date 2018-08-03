@@ -10,31 +10,41 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class BoardSerializer {
+public class BoardSerializer
+{
 
 	private static final String fileName = "board.json";
 
-	public static synchronized void saveBoard(Board board) {
+	public static synchronized void saveBoard(Board board)
+	{
 		ObjectMapper objectMapper = new ObjectMapper();
 		final Path path = Paths.get(fileName);
 
-		try {
+		try
+		{
 			final String s = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(board);
 			Files.write(path, s.getBytes(), StandardOpenOption.CREATE);
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static Board loadBoard() {
+	public static Board loadBoard()
+	{
 		ObjectMapper objectMapper = new ObjectMapper();
 		final Path path = Paths.get(fileName);
 
 		Board board = new Board();
-		if (Files.exists(path)) {
-			try {
+		if(Files.exists(path))
+		{
+			try
+			{
 				board = objectMapper.readValue(Files.newBufferedReader(path), Board.class);
-			} catch (IOException e) {
+			}
+			catch(IOException e)
+			{
 				Logger.error(e);
 			}
 		}

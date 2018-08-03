@@ -13,10 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class PlayerTwitchNameReadCommandTest {
+public class PlayerTwitchNameReadCommandTest
+{
 
 	@Test
-	public void playerTwichNameCommandShouldReturnPlayerTwitchName() {
+	public void playerTwichNameCommandShouldReturnPlayerTwitchName()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_TWITCH, player.getId(), new JsonPrimitive("Papaplatte"));

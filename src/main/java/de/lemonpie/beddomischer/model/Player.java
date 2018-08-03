@@ -16,7 +16,8 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 @DatabaseTable(tableName = "Player")
-public class Player {
+public class Player
+{
 
 	private List<PlayerListener> listeners;
 
@@ -45,11 +46,13 @@ public class Player {
 	private CalculatedHand calculatedHand;
 	private int winprobability;
 
-	public Player() {
+	public Player()
+	{
 		this(0);
 	}
 
-	public Player(int id) {
+	public Player(int id)
+	{
 		listeners = new LinkedList<>();
 
 		this.id = id;
@@ -58,122 +61,153 @@ public class Player {
 		this.state = PlayerState.ACTIVE;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 		fireListener(listener -> listener.nameDidChange(this, name));
 	}
 
-	public String getTwitchName() {
+	public String getTwitchName()
+	{
 		return twitchName;
 	}
 
-	public void setTwitchName(String twitchName) {
+	public void setTwitchName(String twitchName)
+	{
 		this.twitchName = twitchName;
 		fireListener(listener -> listener.twitchNameDidChange(this, twitchName));
 	}
 
-	public PlayerState getPlayerState() {
+	public PlayerState getPlayerState()
+	{
 		return state;
 	}
 
-	public void setPlayerState(PlayerState state) {
+	public void setPlayerState(PlayerState state)
+	{
 		this.state = state;
 		fireListener(listener -> listener.stateDidChange(this, state));
-		if (state == PlayerState.OUT_OF_GAME) {
+		if(state == PlayerState.OUT_OF_GAME)
+		{
 			timestampDeactivate = System.currentTimeMillis();
-		} else {
+		}
+		else
+		{
 			timestampDeactivate = Long.MAX_VALUE;
 		}
 	}
 
-	public Card getCardLeft() {
+	public Card getCardLeft()
+	{
 		return cardLeft;
 	}
 
-	public void setCardLeft(Card cardLeft) {
-		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL || state != PlayerState.ACTIVE) {
+	public void setCardLeft(Card cardLeft)
+	{
+		if(BeddoMischerMain.getBlockOption() == BlockOption.ALL || state != PlayerState.ACTIVE)
+		{
 			return;
 		}
 
-		if (CardValidator.getInstance().validateCard(cardLeft)) {
+		if(CardValidator.getInstance().validateCard(cardLeft))
+		{
 			this.cardLeft = cardLeft;
 			fireListener(listener -> listener.cardDidChangeAtIndex(this, 0, cardLeft));
 		}
 	}
 
-	public Card getCardRight() {
+	public Card getCardRight()
+	{
 		return cardRight;
 	}
 
-	public void setCardRight(Card cardRight) {
-		if (BeddoMischerMain.getBlockOption() == BlockOption.ALL || state != PlayerState.ACTIVE) {
+	public void setCardRight(Card cardRight)
+	{
+		if(BeddoMischerMain.getBlockOption() == BlockOption.ALL || state != PlayerState.ACTIVE)
+		{
 			return;
 		}
 
-		if (CardValidator.getInstance().validateCard(cardRight)) {
+		if(CardValidator.getInstance().validateCard(cardRight))
+		{
 			this.cardRight = cardRight;
 			fireListener(listener -> listener.cardDidChangeAtIndex(this, 1, cardRight));
 		}
 	}
 
-	public int getChips() {
+	public int getChips()
+	{
 		return chips;
 	}
 
-	public void setChips(int chips) {
+	public void setChips(int chips)
+	{
 		this.chips = chips;
 		fireListener(listener -> listener.chipsDidChange(this, chips));
 	}
 
-	public int getWinprobability() {
+	public int getWinprobability()
+	{
 		return winprobability;
 	}
 
-	public void setWinProbability(int winProbability) {
+	public void setWinProbability(int winProbability)
+	{
 		this.winprobability = winProbability;
 		fireListener(listener -> listener.winProbabilityDidChange(this, winProbability));
 	}
 
-	public CalculatedHand getCalculatedHand() {
+	public CalculatedHand getCalculatedHand()
+	{
 		return calculatedHand;
 	}
 
-	public void setCalculatedHand(CalculatedHand calculatedHand) {
+	public void setCalculatedHand(CalculatedHand calculatedHand)
+	{
 		this.calculatedHand = calculatedHand;
 	}
 
-	public int getReaderId() {
+	public int getReaderId()
+	{
 		return readerId;
 	}
 
-	public void setReaderId(int readerId) {
+	public void setReaderId(int readerId)
+	{
 		this.readerId = readerId;
 		fireListener(listener -> listener.readerIdDidChange(this, readerId));
 	}
 
-	public void addListener(PlayerListener playerListener) {
+	public void addListener(PlayerListener playerListener)
+	{
 		this.listeners.add(playerListener);
 	}
 
-	public void removeListener(PlayerListener playerListener) {
+	public void removeListener(PlayerListener playerListener)
+	{
 		this.listeners.remove(playerListener);
 	}
 
-	private void fireListener(Consumer<PlayerListener> consumer) {
-		for (PlayerListener playerListener : listeners) {
+	private void fireListener(Consumer<PlayerListener> consumer)
+	{
+		for(PlayerListener playerListener : listeners)
+		{
 			consumer.accept(playerListener);
 		}
 	}
 
-	public Map<String, Object> toMap() {
+	public Map<String, Object> toMap()
+	{
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("name", name);
@@ -189,25 +223,36 @@ public class Player {
 		return map;
 	}
 
-	public void setCard(int index, Card card) {
-		if (index == 0) {
+	public void setCard(int index, Card card)
+	{
+		if(index == 0)
+		{
 			setCardLeft(card);
-		} else if (index == 1) {
+		}
+		else if(index == 1)
+		{
 			setCardRight(card);
-		} else {
+		}
+		else
+		{
 			throw new IllegalArgumentException("Index is " + index + " should be 0 or 1");
 		}
 	}
 
-	public void clearCards() {
+	public void clearCards()
+	{
 		setCard(0, Card.EMPTY);
 		setCard(1, Card.EMPTY);
 	}
 
-	public void setCard(Card card) {
-		if (cardLeft == null || cardLeft == Card.EMPTY) {
+	public void setCard(Card card)
+	{
+		if(cardLeft == null || cardLeft == Card.EMPTY)
+		{
 			setCardLeft(card);
-		} else if (cardRight == null || cardRight == Card.EMPTY) {
+		}
+		else if(cardRight == null || cardRight == Card.EMPTY)
+		{
 			setCardRight(card);
 		}
 	}
@@ -216,16 +261,19 @@ public class Player {
 	Win Probability
 	 */
 
-	public Card getHighestCard() {
+	public Card getHighestCard()
+	{
 		return cardLeft.getValue().getWeight() > cardRight.getValue().getWeight() ? cardLeft : cardRight;
 	}
 
-	public Card getLowestCard() {
+	public Card getLowestCard()
+	{
 		return cardLeft.getValue().getWeight() < cardRight.getValue().getWeight() ? cardLeft : cardRight;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Player{" +
 				"listeners=" + listeners +
 				", id=" + id +

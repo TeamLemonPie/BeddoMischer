@@ -5,16 +5,19 @@ import de.lemonpie.beddomischer.listener.PlayerListListener;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.socket.admin.command.send.PlayerOpSendCommand;
 
-public class AdminPlayerListListener implements PlayerListListener {
-    @Override
-    public void addPlayer(Player player) {
+public class AdminPlayerListListener implements PlayerListListener
+{
+	@Override
+	public void addPlayer(Player player)
+	{
 		BeddoMischerMain.getControlServerSocket().writeAll(new PlayerOpSendCommand(player.getId()));
 
 		AdminPlayerListener listener = new AdminPlayerListener();
 		player.addListener(listener);
-    }
+	}
 
-    @Override
-    public void removePlayer(Player player) {
-    }
+	@Override
+	public void removePlayer(Player player)
+	{
+	}
 }

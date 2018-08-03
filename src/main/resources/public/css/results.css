@@ -16,25 +16,25 @@ body {
 	font-family: Tahoma, serif;
 }
 
-.main-container{
+.main-container {
 	width: 1500px;
 	margin-left: 136px;
 	margin-top: 55px;
 }
 
-.headline{
+.headline {
 	width: 100%;
 	background-color: #151826;
 	font-size: 55px;
     color: #FFFFFF;
-    text-align: center;   
+	text-align: center;
 	border: 3px solid black;
 	border-radius: 10px;
 	padding: 15px 0 15px 0;
 	letter-spacing: -2px;
 }
 
-.table{
+.table {
 	margin-top: 21px;
 	background-color: rgba(21, 24, 38, 0.6);
 	width: 100%;
@@ -42,20 +42,20 @@ body {
 	border-radius: 10px;
 }
 
-.table-content{
+.table-content {
 	margin-top: 33px;
 	margin-left: 90px;
 	margin-bottom: 33px;
 }
 
-.table-line{
+.table-line {
 	height: 64px;
 	display: table;
 	margin-bottom: 19px;
 }
 
-.table-cell{
-	background-color: #151826;	
+.table-cell {
+	background-color: #151826;
 	height: 100%;
 	border: 3px solid white;
 	border-radius: 10px;
@@ -63,129 +63,129 @@ body {
 	vertical-align: middle;
 }
 
-.table-cell-position{
+.table-cell-position {
 	width: 144px;
 }
 
-.table-cell-names{	
+.table-cell-names {
 	width: 844px;
 	vertical-align: top;
 }
 
-.names{
+.names {
 	width: 100%;
 	height: 95%;
 	display: table;
 }
 
-.table-cell-chips{	
+.table-cell-chips {
 	width: 194px;
 	padding: 0 0 0 0;
 }
 
-.table-cell-spacer-one{	
+.table-cell-spacer-one {
 	width: 83px;
 }
 
-.table-cell-spacer-two{	
+.table-cell-spacer-two {
 	width: 19px;
 }
 
-.text-top{
+.text-top {
 	font-size: 35px;
     color: #FFFFFF;
     text-align: center;
 	line-height: 35px;
 }
 
-.text-bottom{
-	font-size: 17px;	
+.text-bottom {
+	font-size: 17px;
 	line-height: 17px;
     color: #FFFFFF;
     text-align: center;
 	padding-bottom: 3px;
 }
 
-.text-left{
+.text-left {
 	padding-left: 35px;
 	font-size: 35px;
     color: #FFFFFF;
 	text-align: left;
 	display: table-cell;
-	vertical-align: middle;	
+	vertical-align: middle;
 }
 
-.text-right{
+.text-right {
 	padding-right: 35px;
 	font-size: 25px;
 	font-weight: bold;
     color: #FFFFFF;
-    text-align: right;	
+	text-align: right;
 	display: table-cell;
 	vertical-align: middle;
 }
 
-.out{
+.out {
 	background-color: #444444;
 }
 
-.countdown{
+.countdown {
 	height: 104px;
 	margin-left: 510px;
 	background-color: #151826;
     color: #FFFFFF;
     text-align: center;
 	border: 3px solid black;
-	border-radius: 10px;	
+	border-radius: 10px;
 	position: absolute;
 	top: 916px;
 	padding: 0 40px 0 40px;
 }
 
-.countdown-spacer{
+.countdown-spacer {
 	border-right: 3px solid black;
 	padding-right: 40px;
 }
 
-.countdown-padding-left{
+.countdown-padding-left {
 	padding-left: 40px;
 }
 
-.countdown-time{
+.countdown-time {
 	font-size: 60px;
 	text-align: center;
 	width: 35px;
 }
 
-.countdown-text{
+.countdown-text {
 	font-size: 17px;
 }
 
-.countdown-bottom{
+.countdown-bottom {
 	font-size: 8px;
 }
 
-.countdown-transparent{
+.countdown-transparent {
     color: #FFFFFF;
     text-align: center;
 	font-family: Affogato, Sans-Serif;
 }
 
-.countdown-transparent-time{
+.countdown-transparent-time {
 	font-size: 70px;
 	width: 45px;
 	font-weight: bold;
 }
 
-.countdown-transparent-colon{
+.countdown-transparent-colon {
 	width: auto;
 }
 
-.countdown-transparent-text{
+.countdown-transparent-text {
 	font-size: 25px;
 }
 
-.hide{
+.hide {
 	display: none;
 }
 

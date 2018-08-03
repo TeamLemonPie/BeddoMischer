@@ -17,13 +17,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class ClearReadCommandTest {
+public class ClearReadCommandTest
+{
 
 	private Player player;
 	private Board board;
 
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		player = BeddoMischerMain.getPlayers().add();
 		player.setReaderId(0);
 		player.setCardLeft(new Card(CardSymbol.CROSS, CardValue.ACE));
@@ -35,7 +37,8 @@ public class ClearReadCommandTest {
 	}
 
 	@Test
-	public void clearPlayerCardShouldReturnNormal() {
+	public void clearPlayerCardShouldReturnNormal()
+	{
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, player.getId(), null);
 		CommandExecutor.getInstance().execute(data);
 
@@ -47,7 +50,8 @@ public class ClearReadCommandTest {
 	}
 
 	@Test
-	public void clearBoardCardsShouldReturnNormal() {
+	public void clearBoardCardsShouldReturnNormal()
+	{
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, -2, null);
 		CommandExecutor.getInstance().execute(data);
 
@@ -59,7 +63,8 @@ public class ClearReadCommandTest {
 	}
 
 	@Test
-	public void clearAllCardsShouldReturnNormal() {
+	public void clearAllCardsShouldReturnNormal()
+	{
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, -1, null);
 		CommandExecutor.getInstance().execute(data);
 

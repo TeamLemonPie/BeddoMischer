@@ -13,10 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class ReaderReadCommandTest {
+public class ReaderReadCommandTest
+{
 
 	@Test
-	public void setOnePlayerReaderShouldReturnNormal() {
+	public void setOnePlayerReaderShouldReturnNormal()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 
 		JsonObject jsonObject = new JsonObject();
@@ -30,7 +32,8 @@ public class ReaderReadCommandTest {
 	}
 
 	@Test
-	public void setOnePlayerReaderWithPreviousPlayerReaderShouldReturnNormal() {
+	public void setOnePlayerReaderWithPreviousPlayerReaderShouldReturnNormal()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 		player.setReaderId(2);
 
@@ -45,7 +48,8 @@ public class ReaderReadCommandTest {
 	}
 
 	@Test
-	public void setOnePlayerReaderWithPreviousBoardReaderShouldReturnNormal() {
+	public void setOnePlayerReaderWithPreviousBoardReaderShouldReturnNormal()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 		BeddoMischerMain.getBoard().addReaderId(3);
 
@@ -61,7 +65,8 @@ public class ReaderReadCommandTest {
 	}
 
 	@Test
-	public void setOneBoardReaderShouldReturnNormal() {
+	public void setOneBoardReaderShouldReturnNormal()
+	{
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", 1); // Board Type
 		jsonObject.addProperty("oldReaderId", -3);
@@ -74,7 +79,8 @@ public class ReaderReadCommandTest {
 	}
 
 	@Test
-	public void setOneBoardReaderWithPreviousPlayerReaderShouldReturnNormal() {
+	public void setOneBoardReaderWithPreviousPlayerReaderShouldReturnNormal()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 		player.setReaderId(3);
 

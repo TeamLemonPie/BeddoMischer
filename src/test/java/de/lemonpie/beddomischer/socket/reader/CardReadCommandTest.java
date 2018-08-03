@@ -17,10 +17,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class CardReadCommandTest {
+public class CardReadCommandTest
+{
 
 	@Test
-	public void onePlayerCardShouldReturnNormal() {
+	public void onePlayerCardShouldReturnNormal()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 		player.setReaderId(1);
 
@@ -32,7 +34,8 @@ public class CardReadCommandTest {
 	}
 
 	@Test
-	public void twoPlayerCardsShouldReturnNormal() {
+	public void twoPlayerCardsShouldReturnNormal()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 		player.setReaderId(1);
 
@@ -47,7 +50,8 @@ public class CardReadCommandTest {
 	}
 
 	@Test
-	public void threePlayerCardsShouldBeIgnored() {
+	public void threePlayerCardsShouldBeIgnored()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 		player.setReaderId(1);
 
@@ -64,7 +68,8 @@ public class CardReadCommandTest {
 	}
 
 	@Test
-	public void oneBoardCardShouldReturnNormal() {
+	public void oneBoardCardShouldReturnNormal()
+	{
 		Board board = BeddoMischerMain.getBoard();
 		board.addReaderId(1);
 

@@ -4,18 +4,17 @@ Handles all chip callback events from server.
 
 function handleChipCallback(command, key, value) {
     if (command === "chip") {
-        var playerContainer = $("#player-" + key);
         window.location = window.location;
     }
 }
 
 function handlePlayerCallback(command, key, value) {
-    var playerContainer = $("#player-" + key);
+    let playerContainer = $("#player-" + key);
     if (command === "name") {
-        var playerName = $(playerContainer).find("#player-name");
+        let playerName = $(playerContainer).find("#player-name");
         playerName.text(value)
     } else if (command === "twitchName") {
-        var playerTwitchName = $(playerContainer).find("#player-twitchName");
+        let playerTwitchName = $(playerContainer).find("#player-twitchName");
         playerTwitchName.text(value)
     } else if (command === "player-op") {
         if (value === "add") {

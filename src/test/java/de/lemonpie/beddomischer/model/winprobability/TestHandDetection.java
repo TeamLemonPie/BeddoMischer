@@ -9,8 +9,6 @@ import de.lemonpie.beddomischer.model.card.CardSymbol;
 import de.lemonpie.beddomischer.model.card.CardValue;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 
 public class TestHandDetection
@@ -20,16 +18,15 @@ public class TestHandDetection
 	{
 		BeddoMischerMain.setBlockOption(BlockOption.NONE);
 
-		ArrayList<Card> cards = new ArrayList<>();
 		Card cardLeft = new Card(CardSymbol.HEART, CardValue.ACE);
 		Card cardRight = new Card(CardSymbol.HEART, CardValue.QUEEN);
 
-        Board board = new Board();
+		Board board = new Board();
 		board.setCard(0, new Card(CardSymbol.SPADES, CardValue.SEVEN));
-        board.setCard(1, new Card(CardSymbol.HEART, CardValue.KING));
-        board.setCard(2, new Card(CardSymbol.CROSS, CardValue.KING));
-        board.setCard(3, new Card(CardSymbol.HEART, CardValue.JACK));
-        board.setCard(4, new Card(CardSymbol.HEART, CardValue.TEN));
+		board.setCard(1, new Card(CardSymbol.HEART, CardValue.KING));
+		board.setCard(2, new Card(CardSymbol.CROSS, CardValue.KING));
+		board.setCard(3, new Card(CardSymbol.HEART, CardValue.JACK));
+		board.setCard(4, new Card(CardSymbol.HEART, CardValue.TEN));
 
 		Hand hand = new Hand(board, cardLeft, cardRight);
 		CalculatedHand calculatedHand = hand.detectHand();
@@ -183,7 +180,8 @@ public class TestHandDetection
 		board.setCard(3, new Card(CardSymbol.HEART, CardValue.NINE));
 		board.setCard(4, new Card(CardSymbol.HEART, CardValue.SIX));
 
-		Hand hand = new Hand(board, cardLeft, cardRight);;
+		Hand hand = new Hand(board, cardLeft, cardRight);
+		;
 		CalculatedHand calculatedHand = hand.detectHand();
 
 		assertEquals(HandType.THREE_OF_A_KIND, calculatedHand.getHandType());

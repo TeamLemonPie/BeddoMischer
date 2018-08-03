@@ -13,10 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class PlayerOpReadCommandTest {
+public class PlayerOpReadCommandTest
+{
 
 	@Test
-	public void playerOpAddCommandShouldAddPlayer() {
+	public void playerOpAddCommandShouldAddPlayer()
+	{
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_OP, 0, new JsonPrimitive("add"));
 		CommandExecutor.getInstance().execute(commandData);
 
@@ -24,7 +26,8 @@ public class PlayerOpReadCommandTest {
 	}
 
 	@Test
-	public void playerOpRemoveCommandShouldRemovePlayer() {
+	public void playerOpRemoveCommandShouldRemovePlayer()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_OP, player.getId(), new JsonPrimitive("remove"));
@@ -34,7 +37,8 @@ public class PlayerOpReadCommandTest {
 	}
 
 	@Test
-	public void wrongPlayerOpRemoveCommandShouldRemovePlayer() {
+	public void wrongPlayerOpRemoveCommandShouldRemovePlayer()
+	{
 		BeddoMischerMain.getPlayers().add();
 
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_OP, 2, new JsonPrimitive("remove"));

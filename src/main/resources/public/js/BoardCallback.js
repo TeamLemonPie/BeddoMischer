@@ -4,8 +4,8 @@ Handles all board callback events from server.
 
 function handleBoardCallback(command, key, value) {
     if (command === "card") {
-        var playerCard = $("#card" + key);
-        var ghostCard = $("#card" + key + "_ghost");
+        let playerCard = $("#card" + key);
+        let ghostCard = $("#card" + key + "_ghost");
 
         ghostCard.removeAttr("class");
         ghostCard.addClass("card");

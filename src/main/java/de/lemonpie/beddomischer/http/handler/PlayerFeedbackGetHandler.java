@@ -11,9 +11,11 @@ import spark.TemplateViewRoute;
 
 import java.util.*;
 
-public class PlayerFeedbackGetHandler implements TemplateViewRoute {
+public class PlayerFeedbackGetHandler implements TemplateViewRoute
+{
 	@Override
-	public ModelAndView handle(Request request, Response response) throws Exception {
+	public ModelAndView handle(Request request, Response response)
+	{
 		PlayerList players = BeddoMischerMain.getPlayers();
 		Board board = BeddoMischerMain.getBoard();
 
@@ -22,7 +24,8 @@ public class PlayerFeedbackGetHandler implements TemplateViewRoute {
 		Map<String, Object> model = new HashMap<>();
 		List<Map<String, Object>> playerModel = new ArrayList<>();
 
-		for (Player player : players) {
+		for(Player player : players)
+		{
 			playerModel.add(player.toMap());
 		}
 

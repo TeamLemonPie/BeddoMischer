@@ -7,39 +7,48 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectionHandler implements Runnable {
+public class ConnectionHandler implements Runnable
+{
 
 	private Thread thread;
 	private ControlServerSocket serverSocket;
 
 	private List<ClientHandler> clientHandlers;
 
-	public ConnectionHandler(ControlServerSocket serverSocket) {
+	public ConnectionHandler(ControlServerSocket serverSocket)
+	{
 		this.clientHandlers = new ArrayList<>();
 		this.serverSocket = serverSocket;
 		this.thread = new Thread(this);
 	}
 
-	public void start() {
+	public void start()
+	{
 		thread.start();
 	}
 
-	public void interrupt() {
+	public void interrupt()
+	{
 		thread.interrupt();
 	}
 
-	public void close() throws IOException {
-		for (ClientHandler clientHandler : clientHandlers) {
+	public void close() throws IOException
+	{
+		for(ClientHandler clientHandler : clientHandlers)
+		{
 			clientHandler.interrupt();
 			clientHandler.close();
 		}
 	}
 
 	@Override
-	public void run() {
-		try {
+	public void run()
+	{
+		try
+		{
 			Socket socket;
-			while ((socket = serverSocket.getServerSocket().accept()) != null) {
+			while((socket = serverSocket.getServerSocket().accept()) != null)
+			{
 				Logger.info("[" + socket.getRemoteSocketAddress() + "]: Connection established");
 
 				// Handle Client
@@ -47,21 +56,26 @@ public class ConnectionHandler implements Runnable {
 				clientHandler.start();
 				clientHandlers.add(clientHandler);
 
-				if (serverSocket.getSocketListener() != null) {
+				if(serverSocket.getSocketListener() != null)
+				{
 					serverSocket.getSocketListener().connectionEstablished(socket);
 				}
 
 				// Stop Thread
-				if (thread.isInterrupted()) {
+				if(thread.isInterrupted())
+				{
 					break;
 				}
 			}
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			Logger.error(e);
 		}
 	}
 
-	public List<ClientHandler> getClientHandlers() {
+	public List<ClientHandler> getClientHandlers()
+	{
 		return clientHandlers;
 	}
 }

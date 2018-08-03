@@ -12,14 +12,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BoardHandler implements TemplateViewRoute {
+public class BoardHandler implements TemplateViewRoute
+{
 
 	@Override
-	public ModelAndView handle(Request request, Response response) throws Exception {
+	public ModelAndView handle(Request request, Response response)
+	{
 		Map<String, Object> model = new HashMap<>();
 		List<String> cards = new ArrayList<>();
 
-		for (Card card : BeddoMischerMain.getBoard().getCards()) {
+		for(Card card : BeddoMischerMain.getBoard().getCards())
+		{
 			cards.add(card != null ? card.getName() : "back");
 		}
 		model.put("board", cards);

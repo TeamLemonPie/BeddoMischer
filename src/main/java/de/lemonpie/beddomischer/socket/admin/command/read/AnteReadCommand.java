@@ -5,15 +5,18 @@ import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
 
-public class AnteReadCommand implements Command {
+public class AnteReadCommand implements Command
+{
 
 	@Override
-	public CommandName name() {
+	public CommandName name()
+	{
 		return CommandName.ANTE;
 	}
 
 	@Override
-	public void execute(CommandData command) {
+	public void execute(CommandData command)
+	{
 		BeddoMischerMain.getBoard().setAnte(command.getValue().getAsInt());
 	}
 }

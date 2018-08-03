@@ -10,32 +10,39 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class ReaderServerSocket extends ControlServerSocket implements SocketListener {
+public class ReaderServerSocket extends ControlServerSocket implements SocketListener
+{
 
-	public ReaderServerSocket(String host, int port) throws IOException {
+	public ReaderServerSocket(String host, int port) throws IOException
+	{
 		super(host, port);
 	}
 
-	public ReaderServerSocket(InetAddress host, int port) throws IOException {
+	public ReaderServerSocket(InetAddress host, int port) throws IOException
+	{
 		super(host, port);
 	}
 
-	public ReaderServerSocket(InetSocketAddress socketAddress) throws IOException {
+	public ReaderServerSocket(InetSocketAddress socketAddress) throws IOException
+	{
 		super(socketAddress);
 	}
 
 	@Override
-	protected void init() {
+	protected void init()
+	{
 		setSocketListener(this);
 	}
 
 	@Override
-	public void connectionEstablished(Socket socket) {
+	public void connectionEstablished(Socket socket)
+	{
 		BeddoMischerMain.getControlServerSocket().writeAll(new ReaderCountSendCommand(ReaderCountSendCommand.Type.ADD));
 	}
 
 	@Override
-	public void connectionClosed(Socket socket) {
+	public void connectionClosed(Socket socket)
+	{
 		BeddoMischerMain.getControlServerSocket().writeAll(new ReaderCountSendCommand(ReaderCountSendCommand.Type.REMOVE));
 	}
 }

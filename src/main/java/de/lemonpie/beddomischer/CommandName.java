@@ -1,18 +1,19 @@
 package de.lemonpie.beddomischer;
 
-public enum CommandName {
+public enum CommandName
+{
 
-    CLEAR("clear"),
-    CARD("card"),
+	CLEAR("clear"),
+	CARD("card"),
 	BOARD_CARD("board_card"),
 	READER("reader"), // CONFIG
 
-    PLAYER_NAME("name"),
-    PLAYER_TWITCH("twitchName"),
+	PLAYER_NAME("name"),
+	PLAYER_TWITCH("twitchName"),
 	PLAYER_STATE("state"),
 	PLAYER_CHIP("chip"),
-    PLAYER_OP("player-op"),
-	WIN_PROBABILITY("winprobability"),
+	PLAYER_OP("player-op"),
+	WIN_PROBABILITY("winProbability"),
 
 	BLOCK("block"),
 
@@ -26,13 +27,15 @@ public enum CommandName {
 	BIG_BLIND("big-blind"),
 	ANTE("ante");
 
-    private String name;
+	private String name;
 
-    CommandName(String name) {
-        this.name = name;
-    }
+	CommandName(String name)
+	{
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName()
+	{
+		return name;
+	}
 }

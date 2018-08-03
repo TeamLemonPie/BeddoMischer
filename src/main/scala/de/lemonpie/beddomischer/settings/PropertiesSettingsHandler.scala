@@ -12,37 +12,37 @@ import java.util.Properties
   */
 class PropertiesSettingsHandler extends SettingsLoader with SettingsSaver {
 
-	@throws[IOException]
-	override def load(path: Path): Settings = {
-		val properties = new Properties()
-		properties.load(Files.newBufferedReader(path))
+  @throws[IOException]
+  override def load(path: Path): Settings = {
+    val properties = new Properties()
+    properties.load(Files.newBufferedReader(path))
 
-		val settings = new Settings()
-		classOf[Settings].getDeclaredFields
-			.filter(f => !Modifier.isTransient(f.getModifiers))
-			.filter(f => properties.containsKey(f.getName))
-			.foreach(f => {
-				f.setAccessible(true)
-				if (f.getType == Integer.TYPE) {
-					f.setInt(settings, properties.getProperty(f.getName).toInt)
-				} else {
-					f.set(settings, properties.getProperty(f.getName))
-				}
-			})
-		settings
-	}
+    val settings = new Settings()
+    classOf[Settings].getDeclaredFields
+      .filter(f => !Modifier.isTransient(f.getModifiers))
+      .filter(f => properties.containsKey(f.getName))
+      .foreach(f => {
+        f.setAccessible(true)
+        if (f.getType == Integer.TYPE) {
+          f.setInt(settings, properties.getProperty(f.getName).toInt)
+        } else {
+          f.set(settings, properties.getProperty(f.getName))
+        }
+      })
+    settings
+  }
 
-	@throws[IOException]
-	override def save(settings: Settings, path: Path): Unit = {
-		val properties = new Properties()
+  @throws[IOException]
+  override def save(settings: Settings, path: Path): Unit = {
+    val properties = new Properties()
 
-		classOf[Settings].getDeclaredFields
-			.filter(f => !Modifier.isTransient(f.getModifiers))
-			.foreach(f => {
-				f.setAccessible(true)
-				properties.setProperty(f.getName, f.get(settings).toString)
-			})
+    classOf[Settings].getDeclaredFields
+      .filter(f => !Modifier.isTransient(f.getModifiers))
+      .foreach(f => {
+        f.setAccessible(true)
+        properties.setProperty(f.getName, f.get(settings).toString)
+      })
 
-		properties.store(Files.newOutputStream(path), "Settings")
-	}
+    properties.store(Files.newOutputStream(path), "Settings")
+  }
 }

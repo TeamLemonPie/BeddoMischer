@@ -8,28 +8,32 @@ import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.PlayerListListener;
 import de.lemonpie.beddomischer.model.Player;
 
-public class PlayerListWebListener implements PlayerListListener {
+public class PlayerListWebListener implements PlayerListListener
+{
 
-    private WebSocketHandler webSocket;
+	private WebSocketHandler webSocket;
 
-    public PlayerListWebListener(WebSocketHandler webSocket) {
-        this.webSocket = webSocket;
-    }
+	public PlayerListWebListener(WebSocketHandler webSocket)
+	{
+		this.webSocket = webSocket;
+	}
 
-    @Override
-    public void addPlayer(Player player) {
+	@Override
+	public void addPlayer(Player player)
+	{
 		// Add listener
 		player.addListener(new PlayerCallbackListener(webSocket));
 		player.addListener(new WinProbabilityPlayerListener(webSocket));
 
 		// Send new player command to websocket
 		webSocket.sendCommand(new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_OP, player.getId(),
-                new JsonPrimitive("add")));
-    }
+				new JsonPrimitive("add")));
+	}
 
-    @Override
-    public void removePlayer(Player player) {
-        webSocket.sendCommand(new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_OP, player.getId(),
-                new JsonPrimitive("remove")));
-    }
+	@Override
+	public void removePlayer(Player player)
+	{
+		webSocket.sendCommand(new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_OP, player.getId(),
+				new JsonPrimitive("remove")));
+	}
 }

@@ -8,36 +8,44 @@ import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.socket.admin.command.send.CardSendCommand;
 import de.lemonpie.beddomischer.socket.admin.command.send.PlayerWinProbabilitySendCommand;
 
-public class AdminPlayerListener implements PlayerListener {
+public class AdminPlayerListener implements PlayerListener
+{
 
 	@Override
-	public void nameDidChange(Player player, String name) {
+	public void nameDidChange(Player player, String name)
+	{
 	}
 
 	@Override
-	public void twitchNameDidChange(Player player, String twitchName) {
+	public void twitchNameDidChange(Player player, String twitchName)
+	{
 	}
 
 	@Override
-	public void stateDidChange(Player player, PlayerState state) {
+	public void stateDidChange(Player player, PlayerState state)
+	{
 	}
 
 	@Override
-	public void readerIdDidChange(Player player, int readerId) {
+	public void readerIdDidChange(Player player, int readerId)
+	{
 	}
 
 	@Override
-	public void cardDidChangeAtIndex(Player player, int index, Card card) {
+	public void cardDidChangeAtIndex(Player player, int index, Card card)
+	{
 		CardSendCommand cardSendCommand = new CardSendCommand(player.getId(), index, card);
 		BeddoMischerMain.getControlServerSocket().writeAll(cardSendCommand);
 	}
 
 	@Override
-	public void chipsDidChange(Player player, int chips) {
+	public void chipsDidChange(Player player, int chips)
+	{
 	}
 
 	@Override
-	public void winProbabilityDidChange(Player player, int value) {
+	public void winProbabilityDidChange(Player player, int value)
+	{
 		PlayerWinProbabilitySendCommand command = new PlayerWinProbabilitySendCommand(player, value);
 		BeddoMischerMain.getControlServerSocket().writeAll(command);
 	}

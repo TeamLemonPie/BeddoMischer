@@ -22,7 +22,7 @@
     </div>
     <div class="percentage">
         <div class="percentage-banner">
-        ${player.winprobability}%
+            ${player.winprobability}%
         </div>
     </div>
 </div>

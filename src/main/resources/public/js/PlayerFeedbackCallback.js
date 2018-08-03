@@ -2,9 +2,9 @@
 Handles all player callback events from server.
  */
 function handlePlayerFeedbackCallback(command, key, value) {
-    var playerContainer = $("#player-" + key);
+    let playerContainer = $("#player-" + key);
     if (command === "name") {
-        var playerName = $(playerContainer).find(".player-name");
+        let playerName = $(playerContainer).find(".player-name");
         playerName.text(value)
     } else if (command === "card") {
         console.log($(playerContainer).find(".card"));
@@ -34,7 +34,7 @@ function handlePlayerFeedbackCallback(command, key, value) {
 }
 
 function handlePlayerCallback(command, key, value) {
-    var playerContainer = $("#player-" + key);
+    let playerContainer = $("#player-" + key);
     if (command === "state") {
         if (value === "OUT_OF_ROUND") {
             playerContainer.find(".card").addClass("out-of-round");

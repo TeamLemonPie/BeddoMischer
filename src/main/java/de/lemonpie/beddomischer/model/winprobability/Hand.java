@@ -76,19 +76,19 @@ public class Hand
 
 		if(cardLeft.getValue().getWeight() == cardRight.getValue().getWeight())
 		{
-			if(occurrences.get(cardLeft.getValue().getWeight()) == times-2)
+			if(occurrences.get(cardLeft.getValue().getWeight()) == times - 2)
 			{
 				return new Card(CardSymbol.BACK, cardLeft.getValue());
 			}
 		}
 		else
 		{
-			if(occurrences.get(cardLeft.getValue().getWeight()) == times-1)
+			if(occurrences.get(cardLeft.getValue().getWeight()) == times - 1)
 			{
 				return new Card(CardSymbol.BACK, cardLeft.getValue());
 			}
 
-			if(occurrences.get(cardRight.getValue().getWeight()) == times-1)
+			if(occurrences.get(cardRight.getValue().getWeight()) == times - 1)
 			{
 				return new Card(CardSymbol.BACK, cardRight.getValue());
 			}
@@ -179,10 +179,10 @@ public class Hand
 		Card highestCard = Card.EMPTY;
 		for(ArrayList<ArrayList<Card>> listList : allLists)
 		{
-			for (ArrayList<Card> currentList : listList)
+			for(ArrayList<Card> currentList : listList)
 			{
 				Card card = detectStraightFromCardList(currentList);
-				if (card.getValue().getWeight() > highestCard.getValue().getWeight())
+				if(card.getValue().getWeight() > highestCard.getValue().getWeight())
 					highestCard = card;
 			}
 		}
@@ -211,9 +211,9 @@ public class Hand
 	{
 		for(ArrayList<ArrayList<Card>> listList : allLists)
 		{
-			for (ArrayList<Card> currentList : listList)
+			for(ArrayList<Card> currentList : listList)
 			{
-				if (detectFlushFromCardList(currentList))
+				if(detectFlushFromCardList(currentList))
 					return true;
 			}
 		}
@@ -228,14 +228,14 @@ public class Hand
 		highestCards.add(Card.EMPTY);
 		highestCards.add(Card.EMPTY);
 
-		if (cardLeft.getValue().getWeight() == cardRight.getValue().getWeight())
+		if(cardLeft.getValue().getWeight() == cardRight.getValue().getWeight())
 		{
-			if (occurrences.contains(3))
+			if(occurrences.contains(3))
 			{
 				highestCards.set(0, new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(3))));
 				highestCards.set(1, cardLeft);
 			}
-			else if (occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.contains(2))
+			else if(occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.contains(2))
 			{
 				highestCards.set(0, cardLeft);
 				highestCards.set(1, new Card(CardSymbol.BACK, CardValue.fromWeight(occurrences.lastIndexOf(2))));
@@ -243,12 +243,14 @@ public class Hand
 		}
 		else
 		{
-			if (occurrences.get(cardLeft.getValue().getWeight()) == 2 && occurrences.get(cardRight.getValue().getWeight()) == 1) {
+			if(occurrences.get(cardLeft.getValue().getWeight()) == 2 && occurrences.get(cardRight.getValue().getWeight()) == 1)
+			{
 				highestCards.set(0, cardLeft);
 				highestCards.set(1, cardRight);
 			}
 
-			if (occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.get(cardRight.getValue().getWeight()) == 2) {
+			if(occurrences.get(cardLeft.getValue().getWeight()) == 1 && occurrences.get(cardRight.getValue().getWeight()) == 2)
+			{
 				highestCards.set(0, cardRight);
 				highestCards.set(1, cardLeft);
 			}
@@ -311,9 +313,9 @@ public class Hand
 	{
 		for(ArrayList<ArrayList<Card>> listList : allLists)
 		{
-			for (ArrayList<Card> currentList : listList)
+			for(ArrayList<Card> currentList : listList)
 			{
-				if (detectStraightFlushFromCardList(currentList))
+				if(detectStraightFlushFromCardList(currentList))
 					return true;
 			}
 		}
@@ -366,9 +368,9 @@ public class Hand
 	{
 		for(ArrayList<ArrayList<Card>> listList : allLists)
 		{
-			for (ArrayList<Card> currentList : listList)
+			for(ArrayList<Card> currentList : listList)
 			{
-				if (detectRoyalFlushForCardList(currentList))
+				if(detectRoyalFlushForCardList(currentList))
 					return true;
 			}
 		}
@@ -382,7 +384,7 @@ public class Hand
 
 		if(useCardLeft ^ useCardRight) //XOR
 		{
-			for (int i = 0; i < 5; i++)
+			for(int i = 0; i < 5; i++)
 			{
 				ArrayList<Card> currentList = new ArrayList<>(Arrays.asList(board.getCards()));
 				currentList.remove(i);
@@ -400,9 +402,9 @@ public class Hand
 		}
 		else if(useCardLeft && useCardRight)
 		{
-			for (int i = 0; i < 5; i++)
+			for(int i = 0; i < 5; i++)
 			{
-				for (int k = i+1; k < 5; k++)
+				for(int k = i + 1; k < 5; k++)
 				{
 					Card[] boardCards = board.getCards();
 					ArrayList<Card> allowedCards = new ArrayList<>();

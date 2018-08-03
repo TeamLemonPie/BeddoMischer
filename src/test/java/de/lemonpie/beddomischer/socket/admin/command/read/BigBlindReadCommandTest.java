@@ -12,10 +12,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class BigBlindReadCommandTest {
+public class BigBlindReadCommandTest
+{
 
 	@Test
-	public void bigBlindSendShouldReturnNormal() {
+	public void bigBlindSendShouldReturnNormal()
+	{
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.BIG_BLIND, 0, new JsonPrimitive(10000));
 		CommandExecutor.getInstance().execute(commandData);
 

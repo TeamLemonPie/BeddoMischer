@@ -4,7 +4,8 @@ import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerState;
 import de.lemonpie.beddomischer.model.card.Card;
 
-public interface PlayerListener {
+public interface PlayerListener
+{
 	void nameDidChange(Player player, String name);
 
 	void twitchNameDidChange(Player player, String twitchName);

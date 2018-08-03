@@ -15,10 +15,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class BoardCardReadCommandTest {
+public class BoardCardReadCommandTest
+{
 
 	@Test
-	public void oneBoardCardSetShouldReturnNormal() {
+	public void oneBoardCardSetShouldReturnNormal()
+	{
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.BOARD_CARD, 0, new JsonPrimitive("Kr-3"));
 		CommandExecutor.getInstance().execute(commandData);
 
@@ -26,7 +28,8 @@ public class BoardCardReadCommandTest {
 	}
 
 	@Test
-	public void sameBoardCardSetShouldFail() {
+	public void sameBoardCardSetShouldFail()
+	{
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.BOARD_CARD, 0, new JsonPrimitive("Kr-3"));
 		CommandData commandData2 = new CommandData(Scope.ADMIN, CommandName.BOARD_CARD, 1, new JsonPrimitive("Kr-3"));
 

@@ -52,7 +52,8 @@ import java.util.function.Consumer;
 
 import static spark.Spark.*;
 
-public class BeddoMischerMain {
+public class BeddoMischerMain
+{
 
 	public static final int READER_NULL_ID = -3;
 
@@ -71,41 +72,54 @@ public class BeddoMischerMain {
 	private static ControlServerSocket controlServerSocket;
 
 
-	static {
-		try {
+	static
+	{
+		try
+		{
 			Class.forName("org.sqlite.JDBC");
-		} catch (ClassNotFoundException e) {
+		}
+		catch(ClassNotFoundException e)
+		{
 			Logger.error(e);
 		}
 	}
 
 	private static Dao<Player, Integer> playerDao;
 
-	private static void prepareLogger() {
+	private static void prepareLogger()
+	{
 		Logger.setLevel(LogLevel.ALL);
 
-		try {
+		try
+		{
 			File logFolder = Paths.get(BeddoMischerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent().toFile();
 			PathUtils.checkFolder(logFolder);
 			Logger.enableFileOutput(logFolder, System.out, System.err, FileOutputMode.COMBINED);
-		} catch (URISyntaxException e1) {
+		}
+		catch(URISyntaxException e1)
+		{
 			Logger.error(e1);
 		}
 
 		Logger.appInfo("BeddoMischer", "1.0.0", "1", "16.11.17");
 	}
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException
+	{
 		prepareLogger();
 
 		Path settingsPath = Paths.get("settings.properties");
 		Settings settings = new Settings();
-		try {
-			if (Files.notExists(settingsPath)) {
+		try
+		{
+			if(Files.notExists(settingsPath))
+			{
 				SettingsHandler.saver().defaultSettings(settingsPath);
 			}
 			settings = SettingsHandler.loader().load(settingsPath);
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			Logger.error(e);
 		}
 
@@ -117,9 +131,12 @@ public class BeddoMischerMain {
 		TableUtils.createTableIfNotExists(connectionSource, Player.class);
 
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			try {
+			try
+			{
 				connectionSource.close();
-			} catch (IOException e) {
+			}
+			catch(IOException e)
+			{
 				Logger.error(e);
 			}
 		}));
@@ -138,7 +155,8 @@ public class BeddoMischerMain {
 		startWebServer(settings);
 	}
 
-	public static void startUp() {
+	public static void startUp()
+	{
 		players = new PlayerList();
 		board = new Board();
 		blockOption = BlockOption.NONE;
@@ -148,7 +166,8 @@ public class BeddoMischerMain {
 		registerCommands();
 	}
 
-	public static void loadData() throws SQLException {
+	public static void loadData() throws SQLException
+	{
 		board = BoardSerializer.loadBoard();
 		board.addListener(new StorageBoardListener());
 
@@ -158,16 +177,23 @@ public class BeddoMischerMain {
 		players.updateListener();
 	}
 
-	public static void startServer(Settings settings) {
-		try {
+	public static void startServer(Settings settings)
+	{
+		try
+		{
 			rfidServerSocket = new ReaderServerSocket(settings.readerInterface(), settings.readerPort());
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			Logger.error(e);
 		}
 
-		try {
+		try
+		{
 			controlServerSocket = new AdminServerSocket(settings.controlInterface(), settings.controlPort());
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			Logger.error(e);
 		}
 
@@ -181,7 +207,8 @@ public class BeddoMischerMain {
 		}
 	}
 
-	public static void startWebServer(Settings settings) {
+	public static void startWebServer(Settings settings)
+	{
 		ipAddress(settings.httpInterface());
 		port(settings.httpPort());
 
@@ -219,12 +246,14 @@ public class BeddoMischerMain {
 		get("/board", new BoardHandler(), new FreeMarkerEngine(freeMarkerConfiguration));
 	}
 
-	public static void closeServer() throws IOException {
+	public static void closeServer() throws IOException
+	{
 		controlServerSocket.close();
 		rfidServerSocket.close();
 	}
 
-	private static void registerCommands() {
+	private static void registerCommands()
+	{
 		final CommandExecutor commandExecutor = CommandExecutor.getInstance();
 
 		// Reader Command
@@ -257,61 +286,75 @@ public class BeddoMischerMain {
 	 * Data accessors
 	 */
 
-	public static Dao<Player, Integer> getPlayerDao() {
+	public static Dao<Player, Integer> getPlayerDao()
+	{
 		return playerDao;
 	}
 
-	public static PlayerList getPlayers() {
+	public static PlayerList getPlayers()
+	{
 		return players;
 	}
 
-	public static Board getBoard() {
+	public static Board getBoard()
+	{
 		return board;
 	}
 
-	public static BlockOption getBlockOption() {
+	public static BlockOption getBlockOption()
+	{
 		return blockOption;
 	}
 
-	public static void setBlockOption(BlockOption blockOption) {
+	public static void setBlockOption(BlockOption blockOption)
+	{
 		BeddoMischerMain.blockOption = blockOption;
 	}
 
-	public static ControlServerSocket getRfidServerSocket() {
+	public static ControlServerSocket getRfidServerSocket()
+	{
 		return rfidServerSocket;
 	}
 
-	public static ControlServerSocket getControlServerSocket() {
+	public static ControlServerSocket getControlServerSocket()
+	{
 		return controlServerSocket;
 	}
 
 	/*
 	Countdown
 	 */
-	public static long getPauseEndTime() {
+	public static long getPauseEndTime()
+	{
 		return pauseEndTime;
 	}
 
-	public static void setPauseEndTime(long pauseEndTime) {
+	public static void setPauseEndTime(long pauseEndTime)
+	{
 		BeddoMischerMain.pauseEndTime = pauseEndTime;
 		fireListener(l -> l.pauseCountdownDidChange(pauseEndTime));
 	}
 
-	public static long getPauseStartTime() {
+	public static long getPauseStartTime()
+	{
 		return pauseStartTime;
 	}
 
-	public static void setPauseStartTime(long pauseStartTime) {
+	public static void setPauseStartTime(long pauseStartTime)
+	{
 		BeddoMischerMain.pauseStartTime = pauseStartTime;
 		fireListener(l -> l.gameCountdownDidChange(pauseStartTime));
 	}
 
-	public static void addCountdownListener(CountdownListener countdownListener) {
+	public static void addCountdownListener(CountdownListener countdownListener)
+	{
 		countdownListeners.add(countdownListener);
 	}
 
-	private static void fireListener(Consumer<CountdownListener> consumer) {
-		for (CountdownListener countdownListener : countdownListeners) {
+	private static void fireListener(Consumer<CountdownListener> consumer)
+	{
+		for(CountdownListener countdownListener : countdownListeners)
+		{
 			consumer.accept(countdownListener);
 		}
 	}

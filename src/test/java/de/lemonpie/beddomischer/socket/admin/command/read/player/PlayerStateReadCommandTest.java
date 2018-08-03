@@ -14,10 +14,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class PlayerStateReadCommandTest {
+public class PlayerStateReadCommandTest
+{
 
 	@Test
-	public void playerStateCommandShouldReturnState() {
+	public void playerStateCommandShouldReturnState()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.PLAYER_STATE, player.getId(), new JsonPrimitive(PlayerState.OUT_OF_GAME.name()));

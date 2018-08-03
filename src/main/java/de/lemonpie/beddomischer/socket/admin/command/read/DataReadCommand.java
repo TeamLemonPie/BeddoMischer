@@ -6,14 +6,17 @@ import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.admin.command.send.DataSendCommand;
 
-public class DataReadCommand implements Command {
-    @Override
-    public CommandName name() {
-        return CommandName.DATA;
-    }
+public class DataReadCommand implements Command
+{
+	@Override
+	public CommandName name()
+	{
+		return CommandName.DATA;
+	}
 
-    @Override
-    public void execute(CommandData command) {
-        BeddoMischerMain.getControlServerSocket().writeAll(new DataSendCommand());
-    }
+	@Override
+	public void execute(CommandData command)
+	{
+		BeddoMischerMain.getControlServerSocket().writeAll(new DataSendCommand());
+	}
 }

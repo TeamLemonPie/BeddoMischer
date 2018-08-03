@@ -13,10 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BeddoMischerTestRunner.class)
-public class BlockReadCommandTest {
+public class BlockReadCommandTest
+{
 
 	@Test
-	public void blockModeSendShouldReturnNormal() {
+	public void blockModeSendShouldReturnNormal()
+	{
 		Player player = BeddoMischerMain.getPlayers().add();
 
 		CommandData commandData = new CommandData(Scope.ADMIN, CommandName.BLOCK, BlockOption.BOARD.ordinal(), null);

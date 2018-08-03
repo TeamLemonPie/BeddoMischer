@@ -1,4 +1,5 @@
 package de.lemonpie.beddomischer.socket.reader;
 
-public class ManageCardReadCommand {
+public class ManageCardReadCommand
+{
 }

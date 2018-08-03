@@ -6,12 +6,15 @@ import de.lemonpie.beddomischer.Scope;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandExecutor {
+public class CommandExecutor
+{
 
 	private static CommandExecutor instance;
 
-	public static CommandExecutor getInstance() {
-		if (instance == null) {
+	public static CommandExecutor getInstance()
+	{
+		if(instance == null)
+		{
 			instance = new CommandExecutor();
 		}
 		return instance;
@@ -19,20 +22,25 @@ public class CommandExecutor {
 
 	private Map<Scope, Map<CommandName, Command>> commands;
 
-	private CommandExecutor() {
+	private CommandExecutor()
+	{
 		commands = new HashMap<>();
 	}
 
-	public void addCommand(Command command, Scope scope) {
-		if (!commands.containsKey(scope)) {
+	public void addCommand(Command command, Scope scope)
+	{
+		if(!commands.containsKey(scope))
+		{
 			commands.put(scope, new HashMap<>());
 		}
 		this.commands.get(scope).put(command.name(), command);
 	}
 
-	public void execute(CommandData commandData) {
+	public void execute(CommandData commandData)
+	{
 		commands.get(commandData.getScope()).forEach((name, command) -> {
-			if (name.getName().equals(commandData.getCommand())) {
+			if(name.getName().equals(commandData.getCommand()))
+			{
 				command.execute(commandData);
 			}
 		});

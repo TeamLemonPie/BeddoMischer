@@ -1,6 +1,6 @@
 function onLoad() {
-    var url = 'ws://' + location.hostname + ':' + location.port + '/callback';
-    var connection = new WebSocket(url);
+    let url = 'ws://' + location.hostname + ':' + location.port + '/callback';
+    let connection = new WebSocket(url);
 
     // When the connection is open, send some data to the server
     connection.onopen = function () {
@@ -22,7 +22,7 @@ function onLoad() {
     connection.onmessage = function (e) {
         console.log('Server: ' + e.data);
 
-        var data = JSON.parse(e.data);
+        let data = JSON.parse(e.data);
         if (data.scope === "PLAYER") {
             try {
                 handlePlayerCallback(data.command, data.key, data.value);

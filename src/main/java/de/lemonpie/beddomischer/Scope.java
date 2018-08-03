@@ -1,13 +1,14 @@
 package de.lemonpie.beddomischer;
 
-public enum Scope {
-	// Networok Sockets
+public enum Scope
+{
+	// Network Sockets
 	ADMIN,
-    READER,
+	READER,
 
 	// Websocket
 	PLAYER,
-    BOARD,
+	BOARD,
 	CHIP,
 	PLAYER_FEEDBACK,
 	COUNTDOWN

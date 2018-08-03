@@ -13,17 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChipListHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request request, Response response) throws Exception {
-        PlayerList players = BeddoMischerMain.getPlayers();
+public class ChipListHandler implements TemplateViewRoute
+{
+	@Override
+	public ModelAndView handle(Request request, Response response)
+	{
+		PlayerList players = BeddoMischerMain.getPlayers();
 
-        Map<String, Object> model = new HashMap<>();
-        List<Map<String, Object>> playerModel = new ArrayList<>();
+		Map<String, Object> model = new HashMap<>();
+		List<Map<String, Object>> playerModel = new ArrayList<>();
 
-        for (Player player : players) {
-            playerModel.add(player.toMap());
-        }
+		for(Player player : players)
+		{
+			playerModel.add(player.toMap());
+		}
 
 		playerModel.sort((p1, p2) -> {
 			final Integer c2 = (Integer) p2.get("chips");
@@ -32,14 +35,17 @@ public class ChipListHandler implements TemplateViewRoute {
 			final Long t2 = (Long) p2.get("timestampDeactivate");
 			final Long t1 = (Long) p1.get("timestampDeactivate");
 
-			if (c2 == 0 && c1 == 0) {
+			if(c2 == 0 && c1 == 0)
+			{
 				return Long.compare(t2, t1);
-			} else {
+			}
+			else
+			{
 				return Integer.compare(c2, c1);
 			}
 		});
 
-        model.put("players", playerModel);
-        return new ModelAndView(model, "Chips.ftl");
-    }
+		model.put("players", playerModel);
+		return new ModelAndView(model, "Chips.ftl");
+	}
 }

@@ -15,18 +15,20 @@ import java.util.Random;
 
 public class Calculation
 {
-    private List<Player> players;
-    private Board board;
+	private List<Player> players;
+	private Board board;
 
-    public Calculation(List<Player> players, Board board) {
+	public Calculation(List<Player> players, Board board)
+	{
 		this.players = players;
 		this.board = board;
 	}
 
-    public List<Double> calculate(int numberOfRounds) {
-        List<Double> probabilities = new ArrayList<>();
-        List<Integer> wonRounds = new ArrayList<>();
-        for(int i = 0; i < players.size(); i++)
+	public List<Double> calculate(int numberOfRounds)
+	{
+		List<Double> probabilities = new ArrayList<>();
+		List<Integer> wonRounds = new ArrayList<>();
+		for(int i = 0; i < players.size(); i++)
 		{
 			probabilities.add(0.0);
 			wonRounds.add(0);
@@ -48,13 +50,14 @@ public class Calculation
 		}
 
 		int totalWins = 0;
-		for (Integer wonRound : wonRounds) {
+		for(Integer wonRound : wonRounds)
+		{
 			totalWins += wonRound;
 		}
 
 		for(int i = 0; i < players.size(); i++)
 		{
-			probabilities.set(i, (double)wonRounds.get(i) / totalWins);
+			probabilities.set(i, (double) wonRounds.get(i) / totalWins);
 		}
 
 		return checkAndCorrectProbabilities(probabilities);
@@ -75,13 +78,13 @@ public class Calculation
 		if(difference > 0)
 		{
 			double newValue = maxValue - difference;
-			Logger.debug("Corrected win probability for player " + probabilities.indexOf(maxValue) + " from: " + maxValue  + " to: " + newValue);
+			Logger.debug("Corrected win probability for player " + probabilities.indexOf(maxValue) + " from: " + maxValue + " to: " + newValue);
 			probabilities.set(probabilities.indexOf(maxValue), newValue);
 		}
 		else if(difference < 0)
 		{
 			double newValue = maxValue + difference;
-			Logger.debug("Corrected win probability for player " + probabilities.indexOf(maxValue) + " from: " + maxValue  + " to: " + newValue);
+			Logger.debug("Corrected win probability for player " + probabilities.indexOf(maxValue) + " from: " + maxValue + " to: " + newValue);
 			probabilities.set(probabilities.indexOf(maxValue), newValue);
 		}
 
@@ -101,7 +104,8 @@ public class Calculation
 		return max;
 	}
 
-    private List<Integer> calculateOneRound(List<Integer> wonRounds, List<Card> remainingDeck, int numberOfMissingCardsInBoard) {
+	private List<Integer> calculateOneRound(List<Integer> wonRounds, List<Card> remainingDeck, int numberOfMissingCardsInBoard)
+	{
 		Board fullBoard = new Board();
 		for(int i = 0; i < 5; i++)
 		{
@@ -136,71 +140,70 @@ public class Calculation
 		}
 
 		//compare
-		
+
 		//royal flush
-		ArrayList<Integer> winnerIndices = new ArrayList<>();
-		winnerIndices = getHandsFromPlayers(HandType.ROYAL_FLUSH);
+		ArrayList<Integer> winnerIndices = getHandsFromPlayers(HandType.ROYAL_FLUSH);
 		if(winnerIndices.size() > 0)
 		{
 			return winnerIndices;
 		}
-		
+
 		//straight flush
 		winnerIndices = getHandsFromPlayers(HandType.STRAIGHT_FLUSH);
 		if(winnerIndices.size() > 0)
 		{
-			return calculateWinnerIndices(winnerIndices, HandType.STRAIGHT_FLUSH);				
+			return calculateWinnerIndices(winnerIndices, HandType.STRAIGHT_FLUSH);
 		}
-		
+
 		//four of a kind
 		winnerIndices = getHandsFromPlayers(HandType.FOUR_OF_A_KIND);
 		if(winnerIndices.size() > 0)
 		{
 			return calculateWinnerIndices(winnerIndices, HandType.FOUR_OF_A_KIND);
 		}
-		
+
 		//full house	
 		winnerIndices = getHandsFromPlayers(HandType.FULL_HOUSE);
 		if(winnerIndices.size() > 0)
 		{
 			return calculateWinnerIndices(winnerIndices, HandType.FULL_HOUSE);
 		}
-		
+
 		//flush
 		winnerIndices = getHandsFromPlayers(HandType.FLUSH);
 		if(winnerIndices.size() > 0)
 		{
 			return calculateWinnerIndices(winnerIndices, HandType.FLUSH);
 		}
-		
+
 		//straight
 		winnerIndices = getHandsFromPlayers(HandType.STRAIGHT);
 		if(winnerIndices.size() > 0)
 		{
 			return calculateWinnerIndices(winnerIndices, HandType.STRAIGHT);
 		}
-		
+
 		//three of a kind
 		winnerIndices = getHandsFromPlayers(HandType.THREE_OF_A_KIND);
 		if(winnerIndices.size() > 0)
 		{
 			return calculateWinnerIndices(winnerIndices, HandType.THREE_OF_A_KIND);
 		}
-		
+
 		//two pairs
 		winnerIndices = getHandsFromPlayers(HandType.TWO_PAIRS);
 		if(winnerIndices.size() > 0)
 		{
 			return calculateWinnerIndices(winnerIndices, HandType.TWO_PAIRS);
 		}
-		
+
 		//pair
 		winnerIndices = getHandsFromPlayers(HandType.PAIR);
 		if(winnerIndices.size() > 0)
 		{
 			return calculateWinnerIndices(winnerIndices, HandType.PAIR);
 		}
-		
+
 		//highest card
 		winnerIndices = getHandsFromPlayers(HandType.HIGHEST_CARD);
 		if(winnerIndices.size() > 0)
@@ -210,7 +213,7 @@ public class Calculation
 
 		return winnerIndices;
 	}
-	
+
 	private ArrayList<Integer> calculateWinnerBasedOnHighestCard(ArrayList<Integer> winnerIndices, boolean useHighestCard)
 	{
 		ArrayList<Integer> returnList = new ArrayList<>();
@@ -314,7 +317,7 @@ public class Calculation
 			returnList = new ArrayList<>();
 			for(Integer winnerIndice : winnerIndices)
 			{
-				if (players.get(winnerIndice).getCalculatedHand().getHighestCard().get(0).getValue().equals(highestPairValue))
+				if(players.get(winnerIndice).getCalculatedHand().getHighestCard().get(0).getValue().equals(highestPairValue))
 				{
 					returnList.add(winnerIndice);
 				}
@@ -323,13 +326,14 @@ public class Calculation
 
 		return returnList;
 	}
-	
+
 	private ArrayList<Integer> calculateWinnerIndices(ArrayList<Integer> winnerIndices, HandType handType)
 	{
 		if(winnerIndices.size() > 1)
 		{
 			ArrayList<Integer> winners;
-			switch(handType) {
+			switch(handType)
+			{
 				case FULL_HOUSE:
 					winners = calculateWinnerBasedOnCalculatedCards(winnerIndices, true);
 					return winners.size() > 1 ? calculateWinnerBasedOnCalculatedCards(winners, false) : winners;
@@ -351,7 +355,7 @@ public class Calculation
 					return winners.size() > 1 ? calculateWinnerBasedOnHighestCard(winners, false) : winners;
 			}
 		}
-		else				
+		else
 		{
 			ArrayList<Integer> returnList = new ArrayList<>();
 			returnList.add(winnerIndices.get(0));

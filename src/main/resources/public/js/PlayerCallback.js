@@ -11,12 +11,12 @@ $(document).ready(function () {
 });
 
 function handlePlayerCallback(command, key, value) {
-    var playerContainer = $("#player-" + key);
+    let playerContainer = $("#player-" + key);
     if (command === "name") {
-        var playerName = $(playerContainer).find("#player-name");
+        let playerName = $(playerContainer).find("#player-name");
         playerName.text(value)
     } else if (command === "twitchName") {
-        var playerTwitchName = $(playerContainer).find("#player-twitchName");
+        let playerTwitchName = $(playerContainer).find("#player-twitchName");
         playerTwitchName.text(value)
     } else if (command === "state") {
         if (value !== "ACTIVE") {
@@ -25,10 +25,10 @@ function handlePlayerCallback(command, key, value) {
             playerContainer.animate({height: 'show', opacity: 'show'}, 1000);
         }
     } else if (command === "card") {
-        var cardId = value.index;
+        let cardId = value.index;
 
-        var playerCard = $(playerContainer).find("#card" + cardId);
-        var ghostCard = $(playerContainer).find("#card" + cardId + "_ghost");
+        let playerCard = $(playerContainer).find("#card" + cardId);
+        let ghostCard = $(playerContainer).find("#card" + cardId + "_ghost");
 
         ghostCard.removeAttr("class");
         ghostCard.addClass("card");
@@ -49,22 +49,22 @@ function handlePlayerCallback(command, key, value) {
         } else if (value === "remove") {
             removePlayer(key);
         }
-    } else if (command === "winprobability") {
-        var winprobability = $(playerContainer).find(".percentage-banner");
-        winprobability.text(value + "%")
+    } else if (command === "winProbability") {
+        let winProbability = $(playerContainer).find(".percentage-banner");
+        winProbability.text(value + "%")
     }
 }
 
 function loadPlayer(id) {
     $.get("player/" + id, function (data) {
-        var container = $(".left-container");
+        let container = $(".left-container");
         container.append(data);
 
         container.find('.player-container').sort(function (a, b) {
             return +a.dataset.id - +b.dataset.id;
         }).appendTo(container);
 
-        var player = $("#player-" + id);
+        let player = $("#player-" + id);
         player.stop(true).fadeIn({
             duration: 1000,
             queue: false
@@ -73,8 +73,8 @@ function loadPlayer(id) {
 }
 
 function removePlayer(id) {
-    var player = $("#player-" + id);
-    player.animate({ height: 'toggle', opacity: 'toggle' }, 1000, function(){
+    let player = $("#player-" + id);
+    player.animate({height: 'toggle', opacity: 'toggle'}, 1000, function () {
         player.remove();
     });
- }
+}

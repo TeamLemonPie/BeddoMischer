@@ -5,10 +5,9 @@ body {
 }
 
 #table-main {
-	width: 90vw;
-	height: 90vh;
-	margin: auto;
-	margin-top: 5vh;
+    width: 90vw;
+    height: 90vh;
+    margin: 5vh auto auto;
     text-align: center;
     color: #FFFFFF;
 }
@@ -75,17 +74,17 @@ body {
 }
 
 .countdown-text {
-	font-size: 6vmin;
+    font-size: 6vmin;
     text-align: center;
     font-family: Tahoma, serif;
 }
 
 .countdown {
-	font-size: 13vmin;
+    font-size: 13vmin;
     text-align: center;
     font-weight: bold;
     font-family: Tahoma, serif;
-	margin-top: 5vh;
+    margin-top: 5vh;
 }
 
 .warning-orange {

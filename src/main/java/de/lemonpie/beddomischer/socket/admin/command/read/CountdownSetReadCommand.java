@@ -5,18 +5,24 @@ import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
 
-public class CountdownSetReadCommand implements Command {
+public class CountdownSetReadCommand implements Command
+{
 	@Override
-	public CommandName name() {
+	public CommandName name()
+	{
 		return CommandName.PAUSE;
 	}
 
 	@Override
-	public void execute(CommandData command) {
+	public void execute(CommandData command)
+	{
 		int minutes = command.getValue().getAsInt();
-		if (command.getKey() == 0) {
+		if(command.getKey() == 0)
+		{
 			BeddoMischerMain.setPauseEndTime(System.currentTimeMillis() + 1000 * 60 * minutes);
-		} else {
+		}
+		else
+		{
 			BeddoMischerMain.setPauseStartTime(System.currentTimeMillis() + 1000 * 60 * minutes);
 		}
 	}

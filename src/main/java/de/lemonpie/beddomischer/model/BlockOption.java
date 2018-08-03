@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.model;
 
-public enum BlockOption {
+public enum BlockOption
+{
 	NONE,
 	BOARD,
 	ALL

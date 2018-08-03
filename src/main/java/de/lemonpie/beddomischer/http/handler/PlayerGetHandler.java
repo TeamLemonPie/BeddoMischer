@@ -13,21 +13,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class PlayerGetHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request request, Response response) throws Exception {
-        int id = Integer.valueOf(request.params(":id"));
-        PlayerList players = BeddoMischerMain.getPlayers();
+public class PlayerGetHandler implements TemplateViewRoute
+{
+	@Override
+	public ModelAndView handle(Request request, Response response)
+	{
+		int id = Integer.valueOf(request.params(":id"));
+		PlayerList players = BeddoMischerMain.getPlayers();
 
 		players.getData().sort(Comparator.comparingInt(Player::getId));
 
-        Map<String, Object> model = new HashMap<>();
+		Map<String, Object> model = new HashMap<>();
 
-        Optional<Player> playerOptional = players.getPlayer(id);
-        if (playerOptional.isPresent()) {
-            model.put("player", playerOptional.get().toMap());
-            return new ModelAndView(model, "PlayerItem.ftl");
-        }
-        return null;
-    }
+		Optional<Player> playerOptional = players.getPlayer(id);
+		if(playerOptional.isPresent())
+		{
+			model.put("player", playerOptional.get().toMap());
+			return new ModelAndView(model, "PlayerItem.ftl");
+		}
+		return null;
+	}
 }

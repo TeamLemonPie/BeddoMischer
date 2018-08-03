@@ -11,20 +11,25 @@ import de.lemonpie.beddomischer.validator.CardValidator;
 
 import java.util.stream.Stream;
 
-public class ClearReadCommand implements Command {
+public class ClearReadCommand implements Command
+{
 	@Override
-	public CommandName name() {
+	public CommandName name()
+	{
 		return CommandName.CLEAR;
 	}
 
 	@Override
-	public void execute(CommandData command) {
+	public void execute(CommandData command)
+	{
 		int key = command.getKey();
 
 		// All Reader
-		if (key == -1) {
+		if(key == -1)
+		{
 			// Clear local data
-			for (Player player : BeddoMischerMain.getPlayers()) {
+			for(Player player : BeddoMischerMain.getPlayers())
+			{
 				player.clearCards();
 			}
 			Board board = BeddoMischerMain.getBoard();
@@ -33,10 +38,13 @@ public class ClearReadCommand implements Command {
 
 			ClearSendCommand forwardCommandData = new ClearSendCommand(key);
 
-			if (BeddoMischerMain.getRfidServerSocket() != null) {
+			if(BeddoMischerMain.getRfidServerSocket() != null)
+			{
 				BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 			}
-		} else if (key == -2) {
+		}
+		else if(key == -2)
+		{
 			Board board = BeddoMischerMain.getBoard();
 			Stream.of(board.getCards()).forEach(CardValidator.getInstance()::clear);
 			board.clearCards();
@@ -44,20 +52,25 @@ public class ClearReadCommand implements Command {
 			BeddoMischerMain.getBoard().getReaderIds().forEach(r -> {
 				ClearSendCommand forwardCommandData = new ClearSendCommand(r);
 
-				if (BeddoMischerMain.getRfidServerSocket() != null) {
+				if(BeddoMischerMain.getRfidServerSocket() != null)
+				{
 					BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 				}
 			});
-		} else {
+		}
+		else
+		{
 			BeddoMischerMain.getPlayers().forEach(player -> {
-				if (player.getReaderId() == key) {
+				if(player.getReaderId() == key)
+				{
 					CardValidator.getInstance().clear(player.getCardLeft(), player.getCardRight());
 					player.clearCards();
 				}
 			});
 
 			ClearSendCommand forwardCommandData = new ClearSendCommand(key);
-			if (BeddoMischerMain.getRfidServerSocket() != null) {
+			if(BeddoMischerMain.getRfidServerSocket() != null)
+			{
 				BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
 			}
 		}

@@ -13,15 +13,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlayerListHandler implements TemplateViewRoute {
-    @Override
-	public ModelAndView handle(Request request, Response response) throws Exception {
+public class PlayerListHandler implements TemplateViewRoute
+{
+	@Override
+	public ModelAndView handle(Request request, Response response)
+	{
 		PlayerList players = BeddoMischerMain.getPlayers();
 
 		Map<String, Object> model = new HashMap<>();
 		List<Map<String, Object>> playerModel = new ArrayList<>();
 
-		for (Player player : players) {
+		for(Player player : players)
+		{
 			playerModel.add(player.toMap());
 		}
 
