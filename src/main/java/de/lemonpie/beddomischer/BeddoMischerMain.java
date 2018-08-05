@@ -136,6 +136,8 @@ public class BeddoMischerMain
 		Thread discoveryThread = new Thread(discovery);
 		discoveryThread.start();
 
+		Logger.debug("Listening for discovery requests at port: " + String.valueOf(discovery.getPort()) + " with key: " + discovery.getMessageKey());
+
 		startUp();
 		loadData();
 		startServer(serverSettings);
