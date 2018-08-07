@@ -27,19 +27,18 @@ import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.BoardSerializer;
 import de.lemonpie.beddomischer.storage.StorageBoardListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
+import de.tobias.logger.FileOutputOption;
+import de.tobias.logger.LogLevelFilter;
+import de.tobias.logger.Logger;
+import de.tobias.logger.Slf4JLoggerAdapter;
 import de.tobias.utils.net.DiscoveryThread;
 import de.tobias.utils.settings.Storage;
 import de.tobias.utils.settings.StorageTypes;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
-import logger.FileOutputMode;
-import logger.LogLevel;
-import logger.Logger;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
-import tools.PathUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -87,20 +86,20 @@ public class BeddoMischerMain
 
 	private static void prepareLogger()
 	{
-		Logger.setLevel(LogLevel.ALL);
-
 		try
 		{
-			File logFolder = Paths.get(BeddoMischerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent().toFile();
-			PathUtils.checkFolder(logFolder);
-			Logger.enableFileOutput(logFolder, System.out, System.err, FileOutputMode.COMBINED);
+			Path logFolder = Paths.get(BeddoMischerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+			Logger.init(logFolder);
+			Logger.setLevelFilter(LogLevelFilter.DEBUG);
+			Slf4JLoggerAdapter.disableSlf4jDebugPrints();
+			Logger.setFileOutput(FileOutputOption.COMBINED);
 		}
 		catch(URISyntaxException e1)
 		{
 			Logger.error(e1);
 		}
 
-		Logger.appInfo("BeddoMischer", "1.0.0", "1", "16.11.17");
+		Logger.info("Launching App: {0}, version: {1}, build: {2}, date: {3}", "BeddoMischer", "1.1.0", "3", "07.08.18");
 	}
 
 	public static void main(String[] args) throws SQLException
