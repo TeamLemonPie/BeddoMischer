@@ -6,7 +6,7 @@ body {
 
 .left-container {
     height: 100vh;
-    width: 265px;
+    width: 221px;
     display: table-cell;
     vertical-align: bottom;
     padding: 0 0 55px 0;
@@ -17,10 +17,10 @@ body {
 }
 
 .banner {
-    width: 197px;
+    width: 221px;
     height: 60px;
     background-color: #151826;
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 0 10px 0;
     border: 3px solid #000000;
     padding: 0 15px 4px 0;
     display: table-cell;
@@ -61,12 +61,23 @@ body {
     font-weight: normal;
 }
 
-.deck {
-    height: 55px;
+.top-area {
+    height: 47px;
     text-align: left;
-    padding-left: 48px;
     font-size: 6px;
     margin-top: 24px;
+    position: relative;
+}
+
+.deck-container {
+    position: absolute;
+    top: 0;
+    right: 47px;
+    height: 47px;
+}
+
+.deck {
+    position: relative;
 }
 
 .board {
@@ -76,14 +87,15 @@ body {
 
 .card-stack {
     height: 100%;
-    width: 76px;
+    width: 61px;
     display: inline-block;
     position: relative;
+    margin-right: 3px;
 }
 
 .card {
     height: 100%;
-    width: 76px;
+    width: 61px;
     position: absolute;
     top: 0;
     left: 0;
@@ -106,18 +118,21 @@ body {
 }
 
 .percentage-banner {
+    display: table;
+    vertical-align: middle;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     background-color: #151826;
-    border-radius: 0 10px 10px 0;
-    border: 3px solid #000000;
-    border-left: none;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #000000;
+    border-bottom: none;
     font-size: 12px;
     color: #FFFFFF;
     font-weight: bold;
     font-family: Tahoma, serif;
-    height: 39px;
-    display: table-cell;
+    height: 19px;
     text-align: center;
-    vertical-align: middle;
     width: 44px;
 }
 
