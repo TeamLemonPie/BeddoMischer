@@ -1,12 +1,12 @@
 package de.lemonpie.beddomischer.model.winprobability;
 
+import de.lemonpie.beddocommon.card.Card;
+import de.lemonpie.beddocommon.card.CardSymbol;
+import de.lemonpie.beddocommon.card.CardValue;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.HandType;
-import de.lemonpie.beddomischer.model.card.Card;
-import de.lemonpie.beddomischer.model.card.CardSymbol;
-import de.lemonpie.beddomischer.model.card.CardValue;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

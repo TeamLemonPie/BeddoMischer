@@ -1,10 +1,10 @@
 package de.lemonpie.beddomischer.storage;
 
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerState;
-import de.lemonpie.beddomischer.model.card.Card;
 import logger.Logger;
 
 import java.sql.SQLException;

@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.http.websocket.listener;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
@@ -9,7 +10,6 @@ import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerState;
-import de.lemonpie.beddomischer.model.card.Card;
 
 public class PlayerCallbackListener implements PlayerListener
 {

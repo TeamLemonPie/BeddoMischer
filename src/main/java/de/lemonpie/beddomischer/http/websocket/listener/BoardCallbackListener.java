@@ -1,12 +1,12 @@
 package de.lemonpie.beddomischer.http.websocket.listener;
 
 import com.google.gson.JsonPrimitive;
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.BoardListener;
-import de.lemonpie.beddomischer.model.card.Card;
 
 public class BoardCallbackListener implements BoardListener
 {

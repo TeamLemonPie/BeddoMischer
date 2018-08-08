@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.storage;
 
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.BoardListener;
-import de.lemonpie.beddomischer.model.card.Card;
 
 public class StorageBoardListener implements BoardListener
 {

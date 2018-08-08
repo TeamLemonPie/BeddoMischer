@@ -1,9 +1,9 @@
 package de.lemonpie.beddomischer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.BoardListener;
-import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.validator.CardValidator;
 
 import java.util.*;

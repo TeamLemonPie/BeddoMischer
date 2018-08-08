@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.socket.admin;
 
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.BoardListener;
-import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.socket.admin.command.send.CardSendCommand;
 
 public class AdminBoardListener implements BoardListener

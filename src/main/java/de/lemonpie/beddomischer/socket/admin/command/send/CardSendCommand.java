@@ -1,9 +1,9 @@
 package de.lemonpie.beddomischer.socket.admin.command.send;
 
 import com.google.gson.JsonObject;
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.Scope;
-import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.socket.CommandData;
 
 /**

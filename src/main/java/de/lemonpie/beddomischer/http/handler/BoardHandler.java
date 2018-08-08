@@ -1,7 +1,7 @@
 package de.lemonpie.beddomischer.http.handler;
 
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.model.card.Card;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

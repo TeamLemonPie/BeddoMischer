@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.socket.reader;
 
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.socket.Command;
 import de.lemonpie.beddomischer.socket.CommandData;
 

@@ -2,9 +2,9 @@ package de.lemonpie.beddomischer.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import de.lemonpie.beddocommon.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
-import de.lemonpie.beddomischer.model.card.Card;
 import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
 import de.lemonpie.beddomischer.storage.CardType;
 import de.lemonpie.beddomischer.validator.CardValidator;

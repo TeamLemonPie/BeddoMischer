@@ -3,7 +3,7 @@ package de.lemonpie.beddomischer.storage;
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.field.SqlType;
 import com.j256.ormlite.field.types.StringType;
-import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddocommon.card.Card;
 
 public class CardType extends StringType
 {

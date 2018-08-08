@@ -1,6 +1,6 @@
 package de.lemonpie.beddomischer.validator;
 
-import de.lemonpie.beddomischer.model.card.Card;
+import de.lemonpie.beddocommon.card.Card;
 
 import java.util.HashSet;
 import java.util.Set;
