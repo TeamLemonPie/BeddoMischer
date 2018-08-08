@@ -8,6 +8,7 @@
         <artifactId>LemonPie</artifactId>
         <groupId>de.lemonpie</groupId>
         <version>1.0.0</version>
+        <relativePath>../LemonPieMaster</relativePath>
     </parent>
 
     <artifactId>BeddoMischer</artifactId>
@@ -56,33 +57,7 @@
         </plugins>
     </build>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>scala</id>
-            <name>Scala Tools</name>
-            <url>http://scala-tools.org/repo-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <repositories>
-        <repository>
-            <id>scala</id>
-            <name>Scala Tools</name>
-            <url>http://scala-tools.org/repo-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
         <repository>
             <id>releases</id>
             <url>https://maven.thecodelabs.de/nexus/content/repositories/releases</url>
