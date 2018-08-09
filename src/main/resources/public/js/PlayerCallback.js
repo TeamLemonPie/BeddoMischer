@@ -50,8 +50,8 @@ function handlePlayerCallback(command, key, value) {
             removePlayer(key);
         }
     } else if (command === "winProbability") {
-        let winProbability = $(playerContainer).find(".percentage-banner");
-        winProbability.text(value + "%")
+        let winProbability = $(playerContainer).find(".percentage");
+        winProbability.text(value)
     }
 }
 

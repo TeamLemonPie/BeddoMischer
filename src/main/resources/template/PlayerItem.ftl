@@ -15,9 +15,9 @@
         </div>
         <div class="percentage-banner">
             <div class="percentage">
-            <#--${player.winprobability}%-->
-                52%
+                ${player.winprobability}
             </div>
+            <div class="percentage-sign">%</div>
         </div>
     </div>
     <div class="banner">
@@ -29,6 +29,7 @@
                 <#if player.twitchName??>${player.twitchName}</#if>
             </div>
         </div>
+        <div class="active-icon activePlayerChip"></div>
     </div>
 </div>
 </#macro>
