@@ -77,6 +77,12 @@ public class WinProbabilityPlayerListener implements PlayerListener, BoardListen
 					playerList.add(player);
 				}
 			}
+
+			if(playerList.isEmpty())
+			{
+				return;
+			}
+
 			Board board = BeddoMischerMain.getBoard();
 			Calculation calculation = new Calculation(playerList, board);
 			List<Double> probabilities = calculation.calculate(1000);
