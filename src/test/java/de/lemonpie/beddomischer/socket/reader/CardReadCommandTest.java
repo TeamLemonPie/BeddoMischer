@@ -1,17 +1,17 @@
 package de.lemonpie.beddomischer.socket.reader;
 
 import com.google.gson.JsonPrimitive;
-import de.lemonpie.beddocommon.card.Card;
-import de.lemonpie.beddocommon.card.CardSymbol;
-import de.lemonpie.beddocommon.card.CardValue;
+import de.lemonpie.beddocommon.model.card.Card;
+import de.lemonpie.beddocommon.model.card.CardSymbol;
+import de.lemonpie.beddocommon.model.card.CardValue;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
+import de.lemonpie.beddocommon.network.server.CommandData;
+import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.BeddoMischerTestRunner;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.socket.CommandData;
-import de.lemonpie.beddomischer.socket.CommandExecutor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

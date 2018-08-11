@@ -1,6 +1,6 @@
 package de.lemonpie.beddomischer.http.handler;
 
-import de.lemonpie.beddomischer.BeddoMischerMain;
+import de.lemonpie.beddomischer.model.CountdownHandler;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -10,12 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountdownHandler implements TemplateViewRoute
+public class CountdownGetHandler implements TemplateViewRoute
 {
 
 	private boolean transparent;
 
-	public CountdownHandler(boolean transparent)
+	public CountdownGetHandler(boolean transparent)
 	{
 		this.transparent = transparent;
 	}
@@ -27,7 +27,7 @@ public class CountdownHandler implements TemplateViewRoute
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 
-		long countdownEndTime = BeddoMischerMain.getPauseEndTime();
+		long countdownEndTime = CountdownHandler.getInstance().getPauseEndTime();
 		long currentTime = System.currentTimeMillis();
 
 		long difference = countdownEndTime - currentTime;

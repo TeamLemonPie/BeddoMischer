@@ -30,16 +30,7 @@
             <artifactId>spark-template-freemarker</artifactId>
             <version>${spark-template-freemarker.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-core</artifactId>
-            <version>${ormlite-core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-jdbc</artifactId>
-            <version>${ormlite-jdbc.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>

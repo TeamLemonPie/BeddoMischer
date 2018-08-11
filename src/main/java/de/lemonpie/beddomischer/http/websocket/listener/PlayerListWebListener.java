@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.http.websocket.listener;
 
 import com.google.gson.JsonPrimitive;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.Scope;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
 import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.PlayerListListener;
@@ -23,7 +23,7 @@ public class PlayerListWebListener implements PlayerListListener
 	{
 		// Add listener
 		player.addListener(new PlayerCallbackListener(webSocket));
-		player.addListener(new WinProbabilityPlayerListener(webSocket));
+		player.addListener(new WinProbabilityListener(webSocket));
 
 		// Send new player command to websocket
 		webSocket.sendCommand(new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_OP, player.getId(),

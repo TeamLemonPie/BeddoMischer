@@ -3,11 +3,11 @@ package de.lemonpie.beddomischer.socket.admin.command.send;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
+import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.socket.CommandData;
 
 public class DataSendCommand extends CommandData
 {

@@ -1,11 +1,10 @@
 package de.lemonpie.beddomischer.socket.reader;
 
+import de.lemonpie.beddocommon.network.server.ControlServerSocket;
+import de.lemonpie.beddocommon.network.server.SocketListener;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.socket.ControlServerSocket;
-import de.lemonpie.beddomischer.socket.SocketListener;
 import de.lemonpie.beddomischer.socket.admin.command.send.ReaderCountSendCommand;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -13,17 +12,17 @@ import java.net.Socket;
 public class ReaderServerSocket extends ControlServerSocket implements SocketListener
 {
 
-	public ReaderServerSocket(String host, int port) throws IOException
+	public ReaderServerSocket(String host, int port)
 	{
 		super(host, port);
 	}
 
-	public ReaderServerSocket(InetAddress host, int port) throws IOException
+	public ReaderServerSocket(InetAddress host, int port)
 	{
 		super(host, port);
 	}
 
-	public ReaderServerSocket(InetSocketAddress socketAddress) throws IOException
+	public ReaderServerSocket(InetSocketAddress socketAddress)
 	{
 		super(socketAddress);
 	}

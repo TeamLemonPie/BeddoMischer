@@ -5,7 +5,7 @@ import de.lemonpie.beddomischer.listener.PlayerListListener;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.socket.admin.command.send.PlayerOpSendCommand;
 
-public class AdminPlayerListListener implements PlayerListListener
+public class BeddoControlPlayerListListener implements PlayerListListener
 {
 	@Override
 	public void addPlayer(Player player)

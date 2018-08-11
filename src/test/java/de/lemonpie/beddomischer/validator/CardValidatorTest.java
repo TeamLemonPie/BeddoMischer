@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.validator;
 
-import de.lemonpie.beddocommon.card.Card;
-import de.lemonpie.beddocommon.card.CardSymbol;
-import de.lemonpie.beddocommon.card.CardValue;
+import de.lemonpie.beddocommon.model.card.Card;
+import de.lemonpie.beddocommon.model.card.CardSymbol;
+import de.lemonpie.beddocommon.model.card.CardValue;
 import de.lemonpie.beddomischer.BeddoMischerTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;

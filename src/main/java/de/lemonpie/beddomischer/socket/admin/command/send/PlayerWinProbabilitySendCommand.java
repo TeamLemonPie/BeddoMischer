@@ -1,10 +1,10 @@
 package de.lemonpie.beddomischer.socket.admin.command.send;
 
 import com.google.gson.JsonPrimitive;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.Scope;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
+import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.socket.CommandData;
 
 public class PlayerWinProbabilitySendCommand extends CommandData
 {

@@ -1,13 +1,13 @@
 package de.lemonpie.beddomischer.socket.admin.command.read;
 
 import com.google.gson.JsonObject;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
+import de.lemonpie.beddocommon.network.server.CommandData;
+import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.BeddoMischerTestRunner;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.socket.CommandData;
-import de.lemonpie.beddomischer.socket.CommandExecutor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

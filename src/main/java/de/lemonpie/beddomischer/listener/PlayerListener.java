@@ -1,6 +1,6 @@
 package de.lemonpie.beddomischer.listener;
 
-import de.lemonpie.beddocommon.card.Card;
+import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerState;
 

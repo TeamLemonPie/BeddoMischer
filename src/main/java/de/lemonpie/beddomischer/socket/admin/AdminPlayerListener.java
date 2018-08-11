@@ -1,6 +1,6 @@
 package de.lemonpie.beddomischer.socket.admin;
 
-import de.lemonpie.beddocommon.card.Card;
+import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.Player;

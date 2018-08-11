@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.http.websocket;
 
 import com.google.gson.JsonElement;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.Scope;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
 
 public class CallbackCommand
 {

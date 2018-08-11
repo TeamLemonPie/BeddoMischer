@@ -1,10 +1,10 @@
 package de.lemonpie.beddomischer.http.websocket.listener;
 
 import com.google.gson.JsonPrimitive;
-import de.lemonpie.beddocommon.card.Card;
+import de.lemonpie.beddocommon.model.card.Card;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.Scope;
 import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.BoardListener;
@@ -18,12 +18,12 @@ import de.lemonpie.beddomischer.model.winprobability.Calculation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WinProbabilityPlayerListener implements PlayerListener, BoardListener
+public class WinProbabilityListener implements PlayerListener, BoardListener
 {
 
 	private WebSocketHandler webSocketHandler;
 
-	public WinProbabilityPlayerListener(WebSocketHandler webSocketHandler)
+	public WinProbabilityListener(WebSocketHandler webSocketHandler)
 	{
 		this.webSocketHandler = webSocketHandler;
 	}

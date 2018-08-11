@@ -1,11 +1,11 @@
 package de.lemonpie.beddomischer.socket.admin.command.read;
 
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.server.Command;
+import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.CommandName;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.socket.Command;
-import de.lemonpie.beddomischer.socket.CommandData;
 import de.lemonpie.beddomischer.socket.reader.ClearSendCommand;
 import de.lemonpie.beddomischer.validator.CardValidator;
 

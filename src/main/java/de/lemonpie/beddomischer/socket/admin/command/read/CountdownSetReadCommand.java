@@ -1,9 +1,9 @@
 package de.lemonpie.beddomischer.socket.admin.command.read;
 
-import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.socket.Command;
-import de.lemonpie.beddomischer.socket.CommandData;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.server.Command;
+import de.lemonpie.beddocommon.network.server.CommandData;
+import de.lemonpie.beddomischer.model.CountdownHandler;
 
 public class CountdownSetReadCommand implements Command
 {
@@ -19,11 +19,11 @@ public class CountdownSetReadCommand implements Command
 		int minutes = command.getValue().getAsInt();
 		if(command.getKey() == 0)
 		{
-			BeddoMischerMain.setPauseEndTime(System.currentTimeMillis() + 1000 * 60 * minutes);
+			CountdownHandler.getInstance().setPauseEndTime(System.currentTimeMillis() + 1000 * 60 * minutes);
 		}
 		else
 		{
-			BeddoMischerMain.setPauseStartTime(System.currentTimeMillis() + 1000 * 60 * minutes);
+			CountdownHandler.getInstance().setPauseStartTime(System.currentTimeMillis() + 1000 * 60 * minutes);
 		}
 	}
 }

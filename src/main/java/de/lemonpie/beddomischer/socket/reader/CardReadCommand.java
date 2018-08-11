@@ -1,10 +1,10 @@
 package de.lemonpie.beddomischer.socket.reader;
 
-import de.lemonpie.beddocommon.card.Card;
+import de.lemonpie.beddocommon.model.card.Card;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.server.Command;
+import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.CommandName;
-import de.lemonpie.beddomischer.socket.Command;
-import de.lemonpie.beddomischer.socket.CommandData;
 
 /**
  * Command to receive detected cards from reader.

@@ -2,6 +2,7 @@ package de.lemonpie.beddomischer.http.handler;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.Board;
+import de.lemonpie.beddomischer.model.CountdownHandler;
 import de.lemonpie.beddomischer.model.Player;
 import de.lemonpie.beddomischer.model.PlayerList;
 import spark.ModelAndView;
@@ -29,7 +30,7 @@ public class PlayerFeedbackGetHandler implements TemplateViewRoute
 			playerModel.add(player.toMap());
 		}
 
-		long countdownEndTime = BeddoMischerMain.getPauseStartTime();
+		long countdownEndTime = CountdownHandler.getInstance().getPauseStartTime();
 		model.put("time", countdownEndTime);
 		model.put("small_blind", board.getSmallBlind());
 		model.put("big_blind", board.getBigBlind());
