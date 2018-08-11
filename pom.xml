@@ -14,7 +14,7 @@
     <artifactId>BeddoMischer</artifactId>
 
     <properties>
-        <common.version>1.0.1</common.version>
+        <common.version>1.0.1-SNAPSHOT</common.version>
         <utils.version>1.6.4</utils.version>
         <network.version>1.0.0</network.version>
         <logger.version>1.2.1</logger.version>
