@@ -13,6 +13,36 @@
 
     <artifactId>BeddoMischer</artifactId>
 
+    <properties>
+        <common.version>1.0.1</common.version>
+        <utils.version>1.6.4</utils.version>
+        <network.version>1.0.0</network.version>
+        <logger.version>1.2.1</logger.version>
+
+        <libLogger-slf4j.version>1.0.2</libLogger-slf4j.version>
+        <tools.version>1.0.0</tools.version>
+
+        <spark-core.version>2.7.2</spark-core.version>
+        <spark-template-freemarker.version>2.7.1</spark-template-freemarker.version>
+
+        <jackson-core.version>2.9.6</jackson-core.version>
+        <jackson-databind.version>2.9.6</jackson-databind.version>
+        <jackson-annotations.version>2.9.6</jackson-annotations.version>
+
+        <ormlite-core.version>5.1</ormlite-core.version>
+        <ormlite-jdbc.version>5.1</ormlite-jdbc.version>
+        <sqlite-jdbc.version>3.23.1</sqlite-jdbc.version>
+
+        <atembridge.version>1.1.0</atembridge.version>
+        <obsbridge.version>1.0.0</obsbridge.version>
+        <beddotallymiddleware.version>1.0.0</beddotallymiddleware.version>
+
+        <jni4net.j.version>0.8.8.0</jni4net.j.version>
+
+        <junit.version>4.12</junit.version>
+        <assertj-core.version>3.10.0</assertj-core.version>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
