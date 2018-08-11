@@ -4,6 +4,11 @@ import de.tobias.utils.settings.Key;
 
 public class ServerSettings
 {
+	@Key("director.interface")
+	public String directorInterface = "localhost";
+	@Key("director.port")
+	public int directorPort = 9996;
+
 	@Key("reader.interface")
 	public String readerInterface = "localhost";
 	@Key("reader.port")

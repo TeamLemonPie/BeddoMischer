@@ -22,6 +22,7 @@ import de.lemonpie.beddomischer.socket.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.socket.admin.command.read.*;
 import de.lemonpie.beddomischer.socket.admin.command.read.player.*;
+import de.lemonpie.beddomischer.socket.director.DirectorServerSocket;
 import de.lemonpie.beddomischer.socket.reader.CardReadCommand;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.BoardSerializer;
@@ -68,6 +69,7 @@ public class BeddoMischerMain
 
 	private static ControlServerSocket rfidServerSocket;
 	private static ControlServerSocket controlServerSocket;
+	private static ControlServerSocket directorServerSocket;
 
 
 	static
@@ -185,6 +187,15 @@ public class BeddoMischerMain
 			Logger.error(e);
 		}
 
+		try
+		{
+			controlServerSocket = new DirectorServerSocket(settings.directorInterface, settings.directorPort);
+		}
+		catch(IOException e)
+		{
+			Logger.error(e);
+		}
+
 		// Add Listener
 		AdminPlayerListListener adminPlayerListListener = new AdminPlayerListListener();
 		players.addListener(adminPlayerListListener);
@@ -238,6 +249,7 @@ public class BeddoMischerMain
 	{
 		controlServerSocket.close();
 		rfidServerSocket.close();
+		directorServerSocket.close();
 	}
 
 	private static void registerCommands()
