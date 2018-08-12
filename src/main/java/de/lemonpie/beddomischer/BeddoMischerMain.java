@@ -249,6 +249,7 @@ public class BeddoMischerMain
 		commandExecutor.addCommand(new PlayerTwitchNameReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new PlayerChipsReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new PlayerStateReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new PlayerHighlightReadCommand(), Scope.ADMIN);
 
 		commandExecutor.addCommand(new DataReadCommand(), Scope.ADMIN);
 

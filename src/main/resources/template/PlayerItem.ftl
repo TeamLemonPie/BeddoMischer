@@ -29,7 +29,8 @@
                 <#if player.twitchName??>${player.twitchName}</#if>
             </div>
         </div>
-        <div class="active-icon activePlayerChip"></div>
+        <div class="active-icon activePlayerChip"
+             style="display: <#if player.isHighlighted>inline-block<#else>none</#if>"></div>
     </div>
 </div>
 </#macro>

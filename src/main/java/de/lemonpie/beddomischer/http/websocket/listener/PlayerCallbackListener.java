@@ -91,4 +91,12 @@ public class PlayerCallbackListener implements PlayerListener
 	{
 		// Handled in WinProbabilityPlayerListener
 	}
+
+	@Override
+	public void isHighlightedDidChange(Player player, boolean value)
+	{
+		CallbackCommand callbackCommand = new CallbackCommand(Scope.PLAYER, CommandName.PLAYER_HIGHLIGHT,
+				player.getId(), new JsonPrimitive(value));
+		webSocketHandler.sendCommand(callbackCommand);
+	}
 }

@@ -49,4 +49,10 @@ public class AdminPlayerListener implements PlayerListener
 		PlayerWinProbabilitySendCommand command = new PlayerWinProbabilitySendCommand(player, value);
 		BeddoMischerMain.getControlServerSocket().writeAll(command);
 	}
+
+	@Override
+	public void isHighlightedDidChange(Player player, boolean value)
+	{
+
+	}
 }

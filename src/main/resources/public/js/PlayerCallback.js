@@ -52,6 +52,14 @@ function handlePlayerCallback(command, key, value) {
     } else if (command === "winProbability") {
         let winProbability = $(playerContainer).find(".percentage");
         winProbability.text(value)
+    } else if (command === "highlight") {
+        let activeIcon = $(playerContainer).find(".active-icon");
+        if (value) {
+            activeIcon.fadeIn(500);
+        }
+        else {
+            activeIcon.fadeOut(500);
+        }
     }
 }
 

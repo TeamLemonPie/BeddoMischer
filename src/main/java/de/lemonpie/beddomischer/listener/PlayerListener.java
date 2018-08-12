@@ -25,4 +25,7 @@ public interface PlayerListener
 	void chipsDidChange(Player player, int chips);
 
 	void winProbabilityDidChange(Player player, int value);
+
+	void isHighlightedDidChange(Player player, boolean value);
+
 }

@@ -94,4 +94,17 @@ public class StoragePlayerListener implements PlayerListener
 	public void winProbabilityDidChange(Player player, int value)
 	{
 	}
+
+	@Override
+	public void isHighlightedDidChange(Player player, boolean value)
+	{
+		try
+		{
+			BeddoMischerMain.getPlayerDao().update(player);
+		}
+		catch(SQLException e)
+		{
+			Logger.error(e);
+		}
+	}
 }

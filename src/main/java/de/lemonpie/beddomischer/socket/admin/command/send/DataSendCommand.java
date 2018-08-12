@@ -11,7 +11,6 @@ import de.lemonpie.beddomischer.model.Board;
 
 public class DataSendCommand extends CommandData
 {
-
 	public DataSendCommand()
 	{
 		super(Scope.ADMIN, CommandName.DATA, 0, null);
@@ -36,6 +35,8 @@ public class DataSendCommand extends CommandData
 			obj.addProperty("cardRight", player.getCardRight().getName());
 
 			obj.addProperty("readerId", player.getReaderId());
+
+			obj.addProperty("isHighlighted", player.isHighlighted());
 
 			players.add(obj);
 		});

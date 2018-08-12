@@ -46,6 +46,10 @@ public class Player
 	private CalculatedHand calculatedHand;
 	private int winprobability;
 
+	@DatabaseField
+	private boolean isHighlighted;
+
+
 	public Player()
 	{
 		this(0);
@@ -188,6 +192,17 @@ public class Player
 		fireListener(listener -> listener.readerIdDidChange(this, readerId));
 	}
 
+	public boolean isHighlighted()
+	{
+		return isHighlighted;
+	}
+
+	public void setHighlighted(boolean highlighted)
+	{
+		this.isHighlighted = highlighted;
+		fireListener(listener->listener.isHighlightedDidChange(this, highlighted));
+	}
+
 	public void addListener(PlayerListener playerListener)
 	{
 		this.listeners.add(playerListener);
@@ -220,6 +235,7 @@ public class Player
 		map.put("chips", chips);
 		map.put("timestampDeactivate", timestampDeactivate);
 		map.put("winprobability", winprobability);
+		map.put("isHighlighted", isHighlighted);
 		return map;
 	}
 
