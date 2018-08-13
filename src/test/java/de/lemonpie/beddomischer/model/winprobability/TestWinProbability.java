@@ -6,7 +6,7 @@ import de.lemonpie.beddocommon.model.card.CardValue;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.player.Player;
 import org.junit.Test;
 
 import java.util.ArrayList;

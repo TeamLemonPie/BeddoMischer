@@ -20,6 +20,6 @@ public class PlayerNameReadCommand implements Command
 		int playerId = command.getKey();
 		String name = command.getValue().getAsString();
 
-		BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(p -> p.setName(name));
+		BeddoMischerMain.getPlayers().getObject(playerId).ifPresent(p -> p.setName(name));
 	}
 }

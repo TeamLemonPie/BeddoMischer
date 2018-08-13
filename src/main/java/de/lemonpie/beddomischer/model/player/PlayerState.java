@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.model;
+package de.lemonpie.beddomischer.model.player;
 
 public enum PlayerState
 {

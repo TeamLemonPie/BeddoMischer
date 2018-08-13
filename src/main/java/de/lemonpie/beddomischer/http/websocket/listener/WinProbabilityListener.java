@@ -10,9 +10,9 @@ import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.BoardListener;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.model.PlayerList;
-import de.lemonpie.beddomischer.model.PlayerState;
+import de.lemonpie.beddomischer.model.player.Player;
+import de.lemonpie.beddomischer.model.player.PlayerList;
+import de.lemonpie.beddomischer.model.player.PlayerState;
 import de.lemonpie.beddomischer.model.winprobability.Calculation;
 
 import java.util.ArrayList;

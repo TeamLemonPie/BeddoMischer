@@ -4,7 +4,7 @@ import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.server.Command;
 import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.model.PlayerState;
+import de.lemonpie.beddomischer.model.player.PlayerState;
 
 public class PlayerStateReadCommand implements Command
 {
@@ -21,6 +21,6 @@ public class PlayerStateReadCommand implements Command
 		int playerId = command.getKey();
 		PlayerState state = PlayerState.valueOf(command.getValue().getAsString());
 
-		BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(p -> p.setPlayerState(state));
+		BeddoMischerMain.getPlayers().getObject(playerId).ifPresent(p -> p.setPlayerState(state));
 	}
 }

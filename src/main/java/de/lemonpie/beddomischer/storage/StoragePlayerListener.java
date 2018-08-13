@@ -3,8 +3,8 @@ package de.lemonpie.beddomischer.storage;
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
-import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.model.PlayerState;
+import de.lemonpie.beddomischer.model.player.Player;
+import de.lemonpie.beddomischer.model.player.PlayerState;
 import logger.Logger;
 
 import java.sql.SQLException;

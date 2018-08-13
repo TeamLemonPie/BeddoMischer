@@ -8,7 +8,7 @@
     <script src="js/PlayerFeedbackCallback.js"></script>
 </head>
 <body onload="onLoad()">
-<#-- @ftlvariable name="players" type="java.util.List<de.lemonpie.beddomischer.model.Player>" -->
+<#-- @ftlvariable name="players" type="java.util.List<de.lemonpie.beddomischer.model.player.Player>" -->
 <table id="table-main" cellspacing="0" cellpadding="0">
     <tr>
         <td colspan="2">

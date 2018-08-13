@@ -24,7 +24,7 @@ public class PlayerOpReadCommand implements Command
 		else if(op.equals("remove"))
 		{
 			int playerId = command.getKey();
-			BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(player -> BeddoMischerMain.getPlayers().remove(player));
+			BeddoMischerMain.getPlayers().getObject(playerId).ifPresent(player -> BeddoMischerMain.getPlayers().remove(player));
 		}
 	}
 }

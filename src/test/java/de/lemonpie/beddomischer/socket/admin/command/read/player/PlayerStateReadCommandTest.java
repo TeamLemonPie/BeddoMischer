@@ -7,8 +7,8 @@ import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.BeddoMischerTestRunner;
-import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.model.PlayerState;
+import de.lemonpie.beddomischer.model.player.Player;
+import de.lemonpie.beddomischer.model.player.PlayerState;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

@@ -4,7 +4,7 @@ import com.google.gson.JsonPrimitive;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
 import de.lemonpie.beddocommon.network.server.CommandData;
-import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.player.Player;
 
 public class PlayerWinProbabilitySendCommand extends CommandData
 {

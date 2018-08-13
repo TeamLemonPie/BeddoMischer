@@ -1,16 +1,16 @@
 package de.lemonpie.beddomischer.storage;
 
+import de.lemonpie.beddocommon.model.ObservableListListener;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.listener.PlayerListListener;
-import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.player.Player;
 import logger.Logger;
 
 import java.sql.SQLException;
 
-public class StoragePlayerListListener implements PlayerListListener
+public class StoragePlayerListListener implements ObservableListListener<Player>
 {
 	@Override
-	public void addPlayer(Player player)
+	public void addObjectToList(Player player)
 	{
 		if(BeddoMischerMain.getPlayerDao() != null)
 		{
@@ -30,7 +30,7 @@ public class StoragePlayerListListener implements PlayerListListener
 	}
 
 	@Override
-	public void removePlayer(Player player)
+	public void removeObjectFromList(Player player)
 	{
 		try
 		{

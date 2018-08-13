@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.http.handler;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.model.PlayerList;
+import de.lemonpie.beddomischer.model.player.Player;
+import de.lemonpie.beddomischer.model.player.PlayerList;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -25,7 +25,7 @@ public class PlayerGetHandler implements TemplateViewRoute
 
 		Map<String, Object> model = new HashMap<>();
 
-		Optional<Player> playerOptional = players.getPlayer(id);
+		Optional<Player> playerOptional = players.getObject(id);
 		if(playerOptional.isPresent())
 		{
 			model.put("player", playerOptional.get().toMap());

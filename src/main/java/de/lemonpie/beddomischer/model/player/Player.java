@@ -1,10 +1,12 @@
-package de.lemonpie.beddomischer.model;
+package de.lemonpie.beddomischer.model.player;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import de.lemonpie.beddocommon.model.Indexable;
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
+import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
 import de.lemonpie.beddomischer.storage.CardType;
 import de.lemonpie.beddomischer.validator.CardValidator;
@@ -16,7 +18,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 @DatabaseTable(tableName = "Player")
-public class Player
+public class Player implements Indexable
 {
 
 	private List<PlayerListener> listeners;

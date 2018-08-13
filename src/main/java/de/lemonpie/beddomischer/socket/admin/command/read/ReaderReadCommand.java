@@ -37,7 +37,7 @@ public class ReaderReadCommand implements Command
 				int playerId = value.get("playerId").getAsInt();
 				if(readerId != BeddoMischerMain.READER_NULL_ID)
 				{
-					BeddoMischerMain.getPlayers().getPlayer(playerId).ifPresent(player -> player.setReaderId(readerId));
+					BeddoMischerMain.getPlayers().getObject(playerId).ifPresent(player -> player.setReaderId(readerId));
 				}
 			}
 			else if(type == 1)

@@ -4,7 +4,6 @@ import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddocommon.model.card.CardSymbol;
 import de.lemonpie.beddocommon.model.card.CardValue;
 import de.lemonpie.beddomischer.model.Board;
-import de.lemonpie.beddomischer.model.HandType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

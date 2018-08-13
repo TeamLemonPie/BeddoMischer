@@ -4,7 +4,8 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import de.lemonpie.beddocommon.model.LowerThird;
+import de.lemonpie.beddocommon.model.lowerthird.LowerThird;
+import de.lemonpie.beddocommon.model.lowerthird.LowerThirdList;
 import de.lemonpie.beddocommon.network.Scope;
 import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddocommon.network.server.ControlServerSocket;
@@ -14,7 +15,11 @@ import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
 import de.lemonpie.beddomischer.http.websocket.listener.WebSocketCountdownListener;
 import de.lemonpie.beddomischer.http.websocket.listener.WinProbabilityListener;
-import de.lemonpie.beddomischer.model.*;
+import de.lemonpie.beddomischer.model.BlockOption;
+import de.lemonpie.beddomischer.model.Board;
+import de.lemonpie.beddomischer.model.CountdownHandler;
+import de.lemonpie.beddomischer.model.player.Player;
+import de.lemonpie.beddomischer.model.player.PlayerList;
 import de.lemonpie.beddomischer.socket.admin.AdminBoardListener;
 import de.lemonpie.beddomischer.socket.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.socket.admin.BeddoControlPlayerListListener;
@@ -43,7 +48,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.List;
 
 import static spark.Spark.*;
 
@@ -53,7 +57,7 @@ public class BeddoMischerMain
 	public static final int READER_NULL_ID = -3;
 
 	private static PlayerList players;
-	private static List<LowerThird> lowerThirds;
+	private static LowerThirdList lowerThirds;
 	private static Board board;
 
 	private static BlockOption blockOption;
@@ -159,6 +163,7 @@ public class BeddoMischerMain
 	static void startUp()
 	{
 		players = new PlayerList();
+		lowerThirds = new LowerThirdList();
 		board = new Board();
 		blockOption = BlockOption.NONE;
 
@@ -170,8 +175,11 @@ public class BeddoMischerMain
 		board = BoardSerializer.loadBoard();
 		board.addListener(new StorageBoardListener());
 
-		// Load data from database
+
+		lowerThirds.addAll(lowerThirdDao.queryForAll());
+
 		players.addListener(new StoragePlayerListListener());
+
 		players.addAll(playerDao.queryForAll());
 		players.updateListener();
 	}
@@ -187,7 +195,7 @@ public class BeddoMischerMain
 
 		BeddoControlPlayerListListener beddoControlPlayerListListener = new BeddoControlPlayerListListener();
 		players.addListener(beddoControlPlayerListListener);
-		players.forEach(beddoControlPlayerListListener::addPlayer); // Initial Run for existing player
+		players.forEach(beddoControlPlayerListListener::addObjectToList); // Initial Run for existing player
 	}
 
 	public static void startWebServer(ServerSettings settings)
@@ -216,7 +224,7 @@ public class BeddoMischerMain
 
 		PlayerListWebListener playerListWebListener = new PlayerListWebListener(webSocketHandler);
 		players.addListener(playerListWebListener);
-		players.forEach(playerListWebListener::addPlayer);
+		players.forEach(playerListWebListener::addObjectToList);
 
 		// Add routes
 		get("/admin", new AdminHandler(), engine);
@@ -286,6 +294,11 @@ public class BeddoMischerMain
 	public static PlayerList getPlayers()
 	{
 		return players;
+	}
+
+	public static LowerThirdList getLowerThirds()
+	{
+		return lowerThirds;
 	}
 
 	public static Board getBoard()

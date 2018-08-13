@@ -1,14 +1,14 @@
 package de.lemonpie.beddomischer.socket.admin;
 
+import de.lemonpie.beddocommon.model.ObservableListListener;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.listener.PlayerListListener;
-import de.lemonpie.beddomischer.model.Player;
+import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.socket.admin.command.send.PlayerOpSendCommand;
 
-public class BeddoControlPlayerListListener implements PlayerListListener
+public class BeddoControlPlayerListListener implements ObservableListListener<Player>
 {
 	@Override
-	public void addPlayer(Player player)
+	public void addObjectToList(Player player)
 	{
 		BeddoMischerMain.getControlServerSocket().writeAll(new PlayerOpSendCommand(player.getId()));
 
@@ -17,7 +17,7 @@ public class BeddoControlPlayerListListener implements PlayerListListener
 	}
 
 	@Override
-	public void removePlayer(Player player)
+	public void removeObjectFromList(Player player)
 	{
 	}
 }

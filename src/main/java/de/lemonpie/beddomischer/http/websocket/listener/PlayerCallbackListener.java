@@ -8,8 +8,8 @@ import de.lemonpie.beddocommon.network.Scope;
 import de.lemonpie.beddomischer.http.websocket.CallbackCommand;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.listener.PlayerListener;
-import de.lemonpie.beddomischer.model.Player;
-import de.lemonpie.beddomischer.model.PlayerState;
+import de.lemonpie.beddomischer.model.player.Player;
+import de.lemonpie.beddomischer.model.player.PlayerState;
 
 public class PlayerCallbackListener implements PlayerListener
 {
