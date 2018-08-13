@@ -30,6 +30,7 @@ import de.lemonpie.beddomischer.socket.reader.CardReadCommand;
 import de.lemonpie.beddomischer.socket.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.BoardSerializer;
 import de.lemonpie.beddomischer.storage.StorageBoardListener;
+import de.lemonpie.beddomischer.storage.StorageLowerThirdListListener;
 import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
 import de.tobias.logger.FileOutputOption;
 import de.tobias.logger.LogLevelFilter;
@@ -176,6 +177,7 @@ public class BeddoMischerMain
 		board.addListener(new StorageBoardListener());
 
 
+		lowerThirds.addListener(new StorageLowerThirdListListener());
 		lowerThirds.addAll(lowerThirdDao.queryForAll());
 
 		players.addListener(new StoragePlayerListListener());
@@ -236,6 +238,7 @@ public class BeddoMischerMain
 		get("/player/:id", new PlayerGetHandler(), engine);
 		get("/player_feedback", new PlayerFeedbackGetHandler(), engine);
 		get("/board", new BoardHandler(), engine);
+		get("/lowerthird/:id", new LowerThirdGetHandler());
 	}
 
 	public static void closeServer() throws IOException
