@@ -97,42 +97,49 @@ public class BeddoMischerMain
 		Logger.info("Launching App: {0}, version: {1}, build: {2}, date: {3}", "BeddoMischer", "1.1.0", "3", "07.08.18");
 	}
 
-	public static void main(String[] args) throws SQLException
+	public static void main(String[] args)
 	{
-		prepareLogger();
+		try
+		{
+			prepareLogger();
 
-		Path settingsPath = Paths.get("./settings.yml");
-		ServerSettings serverSettings = Storage.load(settingsPath, StorageTypes.YAML, ServerSettings.class);
+			Path settingsPath = Paths.get("./settings.yml");
+			ServerSettings serverSettings = Storage.load(settingsPath, StorageTypes.YAML, ServerSettings.class);
 
-		// Setup jdbc
-		final JdbcConnectionSource connectionSource = setupDataSource();
+			// Setup jdbc
+			final JdbcConnectionSource connectionSource = setupDataSource();
 
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			try
-			{
-				closeServer();
-				connectionSource.close();
-			}
-			catch(IOException e)
-			{
-				Logger.error(e);
-			}
-		}));
+			Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+				try
+				{
+					closeServer();
+					connectionSource.close();
+				}
+				catch(IOException e)
+				{
+					Logger.error(e);
+				}
+			}));
 
-		// Starting discovery thread
-		final DiscoveryThread discovery = DiscoveryThread.getInstance();
-		discovery.setMessageKey("BEDDOMISCHER");
-		discovery.setPort(9990);
+			// Starting discovery thread
+			final DiscoveryThread discovery = DiscoveryThread.getInstance();
+			discovery.setMessageKey("BEDDOMISCHER");
+			discovery.setPort(9990);
 
-		Thread discoveryThread = new Thread(discovery);
-		discoveryThread.start();
+			Thread discoveryThread = new Thread(discovery);
+			discoveryThread.start();
 
-		Logger.debug("Listening for discovery requests at port: " + String.valueOf(discovery.getPort()) + " with key: " + discovery.getMessageKey());
+			Logger.debug("Listening for discovery requests at port: " + String.valueOf(discovery.getPort()) + " with key: " + discovery.getMessageKey());
 
-		startUp();
-		loadData();
-		startSocketServer(serverSettings);
-		startWebServer(serverSettings);
+			startUp();
+			loadData();
+			startSocketServer(serverSettings);
+			startWebServer(serverSettings);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private static JdbcConnectionSource setupDataSource() throws SQLException
@@ -173,7 +180,7 @@ public class BeddoMischerMain
 	{
 		rfidServerSocket = new ReaderServerSocket(settings.readerInterface, settings.readerPort);
 		controlServerSocket = new AdminServerSocket(settings.controlInterface, settings.controlPort);
-		controlServerSocket = new DirectorServerSocket(settings.directorInterface, settings.directorPort);
+		directorServerSocket = new DirectorServerSocket(settings.directorInterface, settings.directorPort);
 
 		// Add Listener
 		board.addListener(new AdminBoardListener());
