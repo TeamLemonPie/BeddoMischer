@@ -2,9 +2,9 @@ package de.lemonpie.beddomischer.network.admin.command.send;
 
 import com.google.gson.JsonObject;
 import de.lemonpie.beddocommon.model.card.Card;
+import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
-import de.lemonpie.beddocommon.network.server.CommandData;
 
 /**
  * Forward cards to admin control.

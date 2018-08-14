@@ -2,9 +2,9 @@ package de.lemonpie.beddomischer.network.director.command.send;
 
 import com.google.gson.Gson;
 import de.lemonpie.beddocommon.model.lowerthird.LowerThirdList;
+import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
-import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 
 public class LowerThirdListSendCommand extends CommandData

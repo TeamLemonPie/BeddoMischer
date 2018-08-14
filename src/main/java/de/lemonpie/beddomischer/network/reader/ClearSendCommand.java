@@ -1,8 +1,8 @@
 package de.lemonpie.beddomischer.network.reader;
 
+import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
-import de.lemonpie.beddocommon.network.server.CommandData;
 
 public class ClearSendCommand extends CommandData
 {

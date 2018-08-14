@@ -1,9 +1,9 @@
 package de.lemonpie.beddomischer.network.admin.command.read.player;
 
 import com.google.gson.JsonPrimitive;
+import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
-import de.lemonpie.beddocommon.network.server.CommandData;
 import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.BeddoMischerTestRunner;
