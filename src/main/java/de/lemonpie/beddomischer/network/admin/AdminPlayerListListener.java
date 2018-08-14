@@ -5,7 +5,7 @@ import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.network.admin.command.send.PlayerOpSendCommand;
 
-public class BeddoControlPlayerListListener implements ObservableListListener<Player>
+public class AdminPlayerListListener implements ObservableListListener<Player>
 {
 	@Override
 	public void addObjectToList(Player player)

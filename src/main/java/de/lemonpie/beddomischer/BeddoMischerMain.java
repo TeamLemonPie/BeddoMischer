@@ -21,11 +21,14 @@ import de.lemonpie.beddomischer.model.CountdownHandler;
 import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.model.player.PlayerList;
 import de.lemonpie.beddomischer.network.admin.AdminBoardListener;
+import de.lemonpie.beddomischer.network.admin.AdminPlayerListListener;
 import de.lemonpie.beddomischer.network.admin.AdminServerSocket;
-import de.lemonpie.beddomischer.network.admin.BeddoControlPlayerListListener;
 import de.lemonpie.beddomischer.network.admin.command.read.*;
 import de.lemonpie.beddomischer.network.admin.command.read.player.*;
 import de.lemonpie.beddomischer.network.director.DirectorServerSocket;
+import de.lemonpie.beddomischer.network.director.NetworkLowerThirdListListener;
+import de.lemonpie.beddomischer.network.director.command.read.LowerThirdAddReadCommand;
+import de.lemonpie.beddomischer.network.director.command.read.LowerThirdListReadCommand;
 import de.lemonpie.beddomischer.network.reader.CardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.BoardSerializer;
@@ -195,9 +198,12 @@ public class BeddoMischerMain
 		// Add Listener
 		board.addListener(new AdminBoardListener());
 
-		BeddoControlPlayerListListener beddoControlPlayerListListener = new BeddoControlPlayerListListener();
+		AdminPlayerListListener beddoControlPlayerListListener = new AdminPlayerListListener();
 		players.addListener(beddoControlPlayerListListener);
 		players.forEach(beddoControlPlayerListListener::addObjectToList); // Initial Run for existing player
+
+		NetworkLowerThirdListListener lowerThirdListListener = new NetworkLowerThirdListListener();
+		lowerThirds.addListener(lowerThirdListListener);
 	}
 
 	public static void startWebServer(ServerSettings settings)
@@ -278,6 +284,10 @@ public class BeddoMischerMain
 		commandExecutor.addCommand(new BigBlindReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new SmallBlindReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new AnteReadCommand(), Scope.ADMIN);
+
+		// Director Commands
+		commandExecutor.addCommand(new LowerThirdAddReadCommand(), Scope.DIRECTOR);
+		commandExecutor.addCommand(new LowerThirdListReadCommand(), Scope.DIRECTOR);
 	}
 
 	/*
@@ -327,5 +337,10 @@ public class BeddoMischerMain
 	public static ControlServerSocket getControlServerSocket()
 	{
 		return controlServerSocket;
+	}
+
+	public static ControlServerSocket getDirectorServerSocket()
+	{
+		return directorServerSocket;
 	}
 }
