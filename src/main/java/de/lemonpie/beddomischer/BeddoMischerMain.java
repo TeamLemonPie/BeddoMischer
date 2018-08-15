@@ -49,7 +49,6 @@ import spark.template.freemarker.FreeMarkerEngine;
 import tools.PathUtils;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -90,19 +89,12 @@ public class BeddoMischerMain
 
 	private static void prepareLogger()
 	{
-		try
-		{
-			Path logFolder = Paths.get(BeddoMischerMain.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
-			Logger.init(logFolder);
+		Path logFolder = Paths.get(BASE_PATH + "/log");
+		Logger.init(logFolder);
 
-			Slf4JLoggerAdapter.disableSlf4jDebugPrints();
-			Logger.setLevelFilter(LogLevelFilter.DEBUG);
-			Logger.setFileOutput(FileOutputOption.COMBINED);
-		}
-		catch(URISyntaxException e1)
-		{
-			Logger.error(e1);
-		}
+		Slf4JLoggerAdapter.disableSlf4jDebugPrints();
+		Logger.setLevelFilter(LogLevelFilter.DEBUG);
+		Logger.setFileOutput(FileOutputOption.COMBINED);
 
 		Logger.info("Launching App: {0}, version: {1}, build: {2}, date: {3}", "BeddoMischer", "1.1.0", "3", "07.08.18");
 	}
