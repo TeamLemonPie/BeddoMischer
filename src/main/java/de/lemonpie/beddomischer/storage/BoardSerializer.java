@@ -1,6 +1,7 @@
 package de.lemonpie.beddomischer.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.Board;
 import logger.Logger;
 
@@ -13,7 +14,7 @@ import java.nio.file.StandardOpenOption;
 public class BoardSerializer
 {
 
-	private static final String fileName = "board.json";
+	private static final String fileName = BeddoMischerMain.BASE_PATH + "board.json";
 
 	public static synchronized void saveBoard(Board board)
 	{

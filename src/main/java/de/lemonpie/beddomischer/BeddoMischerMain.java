@@ -46,6 +46,7 @@ import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
+import tools.PathUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -59,6 +60,7 @@ public class BeddoMischerMain
 {
 
 	public static final int READER_NULL_ID = -3;
+	public static final String BASE_PATH = PathUtils.getOSindependentPath() + "LemonPie/BeddoMischer";
 
 	private static PlayerList players;
 	private static LowerThirdList lowerThirds;
@@ -111,7 +113,7 @@ public class BeddoMischerMain
 		{
 			prepareLogger();
 
-			Path settingsPath = Paths.get("./settings.yml");
+			Path settingsPath = Paths.get(BASE_PATH + "/settings.yml");
 			ServerSettings serverSettings = Storage.load(settingsPath, StorageTypes.YAML, ServerSettings.class);
 
 			// Setup jdbc
@@ -152,7 +154,7 @@ public class BeddoMischerMain
 
 	private static JdbcConnectionSource setupDataSource() throws SQLException
 	{
-		final String databaseUrl = "jdbc:sqlite:BeddoMischer.db";
+		final String databaseUrl = "jdbc:sqlite:" + BASE_PATH + "/BeddoMischer.db";
 		final JdbcConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl);
 
 		playerDao = DaoManager.createDao(connectionSource, Player.class);
