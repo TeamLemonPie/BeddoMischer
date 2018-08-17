@@ -5,7 +5,9 @@
 
     <script src="js/Callback.js"></script>
     <script src="js/BoardCallback.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/DirectorCallback.js"></script>
+    <script src="js/libs/jquery-3.2.1.min.js"></script>
+    <script src="js/libs/lottie.js"></script>
 </head>
 <body onload="onLoad()">
 <div class="main-board-container">
@@ -41,5 +43,10 @@
         </div>
     </div>
 </div>
+
+<div id="lower-third">
+
+</div>
+
 </body>
 </html>

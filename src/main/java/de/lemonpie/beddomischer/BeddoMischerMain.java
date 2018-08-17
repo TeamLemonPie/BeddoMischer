@@ -11,6 +11,7 @@ import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddocommon.network.server.ControlServerSocket;
 import de.lemonpie.beddomischer.http.handler.*;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
+import de.lemonpie.beddomischer.http.websocket.command.LowerThirdFinishReadCommand;
 import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
 import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
 import de.lemonpie.beddomischer.http.websocket.listener.WebSocketCountdownListener;
@@ -29,6 +30,7 @@ import de.lemonpie.beddomischer.network.director.DirectorServerSocket;
 import de.lemonpie.beddomischer.network.director.NetworkLowerThirdListListener;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdAddReadCommand;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdListReadCommand;
+import de.lemonpie.beddomischer.network.director.command.read.LowerThirdStartReadCommand;
 import de.lemonpie.beddomischer.network.reader.CardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.BoardSerializer;
@@ -70,7 +72,7 @@ public class BeddoMischerMain
 	private static ControlServerSocket rfidServerSocket = null;
 	private static ControlServerSocket controlServerSocket = null;
 	private static ControlServerSocket directorServerSocket = null;
-
+	private static WebSocketHandler webSocketHandler;
 
 	static
 	{
@@ -215,7 +217,6 @@ public class BeddoMischerMain
 		final FreeMarkerEngine engine = new FreeMarkerEngine(freeMarkerConfiguration);
 
 		Spark.staticFileLocation("/public");
-		WebSocketHandler webSocketHandler;
 		webSocket("/callback", webSocketHandler = new WebSocketHandler());
 
 		// Add listener
@@ -238,7 +239,7 @@ public class BeddoMischerMain
 		get("/player/:id", new PlayerGetHandler(), engine);
 		get("/player_feedback", new PlayerFeedbackGetHandler(), engine);
 		get("/board", new BoardHandler(), engine);
-		get("/lowerthird/:id", new LowerThirdGetHandler());
+		get("/lowerthird/:id/data.json", new LowerThirdGetHandler());
 	}
 
 	public static void closeServer() throws IOException
@@ -282,6 +283,8 @@ public class BeddoMischerMain
 		// Director Commands
 		commandExecutor.addCommand(new LowerThirdAddReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdListReadCommand(), Scope.DIRECTOR);
+		commandExecutor.addCommand(new LowerThirdStartReadCommand(), Scope.DIRECTOR);
+		commandExecutor.addCommand(new LowerThirdFinishReadCommand(), Scope.DIRECTOR);
 	}
 
 	/*
@@ -336,5 +339,10 @@ public class BeddoMischerMain
 	public static ControlServerSocket getDirectorServerSocket()
 	{
 		return directorServerSocket;
+	}
+
+	public static WebSocketHandler getWebSocketHandler()
+	{
+		return webSocketHandler;
 	}
 }

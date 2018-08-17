@@ -1,6 +1,8 @@
+let connection;
+
 function onLoad() {
     let url = 'ws://' + location.hostname + ':' + location.port + '/callback';
-    let connection = new WebSocket(url);
+    connection = new WebSocket(url);
 
     // When the connection is open, send some data to the server
     connection.onopen = function () {
@@ -52,6 +54,12 @@ function onLoad() {
 
             try {
                 handlePlayerFeedbackCallback(data.command, data.key, data.value);
+            } catch (e) {
+            } finally {
+            }
+        } else if (data.scope === "DIRECTOR") {
+            try {
+                handleDirectorCallback(data.command, data.key, data.value);
             } catch (e) {
             } finally {
             }

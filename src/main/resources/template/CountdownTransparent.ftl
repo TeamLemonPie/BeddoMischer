@@ -2,7 +2,7 @@
 <head>
     <link rel="stylesheet" href="css/results.css">
 
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/libs/jquery-3.2.1.min.js"></script>
     <script src="js/Countdown.js"></script>
     <script src="js/Callback.js"></script>
     <script src="js/CountdownCallback.js"></script>

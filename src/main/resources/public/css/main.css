@@ -182,3 +182,7 @@ body {
 .debug {
     border: 1px solid red;
 }
+
+#lower-third {
+    margin: 0 auto;
+}

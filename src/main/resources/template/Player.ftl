@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/cards.css">
 
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/libs/jquery-3.2.1.min.js"></script>
     <script src="js/Callback.js"></script>
     <script src="js/PlayerCallback.js"></script>
 </head>
