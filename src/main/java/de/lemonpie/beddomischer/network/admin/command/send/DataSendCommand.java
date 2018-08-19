@@ -1,8 +1,6 @@
 package de.lemonpie.beddomischer.network.admin.command.send;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.*;
 import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
@@ -11,6 +9,8 @@ import de.lemonpie.beddomischer.model.Board;
 
 public class DataSendCommand extends CommandData
 {
+	private Gson gson = new Gson();
+
 	public DataSendCommand()
 	{
 		super(Scope.ADMIN, CommandName.DATA, 0, null);
@@ -19,6 +19,7 @@ public class DataSendCommand extends CommandData
 		JsonArray players = new JsonArray();
 		JsonArray board = new JsonArray();
 		JsonArray boardReader = new JsonArray();
+		JsonElement seats = gson.toJsonTree(BeddoMischerMain.getSeatList().getData());
 
 		// Serialize player
 		BeddoMischerMain.getPlayers().forEach(player -> {
@@ -57,6 +58,7 @@ public class DataSendCommand extends CommandData
 		data.add("players", players);
 		data.add("board", board);
 		data.add("board-reader", boardReader);
+		data.add("seats", seats);
 
 		data.addProperty("reader-count", BeddoMischerMain.getRfidServerSocket().count());
 
