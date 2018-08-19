@@ -3,7 +3,10 @@ Handles all player callback events from server.
  */
 function handlePlayerFeedbackCallback(command, key, value) {
     let playerContainer = $("#player-" + key);
-    if (command === "name") {
+    if (command === "seat") {
+        document.location.reload();
+    }
+    else if (command === "name") {
         let playerName = $(playerContainer).find(".player-name");
         playerName.text(value)
     } else if (command === "card") {
