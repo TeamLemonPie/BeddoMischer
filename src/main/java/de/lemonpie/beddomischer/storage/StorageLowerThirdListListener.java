@@ -10,15 +10,15 @@ import java.sql.SQLException;
 public class StorageLowerThirdListListener implements ObservableListListener<LowerThird>
 {
 	@Override
-	public void addObjectToList(LowerThird player)
+	public void addObjectToList(LowerThird lowerThird)
 	{
 		if(BeddoMischerMain.getLowerThirdDao() != null)
 		{
 			try
 			{
-				if(BeddoMischerMain.getLowerThirdDao().queryForId(player.getId()) == null)
+				if(BeddoMischerMain.getLowerThirdDao().queryForId(lowerThird.getId()) == null)
 				{
-					BeddoMischerMain.getLowerThirdDao().create(player);
+					BeddoMischerMain.getLowerThirdDao().create(lowerThird);
 				}
 			}
 			catch(SQLException e)
@@ -29,11 +29,11 @@ public class StorageLowerThirdListListener implements ObservableListListener<Low
 	}
 
 	@Override
-	public void removeObjectFromList(LowerThird player)
+	public void removeObjectFromList(LowerThird lowerThird)
 	{
 		try
 		{
-			BeddoMischerMain.getLowerThirdDao().delete(player);
+			BeddoMischerMain.getLowerThirdDao().delete(lowerThird);
 		}
 		catch(SQLException e)
 		{

@@ -12,8 +12,6 @@ public interface PlayerListener
 
 	void stateDidChange(Player player, PlayerState state);
 
-	void readerIdDidChange(Player player, int readerId);
-
 	/**
 	 * Update player card.
 	 *

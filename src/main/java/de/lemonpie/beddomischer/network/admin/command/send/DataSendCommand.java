@@ -34,8 +34,6 @@ public class DataSendCommand extends CommandData
 			obj.addProperty("cardLeft", player.getCardLeft().getName());
 			obj.addProperty("cardRight", player.getCardRight().getName());
 
-			obj.addProperty("readerId", player.getReaderId());
-
 			obj.addProperty("isHighlighted", player.isHighlighted());
 
 			players.add(obj);

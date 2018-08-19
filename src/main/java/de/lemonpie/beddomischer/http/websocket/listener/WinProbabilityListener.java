@@ -45,11 +45,6 @@ public class WinProbabilityListener implements PlayerListener, BoardListener
 	}
 
 	@Override
-	public void readerIdDidChange(Player player, int readerId)
-	{
-	}
-
-	@Override
 	public void cardDidChangeAtIndex(Player player, int index, Card card)
 	{
 		computeWinProbability();

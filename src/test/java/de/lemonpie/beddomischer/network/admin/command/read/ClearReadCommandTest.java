@@ -28,7 +28,6 @@ public class ClearReadCommandTest
 	public void setUp()
 	{
 		player = BeddoMischerMain.getPlayers().add();
-		player.setReaderId(0);
 		player.setCardLeft(new Card(CardSymbol.CROSS, CardValue.ACE));
 		player.setCardRight(new Card(CardSymbol.HEART, CardValue.TEN));
 

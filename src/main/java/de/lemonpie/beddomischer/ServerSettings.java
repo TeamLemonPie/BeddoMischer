@@ -24,4 +24,6 @@ public class ServerSettings
 	@Key("http.port")
 	public int httpPort = 9999;
 
+	public int numberOfSeats = 7;
+
 }

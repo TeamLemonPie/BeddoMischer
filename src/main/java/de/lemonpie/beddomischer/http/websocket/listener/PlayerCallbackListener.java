@@ -50,11 +50,6 @@ public class PlayerCallbackListener implements PlayerListener
 	}
 
 	@Override
-	public void readerIdDidChange(Player player, int readerId)
-	{
-	}
-
-	@Override
 	public void cardDidChangeAtIndex(Player player, int index, Card card)
 	{
 		JsonObject jsonObject = new JsonObject();

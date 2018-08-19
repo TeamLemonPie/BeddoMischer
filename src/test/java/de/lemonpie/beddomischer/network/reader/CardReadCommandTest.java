@@ -4,6 +4,7 @@ import com.google.gson.JsonPrimitive;
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddocommon.model.card.CardSymbol;
 import de.lemonpie.beddocommon.model.card.CardValue;
+import de.lemonpie.beddocommon.model.seat.Seat;
 import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
@@ -24,8 +25,8 @@ public class CardReadCommandTest
 	@Test
 	public void onePlayerCardShouldReturnNormal()
 	{
+		BeddoMischerMain.getSeatList().add(new Seat(1, 1, 0));
 		Player player = BeddoMischerMain.getPlayers().add();
-		player.setReaderId(1);
 
 		CommandData commandData = new CommandData(Scope.READER, CommandName.CARD, 1, new JsonPrimitive("Kr-2"));
 
@@ -37,8 +38,8 @@ public class CardReadCommandTest
 	@Test
 	public void twoPlayerCardsShouldReturnNormal()
 	{
+		BeddoMischerMain.getSeatList().add(new Seat(1, 1, 0));
 		Player player = BeddoMischerMain.getPlayers().add();
-		player.setReaderId(1);
 
 		CommandData commandData = new CommandData(Scope.READER, CommandName.CARD, 1, new JsonPrimitive("Kr-2"));
 		CommandData commandData2 = new CommandData(Scope.READER, CommandName.CARD, 1, new JsonPrimitive("Kr-3"));
@@ -53,8 +54,8 @@ public class CardReadCommandTest
 	@Test
 	public void threePlayerCardsShouldBeIgnored()
 	{
+		BeddoMischerMain.getSeatList().add(new Seat(1, 1, 0));
 		Player player = BeddoMischerMain.getPlayers().add();
-		player.setReaderId(1);
 
 		CommandData commandData = new CommandData(Scope.READER, CommandName.CARD, 1, new JsonPrimitive("Kr-2"));
 		CommandData commandData2 = new CommandData(Scope.READER, CommandName.CARD, 1, new JsonPrimitive("Kr-3"));

@@ -6,6 +6,8 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import de.lemonpie.beddocommon.model.lowerthird.LowerThird;
 import de.lemonpie.beddocommon.model.lowerthird.LowerThirdList;
+import de.lemonpie.beddocommon.model.seat.Seat;
+import de.lemonpie.beddocommon.model.seat.SeatList;
 import de.lemonpie.beddocommon.network.Scope;
 import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddocommon.network.server.ControlServerSocket;
@@ -33,10 +35,7 @@ import de.lemonpie.beddomischer.network.director.command.read.LowerThirdListRead
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdStartReadCommand;
 import de.lemonpie.beddomischer.network.reader.CardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ReaderServerSocket;
-import de.lemonpie.beddomischer.storage.BoardSerializer;
-import de.lemonpie.beddomischer.storage.StorageBoardListener;
-import de.lemonpie.beddomischer.storage.StorageLowerThirdListListener;
-import de.lemonpie.beddomischer.storage.StoragePlayerListListener;
+import de.lemonpie.beddomischer.storage.*;
 import de.tobias.logger.FileOutputOption;
 import de.tobias.logger.LogLevelFilter;
 import de.tobias.logger.Logger;
@@ -59,11 +58,10 @@ import static spark.Spark.*;
 
 public class BeddoMischerMain
 {
-
-	public static final int READER_NULL_ID = -3;
 	public static final String BASE_PATH = PathUtils.getOSindependentPath() + "LemonPie/BeddoMischer";
 
 	private static PlayerList players;
+	private static SeatList seatList;
 	private static LowerThirdList lowerThirds;
 	private static Board board;
 
@@ -87,6 +85,7 @@ public class BeddoMischerMain
 	}
 
 	private static Dao<Player, Integer> playerDao;
+	private static Dao<Seat, Integer> seatDao;
 	private static Dao<LowerThird, Integer> lowerThirdDao;
 
 	private static void prepareLogger()
@@ -136,7 +135,7 @@ public class BeddoMischerMain
 			Logger.debug("Listening for discovery requests at port: " + String.valueOf(discovery.getPort()) + " with key: " + discovery.getMessageKey());
 
 			startUp();
-			loadData();
+			loadData(serverSettings);
 			startSocketServer(serverSettings);
 			startWebServer(serverSettings);
 		}
@@ -152,9 +151,11 @@ public class BeddoMischerMain
 		final JdbcConnectionSource connectionSource = new JdbcConnectionSource(databaseUrl);
 
 		playerDao = DaoManager.createDao(connectionSource, Player.class);
+		seatDao = DaoManager.createDao(connectionSource, Seat.class);
 		lowerThirdDao = DaoManager.createDao(connectionSource, LowerThird.class);
 
 		TableUtils.createTableIfNotExists(connectionSource, Player.class);
+		TableUtils.createTableIfNotExists(connectionSource, Seat.class);
 		TableUtils.createTableIfNotExists(connectionSource, LowerThird.class);
 
 		return connectionSource;
@@ -163,6 +164,7 @@ public class BeddoMischerMain
 	static void startUp()
 	{
 		players = new PlayerList();
+		seatList = new SeatList();
 		lowerThirds = new LowerThirdList();
 		board = new Board();
 		blockOption = BlockOption.NONE;
@@ -170,19 +172,25 @@ public class BeddoMischerMain
 		registerCommands();
 	}
 
-	private static void loadData() throws SQLException
+	private static void loadData(ServerSettings serverSettings) throws SQLException
 	{
 		board = BoardSerializer.loadBoard();
 		board.addListener(new StorageBoardListener());
-
 
 		lowerThirds.addListener(new StorageLowerThirdListListener());
 		lowerThirds.addAll(lowerThirdDao.queryForAll());
 
 		players.addListener(new StoragePlayerListListener());
-
 		players.addAll(playerDao.queryForAll());
-		players.updateListener();
+		players.updateListener(); // Card validator
+
+		seatList.addListener(new StorageSeatListListener());
+		seatList.addAll(seatDao.queryForAll());
+
+		while(seatList.size() < serverSettings.numberOfSeats)
+		{
+			seatList.add(new Seat(seatList.size()));
+		}
 	}
 
 	private static void startSocketServer(ServerSettings settings)
@@ -296,6 +304,11 @@ public class BeddoMischerMain
 		return playerDao;
 	}
 
+	public static Dao<Seat, Integer> getSeatDao()
+	{
+		return seatDao;
+	}
+
 	public static Dao<LowerThird, Integer> getLowerThirdDao()
 	{
 		return lowerThirdDao;
@@ -304,6 +317,11 @@ public class BeddoMischerMain
 	public static PlayerList getPlayers()
 	{
 		return players;
+	}
+
+	public static SeatList getSeatList()
+	{
+		return seatList;
 	}
 
 	public static LowerThirdList getLowerThirds()

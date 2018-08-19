@@ -42,9 +42,6 @@ public class Player implements Indexable
 	@DatabaseField
 	private long timestampDeactivate;
 
-	@DatabaseField
-	private int readerId = BeddoMischerMain.READER_NULL_ID;
-
 	private CalculatedHand calculatedHand;
 	private int winprobability;
 
@@ -183,17 +180,6 @@ public class Player implements Indexable
 		this.calculatedHand = calculatedHand;
 	}
 
-	public int getReaderId()
-	{
-		return readerId;
-	}
-
-	public void setReaderId(int readerId)
-	{
-		this.readerId = readerId;
-		fireListener(listener -> listener.readerIdDidChange(this, readerId));
-	}
-
 	public boolean isHighlighted()
 	{
 		return isHighlighted;
@@ -301,7 +287,6 @@ public class Player implements Indexable
 				", cardLeft=" + cardLeft +
 				", cardRight=" + cardRight +
 				", chips=" + chips +
-				", readerId=" + readerId +
 				", calculatedHand=" + calculatedHand +
 				", winprobability=" + winprobability +
 				'}';

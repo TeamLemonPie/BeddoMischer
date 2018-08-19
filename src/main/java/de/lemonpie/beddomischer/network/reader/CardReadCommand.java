@@ -26,10 +26,10 @@ public class CardReadCommand implements Command
 		String cardCode = command.getValue().getAsJsonPrimitive().getAsString();
 		Card card = Card.fromString(cardCode);
 
-		BeddoMischerMain.getPlayers().forEach(player -> {
-			if(player.getReaderId() == readerId)
+		BeddoMischerMain.getSeatList().forEach(seat -> {
+			if(seat.getReaderId() == readerId)
 			{
-				player.setCard(card);
+				BeddoMischerMain.getPlayers().getObject(seat.getPlayerId()).ifPresent(player -> player.setCard(card));
 			}
 		});
 

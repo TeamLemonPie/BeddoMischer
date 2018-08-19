@@ -15,79 +15,31 @@ public class StoragePlayerListener implements PlayerListener
 	@Override
 	public void nameDidChange(Player player, String name)
 	{
-		try
-		{
-			BeddoMischerMain.getPlayerDao().update(player);
-		}
-		catch(SQLException e)
-		{
-			Logger.error(e);
-		}
+		save(player);
 	}
 
 	@Override
 	public void twitchNameDidChange(Player player, String twitchName)
 	{
-		try
-		{
-			BeddoMischerMain.getPlayerDao().update(player);
-		}
-		catch(SQLException e)
-		{
-			Logger.error(e);
-		}
+		save(player);
 	}
 
 	@Override
 	public void stateDidChange(Player player, PlayerState state)
 	{
-		try
-		{
-			BeddoMischerMain.getPlayerDao().update(player);
-		}
-		catch(SQLException e)
-		{
-			Logger.error(e);
-		}
-	}
-
-	@Override
-	public void readerIdDidChange(Player player, int readerId)
-	{
-		try
-		{
-			BeddoMischerMain.getPlayerDao().update(player);
-		}
-		catch(SQLException e)
-		{
-			Logger.error(e);
-		}
+		save(player);
 	}
 
 	@Override
 	public void cardDidChangeAtIndex(Player player, int index, Card card)
 	{
-		try
-		{
-			BeddoMischerMain.getPlayerDao().update(player);
-		}
-		catch(SQLException e)
-		{
-			Logger.error(e);
-		}
+		save(player);
 	}
 
 	@Override
 	public void chipsDidChange(Player player, int chips)
 	{
-		try
-		{
-			BeddoMischerMain.getPlayerDao().update(player);
-		}
-		catch(SQLException e)
-		{
-			Logger.error(e);
-		}
+		save(player);
 	}
 
 	@Override
@@ -97,6 +49,11 @@ public class StoragePlayerListener implements PlayerListener
 
 	@Override
 	public void isHighlightedDidChange(Player player, boolean value)
+	{
+		save(player);
+	}
+
+	private void save(Player player)
 	{
 		try
 		{
