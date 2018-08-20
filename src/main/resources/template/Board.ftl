@@ -12,7 +12,7 @@
     <body>
         <div class="main-board-container">
             <div id="layer-video" class="layer">
-                <video width="900" height="220">
+                <video width="900" height="220" autoplay>
                     <source src="https://tobisan.thecodelabs.de/AE/Board.mp4" type="video/mp4">
                 </video>
             </div>
