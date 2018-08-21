@@ -14,7 +14,7 @@ import java.nio.file.StandardOpenOption;
 public class BoardSerializer
 {
 
-	private static final String fileName = BeddoMischerMain.BASE_PATH + "board.json";
+	private static final String fileName = BeddoMischerMain.BASE_PATH + "/Board.json";
 
 	public static synchronized void saveBoard(Board board)
 	{
