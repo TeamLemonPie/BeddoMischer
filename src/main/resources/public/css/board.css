@@ -19,8 +19,8 @@ body {
 
 #layer-video {
     z-index: 1;
-    display: none;
-    filter: opacity(50%);
+    /*display: none;*/
+    /*filter: opacity(50%);*/
 }
 
 #layer-cards {
