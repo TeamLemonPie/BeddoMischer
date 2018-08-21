@@ -19,7 +19,7 @@ body {
 
 #layer-video {
     z-index: 1;
-    /*display: none;*/
+    display: none;
     filter: opacity(50%);
 }
 
@@ -29,6 +29,10 @@ body {
 
 #layer-board {
     z-index: 3;
+}
+
+#layer-lower-third {
+    z-index: 4;
 }
 
 .banner-board {
@@ -64,9 +68,15 @@ body {
     display: none;
 }
 
-.cards {
-    margin-top: 106px;
+.cards-container {
+    margin-top: 107px;
     margin-left: 337px;
+    clip-path: inset(0 0 0 0);
+}
+
+.cards-container-lower-thirds {
+    margin-top: 59px;
+    margin-left: 258px;
     clip-path: inset(0 0 0 0);
 }
 
@@ -91,10 +101,24 @@ body {
     background-size: contain;
 }
 
-.debug {
-    border: 1px solid red;
+.move-card-down {
+    transform: translateY(55px);
 }
 
-.move-card-down {
-    transform: translateY(71px);
+.cards-lower-third {
+    margin-right: 9px;
+    transition: transform 0.5s;
+    transform: translateY(55px);
+}
+
+.move-card-up {
+    transform: translateY(-2px);
+}
+
+.move-card-up-slow {
+    transition: transform 0.8s !important;
+}
+
+.debug {
+    border: 1px solid red;
 }
