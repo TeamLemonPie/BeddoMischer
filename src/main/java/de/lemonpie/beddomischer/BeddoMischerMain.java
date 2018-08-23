@@ -14,10 +14,7 @@ import de.lemonpie.beddocommon.network.server.ControlServerSocket;
 import de.lemonpie.beddomischer.http.handler.*;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
 import de.lemonpie.beddomischer.http.websocket.command.LowerThirdFinishReadCommand;
-import de.lemonpie.beddomischer.http.websocket.listener.BoardCallbackListener;
-import de.lemonpie.beddomischer.http.websocket.listener.PlayerListWebListener;
-import de.lemonpie.beddomischer.http.websocket.listener.WebSocketCountdownListener;
-import de.lemonpie.beddomischer.http.websocket.listener.WinProbabilityListener;
+import de.lemonpie.beddomischer.http.websocket.listener.*;
 import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.CountdownHandler;
@@ -233,9 +230,14 @@ public class BeddoMischerMain
 		board.addListener(new BoardCallbackListener(webSocketHandler));
 		board.addListener(new WinProbabilityListener(webSocketHandler));
 
-		PlayerListWebListener playerListWebListener = new PlayerListWebListener(webSocketHandler);
+		final PlayerListWebListener playerListWebListener = new PlayerListWebListener(webSocketHandler);
 		players.addListener(playerListWebListener);
 		players.forEach(playerListWebListener::addObjectToList);
+
+		// Seat
+		final SeatListCallbackListener seatListCallbackListener = new SeatListCallbackListener(webSocketHandler);
+		seatList.addListener(seatListCallbackListener);
+		seatList.forEach(seatListCallbackListener::addObjectToList);
 
 		// Add routes
 		get("/admin", new AdminHandler(), engine);
