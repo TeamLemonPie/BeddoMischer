@@ -109,6 +109,11 @@ public class Board
 		return readerIds;
 	}
 
+	public boolean isBoardReader(int readerId)
+	{
+		return readerIds.contains(readerId);
+	}
+
 	public void addReaderId(int readerId)
 	{
 		readerIds.add(readerId);

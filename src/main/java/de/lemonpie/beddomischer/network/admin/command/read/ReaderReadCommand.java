@@ -15,6 +15,11 @@ import static de.lemonpie.beddocommon.model.seat.Seat.READER_NULL_ID;
  */
 public class ReaderReadCommand implements Command
 {
+	public enum ReaderType
+	{
+		SEAT, BOARD
+	}
+
 	@Override
 	public CommandName name()
 	{
@@ -34,15 +39,15 @@ public class ReaderReadCommand implements Command
 			JsonObject value = (JsonObject) command.getValue();
 			int type = value.get("type").getAsInt();
 
-			if(type == 0)
+			if(type == ReaderType.SEAT.ordinal())
 			{ // SEAT
 				int seatId = value.get("seatId").getAsInt();
 				if(readerId != READER_NULL_ID)
 				{
-					BeddoMischerMain.getSeatList().getObject(seatId).ifPresent(player -> player.setReaderId(readerId));
+					BeddoMischerMain.getSeatList().getObject(seatId).ifPresent(seat -> seat.setReaderId(readerId));
 				}
 			}
-			else if(type == 1)
+			else if(type == ReaderType.BOARD.ordinal())
 			{ // BOARD
 				int oldReaderId = value.get("oldReaderId").getAsInt();
 				BeddoMischerMain.getBoard().removeReaderId(oldReaderId);
@@ -56,11 +61,8 @@ public class ReaderReadCommand implements Command
 
 	private void removeOldReaderMapping(int readerId)
 	{
-		BeddoMischerMain.getSeatList().forEach(seat -> {
-			if(seat.getReaderId() == readerId)
-			{
-				seat.setReaderId(READER_NULL_ID);
-			}
+		BeddoMischerMain.getSeatList().getSeatByPlayerId(readerId).ifPresent(seat -> {
+			seat.setReaderId(READER_NULL_ID);
 		});
 
 		BeddoMischerMain.getBoard().removeReaderId(readerId);
