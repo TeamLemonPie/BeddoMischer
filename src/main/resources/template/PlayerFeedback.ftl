@@ -108,7 +108,13 @@
             <tr class="player-spacer-line"></tr>
             <tr>
                 <td>
-                    <div class="card <#if players[playerId].card1 == "back" && players[playerId].card2 == "back">red<#else></#if>"></div>
+                    <#if players[playerId].card1 == "back" && players[playerId].card2 == "back">
+                        <div class="card red"></div>
+                    <#elseif players[playerId].card1 != "back"  && players[playerId].card2 != "back">
+                        <div class="card green"></div>
+                    <#else>
+                       <div class="card orange"></div>
+                    </#if>
                 </td>
             </tr>
         </table>
