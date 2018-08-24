@@ -94,4 +94,9 @@ public class PlayerCallbackListener implements PlayerListener
 				player.getId(), new JsonPrimitive(value));
 		webSocketHandler.sendCommand(callbackCommand);
 	}
+
+	@Override
+	public void manageCardIndexDidChange(Player player, int value)
+	{
+	}
 }

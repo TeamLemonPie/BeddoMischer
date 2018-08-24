@@ -48,6 +48,10 @@ public class AdminPlayerListener implements PlayerListener
 	@Override
 	public void isHighlightedDidChange(Player player, boolean value)
 	{
+	}
 
+	@Override
+	public void manageCardIndexDidChange(Player player, int value)
+	{
 	}
 }

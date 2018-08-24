@@ -53,6 +53,12 @@ public class StoragePlayerListener implements PlayerListener
 		save(player);
 	}
 
+	@Override
+	public void manageCardIndexDidChange(Player player, int value)
+	{
+		save(player);
+	}
+
 	private void save(Player player)
 	{
 		try

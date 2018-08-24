@@ -31,6 +31,7 @@ import de.lemonpie.beddomischer.network.director.command.read.LowerThirdAddReadC
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdListReadCommand;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdStartReadCommand;
 import de.lemonpie.beddomischer.network.reader.CardReadCommand;
+import de.lemonpie.beddomischer.network.reader.ManageCardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ReaderServerSocket;
 import de.lemonpie.beddomischer.storage.*;
 import de.tobias.logger.FileOutputOption;
@@ -266,6 +267,7 @@ public class BeddoMischerMain
 
 		// Reader Command
 		commandExecutor.addCommand(new CardReadCommand(), Scope.READER);
+		commandExecutor.addCommand(new ManageCardReadCommand(), Scope.READER);
 
 		// Admin Command
 		commandExecutor.addCommand(new ClearReadCommand(), Scope.ADMIN);
@@ -279,6 +281,7 @@ public class BeddoMischerMain
 		commandExecutor.addCommand(new PlayerChipsReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new PlayerStateReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new PlayerHighlightReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new PlayerManageCardReadCommand(), Scope.ADMIN);
 
 		commandExecutor.addCommand(new DataReadCommand(), Scope.ADMIN);
 

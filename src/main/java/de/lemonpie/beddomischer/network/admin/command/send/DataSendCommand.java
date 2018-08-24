@@ -36,6 +36,7 @@ public class DataSendCommand extends CommandData
 			obj.addProperty("cardRight", player.getCardRight().getName());
 
 			obj.addProperty("isHighlighted", player.isHighlighted());
+			obj.addProperty("manageCardId", player.getManageCardId());
 
 			players.add(obj);
 		});

@@ -32,6 +32,9 @@ public class Player implements Indexable
 	@DatabaseField
 	private PlayerState state;
 
+	@DatabaseField
+	private int manageCardId;
+
 	@DatabaseField(persisterClass = CardType.class)
 	private Card cardLeft = Card.EMPTY;
 	@DatabaseField(persisterClass = CardType.class)
@@ -108,6 +111,17 @@ public class Player implements Indexable
 		{
 			timestampDeactivate = Long.MAX_VALUE;
 		}
+	}
+
+	public int getManageCardId()
+	{
+		return manageCardId;
+	}
+
+	public void setManageCardId(int manageCardId)
+	{
+		this.manageCardId = manageCardId;
+		fireListener(listener -> listener.manageCardIndexDidChange(this, manageCardId));
 	}
 
 	public Card getCardLeft()
@@ -284,11 +298,14 @@ public class Player implements Indexable
 				", name='" + name + '\'' +
 				", twitchName='" + twitchName + '\'' +
 				", state=" + state +
+				", manageCardId=" + manageCardId +
 				", cardLeft=" + cardLeft +
 				", cardRight=" + cardRight +
 				", chips=" + chips +
+				", timestampDeactivate=" + timestampDeactivate +
 				", calculatedHand=" + calculatedHand +
 				", winprobability=" + winprobability +
+				", isHighlighted=" + isHighlighted +
 				'}';
 	}
 }

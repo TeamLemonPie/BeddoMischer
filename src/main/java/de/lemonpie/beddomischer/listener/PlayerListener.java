@@ -26,4 +26,5 @@ public interface PlayerListener
 
 	void isHighlightedDidChange(Player player, boolean value);
 
+	void manageCardIndexDidChange(Player player, int value);
 }
