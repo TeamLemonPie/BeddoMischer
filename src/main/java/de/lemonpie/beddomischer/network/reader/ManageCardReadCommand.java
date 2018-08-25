@@ -1,5 +1,6 @@
 package de.lemonpie.beddomischer.network.reader;
 
+import de.lemonpie.beddocommon.model.seat.Seat;
 import de.lemonpie.beddocommon.network.Command;
 import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
@@ -30,8 +31,19 @@ public class ManageCardReadCommand implements Command
 		}
 
 		BeddoMischerMain.getSeatList().getSeatByReader(readerId).ifPresent(seat -> {
-			final Optional<Player> playerOptional = BeddoMischerMain.getPlayers().getObject(seat.getPlayerId());
-			playerOptional.ifPresent(player -> player.setManageCardId(manageCardCode));
+			for(Player currentPlayer : BeddoMischerMain.getPlayers())
+			{
+				if(currentPlayer.getManageCardId() == manageCardCode)
+				{
+					//remove player from current seat
+					Optional<Seat> previousSeatOptional = BeddoMischerMain.getSeatList().getSeatByPlayerId(currentPlayer.getId());
+					previousSeatOptional.ifPresent(previousSeat -> previousSeat.setPlayerId(-1));
+
+					//add player to new seat
+					Optional<Seat> newSeatOptional = BeddoMischerMain.getSeatList().getSeatByReader(readerId);
+					newSeatOptional.ifPresent(newSeat -> newSeat.setPlayerId(currentPlayer.getId()));
+				}
+			}
 		});
 	}
 }
