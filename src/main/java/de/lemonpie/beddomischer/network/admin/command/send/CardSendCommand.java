@@ -11,7 +11,6 @@ import de.lemonpie.beddocommon.network.Scope;
  */
 public class CardSendCommand extends CommandData
 {
-
 	public CardSendCommand(int boardId, Card card)
 	{
 		super(Scope.ADMIN, CommandName.CARD, boardId, null);

@@ -5,10 +5,13 @@ import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
 
-public class PlayerOpSendCommand extends CommandData
+/**
+ * Forward seat player changes to admin control.
+ */
+public class SeatPlayerSendCommand extends CommandData
 {
-	public PlayerOpSendCommand(int playerId)
+	public SeatPlayerSendCommand(int seatId, int newPlayerId)
 	{
-		super(Scope.ADMIN, CommandName.PLAYER_OP, playerId, new JsonPrimitive("add"));
+		super(Scope.ADMIN, CommandName.SEAT_PLAYER_ID, seatId, new JsonPrimitive(newPlayerId));
 	}
 }

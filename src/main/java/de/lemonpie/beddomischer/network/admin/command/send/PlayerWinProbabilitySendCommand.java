@@ -8,7 +8,6 @@ import de.lemonpie.beddomischer.model.player.Player;
 
 public class PlayerWinProbabilitySendCommand extends CommandData
 {
-
 	public PlayerWinProbabilitySendCommand(Player player, int value)
 	{
 		super(Scope.ADMIN, CommandName.WIN_PROBABILITY, player.getId(), new JsonPrimitive(value));

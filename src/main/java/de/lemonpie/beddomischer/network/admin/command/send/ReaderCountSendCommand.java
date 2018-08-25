@@ -7,7 +7,6 @@ import de.lemonpie.beddocommon.network.Scope;
 
 public class ReaderCountSendCommand extends CommandData
 {
-
 	public enum Type
 	{
 		ADD, REMOVE

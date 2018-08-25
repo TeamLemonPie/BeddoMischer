@@ -22,6 +22,7 @@ import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.model.player.PlayerList;
 import de.lemonpie.beddomischer.network.admin.AdminBoardListener;
 import de.lemonpie.beddomischer.network.admin.AdminPlayerListListener;
+import de.lemonpie.beddomischer.network.admin.AdminSeatListener;
 import de.lemonpie.beddomischer.network.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.network.admin.command.read.*;
 import de.lemonpie.beddomischer.network.admin.command.read.player.*;
@@ -203,6 +204,12 @@ public class BeddoMischerMain
 		AdminPlayerListListener beddoControlPlayerListListener = new AdminPlayerListListener();
 		players.addListener(beddoControlPlayerListListener);
 		players.forEach(beddoControlPlayerListListener::addObjectToList); // Initial Run for existing player
+
+		AdminSeatListener beddoControlSeatListener = new AdminSeatListener();
+		for(Seat currentSeat : seatList.getData())
+		{
+			currentSeat.addListener(beddoControlSeatListener);
+		}
 
 		NetworkLowerThirdListListener lowerThirdListListener = new NetworkLowerThirdListListener();
 		lowerThirds.addListener(lowerThirdListListener);

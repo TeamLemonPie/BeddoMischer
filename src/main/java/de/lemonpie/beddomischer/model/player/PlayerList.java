@@ -4,7 +4,6 @@ import de.lemonpie.beddocommon.model.ObservableList;
 
 public class PlayerList extends ObservableList<Player>
 {
-
 	public Player add()
 	{
 		Player player = new Player();
