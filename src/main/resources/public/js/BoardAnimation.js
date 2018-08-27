@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     setTimeout(function () {
         showBoard();
-    }, 11500);
+    }, 11700);
 });
 
 function hideBoard() {
@@ -33,7 +33,7 @@ function showBoard() {
         $(".cards-board").each(function (i, obj) {
             hideCard(obj, i, 120);
         });
-    }, 1140);
+    }, 940);
 }
 
 function hideCard(object, index, delayPerIterationInMs) {
