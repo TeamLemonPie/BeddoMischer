@@ -20,6 +20,11 @@ public class PlayerHighlightReadCommand implements Command
 		int playerId = command.getKey();
 		boolean isHighlighted = command.getValue().getAsBoolean();
 
+		if(isHighlighted)
+		{
+			BeddoMischerMain.getPlayers().forEach(player -> player.setHighlighted(false));
+		}
+
 		BeddoMischerMain.getPlayers().getObject(playerId).ifPresent(p -> p.setHighlighted(isHighlighted));
 	}
 }

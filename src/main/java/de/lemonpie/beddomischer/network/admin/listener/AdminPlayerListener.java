@@ -6,6 +6,7 @@ import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.model.player.PlayerState;
 import de.lemonpie.beddomischer.network.admin.command.send.CardSendCommand;
+import de.lemonpie.beddomischer.network.admin.command.send.PlayerHighlightSendCommand;
 import de.lemonpie.beddomischer.network.admin.command.send.PlayerWinProbabilitySendCommand;
 
 public class AdminPlayerListener implements PlayerListener
@@ -48,6 +49,8 @@ public class AdminPlayerListener implements PlayerListener
 	@Override
 	public void isHighlightedDidChange(Player player, boolean value)
 	{
+		PlayerHighlightSendCommand command = new PlayerHighlightSendCommand(player.getId(), value);
+		BeddoMischerMain.getControlServerSocket().writeAll(command);
 	}
 
 	@Override
