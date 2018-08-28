@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.network.admin;
+package de.lemonpie.beddomischer.network.admin.listener;
 
 import de.lemonpie.beddocommon.model.seat.Seat;
 import de.lemonpie.beddocommon.model.seat.SeatListener;

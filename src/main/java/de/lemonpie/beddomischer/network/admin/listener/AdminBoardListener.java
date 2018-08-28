@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.network.admin;
+package de.lemonpie.beddomischer.network.admin.listener;
 
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;

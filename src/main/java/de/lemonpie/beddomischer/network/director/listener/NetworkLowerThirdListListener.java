@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.network.director;
+package de.lemonpie.beddomischer.network.director.listener;
 
 import de.lemonpie.beddocommon.model.ObservableListListener;
 import de.lemonpie.beddocommon.model.lowerthird.LowerThird;

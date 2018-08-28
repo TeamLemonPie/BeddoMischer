@@ -1,59 +1,67 @@
 package de.lemonpie.beddomischer.network.admin.command.read;
 
+import com.google.gson.JsonObject;
+import de.lemonpie.beddocommon.model.seat.Seat;
+import de.lemonpie.beddocommon.network.CommandData;
+import de.lemonpie.beddocommon.network.CommandName;
+import de.lemonpie.beddocommon.network.Scope;
+import de.lemonpie.beddocommon.network.server.CommandExecutor;
+import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.BeddoMischerTestRunner;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(BeddoMischerTestRunner.class)
-public class ReaderReadCommandTest
+public class ReaderMappingReadCommandTest
 {
-//	TODO Fix compiler
-/*
 	@Test
-	public void setOnePlayerReaderShouldReturnNormal()
+	public void setOneSeatReaderShouldReturnNormal()
 	{
-		Player player = BeddoMischerMain.getPlayers().add();
+		Seat seat = BeddoMischerMain.getSeatList().add(new Seat());
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", 0); // Player Type
-		jsonObject.addProperty("playerId", player.getId());
+		jsonObject.addProperty("seatId", seat.getId());
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.READER, 3, jsonObject); // Key = Reader ID
 
 		CommandExecutor.getInstance().execute(data);
 
-		assertThat(player.getReaderId()).isEqualTo(3);
+		assertThat(seat.getReaderId()).isEqualTo(3);
 	}
 
 	@Test
-	public void setOnePlayerReaderWithPreviousPlayerReaderShouldReturnNormal()
+	public void setOneSeatReaderWithPreviousPlayerReaderShouldReturnNormal()
 	{
-		Player player = BeddoMischerMain.getPlayers().add();
-		player.setReaderId(2);
+		Seat seat = BeddoMischerMain.getSeatList().add(new Seat());
+		seat.setReaderId(2);
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", 0); // Player Type
-		jsonObject.addProperty("playerId", player.getId());
+		jsonObject.addProperty("seatId", seat.getId());
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.READER, 3, jsonObject); // Key = Reader ID
 
 		CommandExecutor.getInstance().execute(data);
 
-		assertThat(player.getReaderId()).isEqualTo(3);
+		assertThat(seat.getReaderId()).isEqualTo(3);
 	}
 
 	@Test
-	public void setOnePlayerReaderWithPreviousBoardReaderShouldReturnNormal()
+	public void setOneSeatReaderWithPreviousBoardReaderShouldReturnNormal()
 	{
-		Player player = BeddoMischerMain.getPlayers().add();
+		Seat seat = BeddoMischerMain.getSeatList().add(new Seat());
 		BeddoMischerMain.getBoard().addReaderId(3);
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", 0); // Player Type
-		jsonObject.addProperty("playerId", player.getId());
+		jsonObject.addProperty("seatId", seat.getId());
 		CommandData data = new CommandData(Scope.ADMIN, CommandName.READER, 3, jsonObject); // Key = Reader ID
 
 		CommandExecutor.getInstance().execute(data);
 
 		assertThat(BeddoMischerMain.getBoard().getReaderIds().contains(3)).isFalse();
-		assertThat(player.getReaderId()).isEqualTo(3);
+		assertThat(seat.getReaderId()).isEqualTo(3);
 	}
 
 	@Test
@@ -71,10 +79,10 @@ public class ReaderReadCommandTest
 	}
 
 	@Test
-	public void setOneBoardReaderWithPreviousPlayerReaderShouldReturnNormal()
+	public void setOneBoardReaderWithPreviousSeatReaderShouldReturnNormal()
 	{
-		Player player = BeddoMischerMain.getPlayers().add();
-		player.setReaderId(3);
+		Seat seat = BeddoMischerMain.getSeatList().add(new Seat());
+		seat.setReaderId(3);
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", 1); // Board Type
@@ -84,8 +92,7 @@ public class ReaderReadCommandTest
 
 		CommandExecutor.getInstance().execute(data);
 
-		assertThat(player.getReaderId()).isEqualTo(-3);
-		assertThat(BeddoMischerMain.getBoard().getReaderIds().contains(3)).isTrue();
+		assertThat(seat.getReaderId()).isEqualTo(-3);
+		assertThat(BeddoMischerMain.getBoard().isBoardReader(3)).isTrue();
 	}
-	*/
 }

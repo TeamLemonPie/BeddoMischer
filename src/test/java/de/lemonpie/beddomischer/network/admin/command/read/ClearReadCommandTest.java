@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer.network.admin.command.read;
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddocommon.model.card.CardSymbol;
 import de.lemonpie.beddocommon.model.card.CardValue;
+import de.lemonpie.beddocommon.model.seat.Seat;
 import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
@@ -20,8 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(BeddoMischerTestRunner.class)
 public class ClearReadCommandTest
 {
-
 	private Player player;
+	private Seat seat;
 	private Board board;
 
 	@Before
@@ -31,6 +32,9 @@ public class ClearReadCommandTest
 		player.setCardLeft(new Card(CardSymbol.CROSS, CardValue.ACE));
 		player.setCardRight(new Card(CardSymbol.HEART, CardValue.TEN));
 
+		seat = BeddoMischerMain.getSeatList().add(new Seat());
+		seat.setPlayerId(player.getId());
+
 		board = BeddoMischerMain.getBoard();
 		board.setCard(0, new Card(CardSymbol.CROSS, CardValue.FIVE));
 		board.setCard(1, new Card(CardSymbol.DIAMONDS, CardValue.FIVE));
@@ -39,7 +43,7 @@ public class ClearReadCommandTest
 	@Test
 	public void clearPlayerCardShouldReturnNormal()
 	{
-		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, player.getId(), null);
+		CommandData data = new CommandData(Scope.ADMIN, CommandName.CLEAR, seat.getId(), null);
 		CommandExecutor.getInstance().execute(data);
 
 		assertThat(player.getCardLeft()).isEqualTo(Card.EMPTY);

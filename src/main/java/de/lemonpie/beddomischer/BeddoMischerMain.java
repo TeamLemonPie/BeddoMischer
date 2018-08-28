@@ -20,17 +20,17 @@ import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.CountdownHandler;
 import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.model.player.PlayerList;
-import de.lemonpie.beddomischer.network.admin.AdminBoardListener;
-import de.lemonpie.beddomischer.network.admin.AdminPlayerListListener;
-import de.lemonpie.beddomischer.network.admin.AdminSeatListener;
 import de.lemonpie.beddomischer.network.admin.AdminServerSocket;
 import de.lemonpie.beddomischer.network.admin.command.read.*;
 import de.lemonpie.beddomischer.network.admin.command.read.player.*;
+import de.lemonpie.beddomischer.network.admin.listener.AdminBoardListener;
+import de.lemonpie.beddomischer.network.admin.listener.AdminPlayerListListener;
+import de.lemonpie.beddomischer.network.admin.listener.AdminSeatListener;
 import de.lemonpie.beddomischer.network.director.DirectorServerSocket;
-import de.lemonpie.beddomischer.network.director.NetworkLowerThirdListListener;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdAddReadCommand;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdListReadCommand;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdStartReadCommand;
+import de.lemonpie.beddomischer.network.director.listener.NetworkLowerThirdListListener;
 import de.lemonpie.beddomischer.network.reader.CardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ManageCardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ReaderServerSocket;
@@ -278,7 +278,7 @@ public class BeddoMischerMain
 
 		// Admin Command
 		commandExecutor.addCommand(new ClearReadCommand(), Scope.ADMIN);
-		commandExecutor.addCommand(new ReaderReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new ReaderMappingReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new BoardCardSetReadCommand(), Scope.ADMIN);
 
 		commandExecutor.addCommand(new PlayerOpReadCommand(), Scope.ADMIN);

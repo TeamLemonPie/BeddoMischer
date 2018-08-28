@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.network.admin;
+package de.lemonpie.beddomischer.network.admin.listener;
 
 import de.lemonpie.beddocommon.model.ObservableListListener;
 import de.lemonpie.beddomischer.BeddoMischerMain;

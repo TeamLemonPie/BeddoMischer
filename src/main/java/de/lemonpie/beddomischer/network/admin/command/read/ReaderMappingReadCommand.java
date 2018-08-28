@@ -13,7 +13,7 @@ import static de.lemonpie.beddocommon.model.seat.Seat.READER_NULL_ID;
  * <code>key = reader id</code>
  * <code>value = {type, index}</code>
  */
-public class ReaderReadCommand implements Command
+public class ReaderMappingReadCommand implements Command
 {
 	public enum ReaderType
 	{
@@ -61,7 +61,7 @@ public class ReaderReadCommand implements Command
 
 	private void removeOldReaderMapping(int readerId)
 	{
-		BeddoMischerMain.getSeatList().getSeatByPlayerId(readerId).ifPresent(seat -> {
+		BeddoMischerMain.getSeatList().getSeatByReader(readerId).ifPresent(seat -> {
 			seat.setReaderId(READER_NULL_ID);
 		});
 
