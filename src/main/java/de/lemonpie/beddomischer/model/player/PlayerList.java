@@ -10,6 +10,13 @@ public class PlayerList extends ObservableList<Player>
 		return add(player);
 	}
 
+	public Player add(int id)
+	{
+		Player player = new Player(id);
+		return add(player);
+	}
+
+
 	public void updateListener()
 	{
 		for(Player player : this)

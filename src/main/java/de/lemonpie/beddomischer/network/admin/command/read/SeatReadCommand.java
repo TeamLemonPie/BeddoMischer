@@ -15,7 +15,7 @@ public class SeatReadCommand implements Command
 	@Override
 	public CommandName name()
 	{
-		return CommandName.SEAT;
+		return CommandName.SEAT_PLAYER_ID;
 	}
 
 	@Override
