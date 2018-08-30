@@ -30,6 +30,7 @@ import de.lemonpie.beddomischer.network.director.DirectorServerSocket;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdAddReadCommand;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdListReadCommand;
 import de.lemonpie.beddomischer.network.director.command.read.LowerThirdStartReadCommand;
+import de.lemonpie.beddomischer.network.director.command.read.OverlayHideReadCommand;
 import de.lemonpie.beddomischer.network.director.listener.NetworkLowerThirdListListener;
 import de.lemonpie.beddomischer.network.reader.CardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ManageCardReadCommand;
@@ -59,6 +60,7 @@ public class BeddoMischerMain
 {
 	public static final String BASE_PATH = PathUtils.getOSindependentPath() + "LemonPie/BeddoMischer";
 
+	private static boolean hideOverlay;
 	private static PlayerList players;
 	private static SeatList seatList;
 	private static LowerThirdList lowerThirds;
@@ -307,6 +309,8 @@ public class BeddoMischerMain
 		commandExecutor.addCommand(new LowerThirdListReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdStartReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdFinishReadCommand(), Scope.DIRECTOR);
+
+		commandExecutor.addCommand(new OverlayHideReadCommand(), Scope.DIRECTOR);
 	}
 
 	/*
@@ -356,6 +360,16 @@ public class BeddoMischerMain
 	public static void setBlockOption(BlockOption blockOption)
 	{
 		BeddoMischerMain.blockOption = blockOption;
+	}
+
+	public static boolean isHideOverlay()
+	{
+		return hideOverlay;
+	}
+
+	public static void setHideOverlay(boolean hideOverlay)
+	{
+		BeddoMischerMain.hideOverlay = hideOverlay;
 	}
 
 	public static ControlServerSocket getRfidServerSocket()
