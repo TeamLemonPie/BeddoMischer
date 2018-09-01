@@ -21,7 +21,7 @@ function handleDirectorCallback(command, key, value) {
             }));
         });
 
-        if (isBoardIsVisible()) {
+        if (isBoardVisible()) {
             fullAnimation(animation);
         } else {
             animation.play();

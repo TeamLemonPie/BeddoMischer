@@ -1,6 +1,21 @@
-/*
-Handles all player callback events from server.
- */
+let HIDE_PLAYER = "hidePlayer";
+
+$(document).ready(function () {
+    let localStorage = window.localStorage;
+    let isHidden = localStorage.getItem(HIDE_PLAYER);
+    if (isHidden === null) {
+        isHidden = "false";
+        localStorage.setItem(HIDE_PLAYER, isHidden);
+    }
+
+    if (isHidden === "true") {
+        $(".hide-board").each(function (e) {
+            $(this).css("opacity", "0");
+        });
+        $("#left-container").fadeOut(0);
+    }
+});
+
 
 $(document).ready(function () {
     $(".player-container").each(function () {
@@ -9,6 +24,10 @@ $(document).ready(function () {
         }
     })
 });
+
+/*
+Handles all player callback events from server.
+ */
 
 function handlePlayerCallback(command, key, value) {
     let playerContainer = $("#player-" + key);
@@ -60,12 +79,23 @@ function handlePlayerCallback(command, key, value) {
         else {
             activeIcon.fadeOut(500);
         }
+    } else if (command === "overlay_hide") {
+        $(".hide-board").each(function (e) {
+            $(this).css("opacity", "1");
+        });
+
+        if (value) {
+            $("#left-container").fadeOut(500);
+        } else {
+            $("#left-container").fadeIn(500);
+        }
+        localStorage.setItem(HIDE_PLAYER, value);
     }
 }
 
 function loadPlayer(id) {
     $.get("player/" + id, function (data) {
-        let container = $(".left-container");
+        let container = $("#left-container");
         container.append(data);
 
         container.find('.player-container').sort(function (a, b) {

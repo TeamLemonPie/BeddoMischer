@@ -1,9 +1,11 @@
+let HIDE_BOARD = "hideBoard";
+
 $(document).ready(function () {
     let localStorage = window.localStorage;
-    let isHidden = localStorage.getItem("hideBoard");
+    let isHidden = localStorage.getItem(HIDE_BOARD);
     if (isHidden === null) {
         isHidden = "false";
-        localStorage.setItem("hideBoard", isHidden);
+        localStorage.setItem(HIDE_BOARD, isHidden);
     }
 
     if (isHidden === "true") {
@@ -15,9 +17,9 @@ $(document).ready(function () {
     }
 });
 
-function isBoardIsVisible() {
+function isBoardVisible() {
     let localStorage = window.localStorage;
-    return localStorage.getItem("hideBoard") !== "true";
+    return localStorage.getItem(HIDE_BOARD) !== "true";
 }
 
 /*
@@ -78,6 +80,6 @@ function handleBoardCallback(command, key, value) {
             showBoard();
         }
         let localStorage = window.localStorage;
-        localStorage.setItem("hideBoard", value);
+        localStorage.setItem(HIDE_BOARD, value);
     }
 }

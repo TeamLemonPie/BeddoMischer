@@ -8,7 +8,7 @@
     <script src="js/PlayerCallback.js"></script>
 </head>
 <body onload="onLoad()">
-<div class="left-container">
+<div id="left-container">
 
 <#list players as player>
     <#import "PlayerItem.ftl" as m>
