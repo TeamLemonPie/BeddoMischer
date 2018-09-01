@@ -60,7 +60,6 @@ public class BeddoMischerMain
 {
 	public static final String BASE_PATH = PathUtils.getOSindependentPath() + "LemonPie/BeddoMischer";
 
-	private static boolean hideOverlay;
 	private static PlayerList players;
 	private static SeatList seatList;
 	private static LowerThirdList lowerThirds;
@@ -360,16 +359,6 @@ public class BeddoMischerMain
 	public static void setBlockOption(BlockOption blockOption)
 	{
 		BeddoMischerMain.blockOption = blockOption;
-	}
-
-	public static boolean isHideOverlay()
-	{
-		return hideOverlay;
-	}
-
-	public static void setHideOverlay(boolean hideOverlay)
-	{
-		BeddoMischerMain.hideOverlay = hideOverlay;
 	}
 
 	public static ControlServerSocket getRfidServerSocket()
