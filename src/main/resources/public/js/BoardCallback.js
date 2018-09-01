@@ -1,3 +1,25 @@
+$(document).ready(function () {
+    let localStorage = window.localStorage;
+    let isHidden = localStorage.getItem("hideBoard");
+    if (isHidden === null) {
+        isHidden = "false";
+        localStorage.setItem("hideBoard", isHidden);
+    }
+
+    if (isHidden === "true") {
+        $(".hide-board").each(function (e) {
+            $(this).css("opacity", "0");
+        });
+
+        hideBoard();
+    }
+});
+
+function isBoardIsVisible() {
+    let localStorage = window.localStorage;
+    return localStorage.getItem("hideBoard") !== "true";
+}
+
 /*
 Handles all board callback events from server.
  */
@@ -45,5 +67,17 @@ function handleBoardCallback(command, key, value) {
         $("#big-blind").text(value);
     } else if (command === "ante") {
         $("#ante").text(value);
+    } else if (command === "overlay_hide") {
+        $(".hide-board").each(function (e) {
+            $(this).css("opacity", "1");
+        });
+
+        if (value) {
+            hideBoard();
+        } else {
+            showBoard();
+        }
+        let localStorage = window.localStorage;
+        localStorage.setItem("hideBoard", value);
     }
 }

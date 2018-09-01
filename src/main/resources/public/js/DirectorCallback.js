@@ -5,9 +5,10 @@ Handles all director callback events from server.
 function handleDirectorCallback(command, key, value) {
     if (command === "lower_third_start") {
         let animation = bodymovin.loadAnimation({
-            container: document.getElementById("lower-third"),
+            container: document.getElementById("animation"),
             renderer: "svg",
-            path: "/lowerthird/" + key
+            path: "/lowerthird/" + key,
+            autoplay: false
         });
 
         animation.addEventListener('complete', function () {
@@ -20,6 +21,10 @@ function handleDirectorCallback(command, key, value) {
             }));
         });
 
-        animation.play();
+        if (isBoardIsVisible()) {
+            fullAnimation(animation);
+        } else {
+            animation.play();
+        }
     }
 }

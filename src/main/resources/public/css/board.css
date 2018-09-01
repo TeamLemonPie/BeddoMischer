@@ -18,7 +18,7 @@ body {
 }
 
 #layer-video {
-    z-index: 1;
+    z-index: 5;
     /*display: none;*/
     /*filter: opacity(50%);*/
 }

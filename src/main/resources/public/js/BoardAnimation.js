@@ -1,7 +1,11 @@
-$(document).ready(function () {
+function fullAnimation(animation) {
     setTimeout(function () {
         hideBoard();
     }, 900);
+
+    setTimeout(function () {
+        animation.play();
+    }, 2500);
 
     setTimeout(function () {
         showCardsForLowerThird();
@@ -14,7 +18,7 @@ $(document).ready(function () {
     setTimeout(function () {
         showBoard();
     }, 11700);
-});
+}
 
 function hideBoard() {
     $(".cards-board").each(function (i, obj) {

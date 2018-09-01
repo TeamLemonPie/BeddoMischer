@@ -4,19 +4,19 @@
         <link rel="stylesheet" href="css/cards.css">
 
         <script src="js/libs/jquery-3.2.1.min.js"></script>
+        <script src="js/libs/lottie.js"></script>
         <script src="js/Callback.js"></script>
         <script src="js/BoardCallback.js"></script>
+        <script src="js/DirectorCallback.js"></script>
         <script src="js/BoardAnimation.js"></script>
     </head>
     <body onload="onLoad()">
     <body>
         <div class="main-board-container">
             <div id="layer-video" class="layer">
-                <video width="900" height="220" autoplay>
-                    <source src="https://tobisan.thecodelabs.de/AE/Bauchbinde.mp4" type="video/mp4">
-                </video>
+                <div id="animation"></div>
             </div>
-            <div id="layer-cards" class="layer">
+            <div id="layer-cards" class="layer hide-board">
                 <div class="cards-container">
                     <#list board as card><div class="card-stack cards-board">
                             <div class="card ${card} card${card?index}"></div>
@@ -24,7 +24,7 @@
                         </div></#list>
                 </div>
             </div>
-            <div id="layer-board" class="layer">
+            <div id="layer-board" class="layer hide-board">
                 <div id="board-animation-container">
                     <div class="banner-board">
                         <div class="banner-table">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div id="layer-lower-third" class="layer">
+            <div id="layer-lower-third" class="layer hide-board">
                 <div class="cards-container-lower-thirds">
                     <#list board as card><div class="card-stack cards-lower-third">
                             <div class="card ${card} card${card?index}"></div>
