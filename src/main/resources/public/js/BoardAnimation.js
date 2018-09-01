@@ -1,4 +1,4 @@
-function fullAnimation(animation) {
+function fullAnimation(animation, key) {
     setTimeout(function () {
         hideBoard();
     }, 900);
@@ -18,6 +18,14 @@ function fullAnimation(animation) {
     setTimeout(function () {
         showBoard();
     }, 11700);
+
+    setTimeout(function () {
+        connection.send(JSON.stringify({
+            scope: "DIRECTOR",
+            command: "lower_third_finish",
+            key: key
+        }));
+    }, 14000);
 }
 
 function hideBoard() {

@@ -11,19 +11,19 @@ function handleDirectorCallback(command, key, value) {
             autoplay: false
         });
 
-        animation.addEventListener('complete', function () {
-            animation.destroy();
-
-            connection.send(JSON.stringify({
-                scope: "DIRECTOR",
-                command: "lower_third_finish",
-                key: key
-            }));
-        });
-
         if (isBoardVisible()) {
-            fullAnimation(animation);
+            fullAnimation(animation, key);
         } else {
+            animation.addEventListener('complete', function () {
+                animation.destroy();
+
+                connection.send(JSON.stringify({
+                    scope: "DIRECTOR",
+                    command: "lower_third_finish",
+                    key: key
+                }));
+            });
+
             animation.play();
         }
     }
