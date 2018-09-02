@@ -18,6 +18,7 @@ import de.lemonpie.beddomischer.http.websocket.listener.*;
 import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.CountdownHandler;
+import de.lemonpie.beddomischer.model.Overlay;
 import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.model.player.PlayerList;
 import de.lemonpie.beddomischer.network.admin.AdminServerSocket;
@@ -66,6 +67,7 @@ public class BeddoMischerMain
 	private static Board board;
 
 	private static BlockOption blockOption;
+	private static Overlay overlay;
 
 	private static ControlServerSocket rfidServerSocket = null;
 	private static ControlServerSocket controlServerSocket = null;
@@ -168,6 +170,7 @@ public class BeddoMischerMain
 		lowerThirds = new LowerThirdList();
 		board = new Board();
 		blockOption = BlockOption.NONE;
+		overlay = new Overlay();
 
 		registerCommands();
 	}
@@ -179,6 +182,9 @@ public class BeddoMischerMain
 
 		lowerThirds.addListener(new StorageLowerThirdListListener());
 		lowerThirds.addAll(lowerThirdDao.queryForAll());
+
+		overlay = OverlaySerializer.loadOverlay();
+		overlay.addListener(new StorageOverlayListener());
 
 		players.addListener(new StoragePlayerListListener());
 		players.addAll(playerDao.queryForAll());
@@ -247,6 +253,8 @@ public class BeddoMischerMain
 		final SeatListCallbackListener seatListCallbackListener = new SeatListCallbackListener(webSocketHandler);
 		seatList.addListener(seatListCallbackListener);
 		seatList.forEach(seatListCallbackListener::addObjectToList);
+
+		overlay.addListener(new OverlayCallbackListener(webSocketHandler));
 
 		// Add routes
 		get("/admin", new AdminHandler(), engine);
@@ -360,6 +368,15 @@ public class BeddoMischerMain
 	{
 		BeddoMischerMain.blockOption = blockOption;
 	}
+
+	public static Overlay getOverlay()
+	{
+		return overlay;
+	}
+
+	/*
+	Network access
+	 */
 
 	public static ControlServerSocket getRfidServerSocket()
 	{
