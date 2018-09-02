@@ -2,6 +2,7 @@ let HIDE_BOARD = "hideBoard";
 
 $(document).ready(function () {
     let localStorage = window.localStorage;
+
     let isHidden = localStorage.getItem(HIDE_BOARD);
     if (isHidden === null) {
         isHidden = "false";

@@ -26,6 +26,8 @@ public class BoardHandler implements TemplateViewRoute
 			cards.add(card != null ? card.getName() : "back");
 		}
 		model.put("board", cards);
+		model.put("hide", BeddoMischerMain.getOverlay().isHideBoard());
+
 		return new ModelAndView(model, "Board.ftl");
 	}
 }

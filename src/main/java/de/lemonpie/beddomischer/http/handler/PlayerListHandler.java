@@ -29,6 +29,8 @@ public class PlayerListHandler implements TemplateViewRoute
 		}
 
 		model.put("players", playerModel);
+		model.put("hide", BeddoMischerMain.getOverlay().isHidePlayer());
+
 		return new ModelAndView(model, "Player.ftl");
 	}
 }

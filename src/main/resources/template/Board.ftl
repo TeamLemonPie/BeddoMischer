@@ -9,10 +9,19 @@
         <script src="js/BoardCallback.js"></script>
         <script src="js/DirectorCallback.js"></script>
         <script src="js/BoardAnimation.js"></script>
+
     </head>
     <body onload="onLoad()">
-    <body>
-        <div class="main-board-container">
+    <script type="text/javascript">
+        let serverHide = false;
+        serverHide = ${hide?c};
+        if (serverHide !== null) {
+            let localStorage = window.localStorage;
+            localStorage.setItem(HIDE_BOARD, serverHide);
+        }
+    </script>
+
+    <div class="main-board-container">
             <div id="layer-video" class="layer">
                 <div id="animation"></div>
             </div>

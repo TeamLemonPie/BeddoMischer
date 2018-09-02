@@ -3,6 +3,7 @@ let HIDE_PLAYER = "hidePlayer";
 $(document).ready(function () {
     let localStorage = window.localStorage;
     let isHidden = localStorage.getItem(HIDE_PLAYER);
+    
     if (isHidden === null) {
         isHidden = "false";
         localStorage.setItem(HIDE_PLAYER, isHidden);
