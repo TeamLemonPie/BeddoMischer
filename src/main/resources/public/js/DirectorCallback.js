@@ -12,6 +12,10 @@ function handleDirectorCallback(command, key, value) {
         });
 
         if (isBoardVisible()) {
+            animation.addEventListener('complete', function () {
+                animation.destroy();
+            });
+
             fullAnimation(animation, key);
         } else {
             animation.addEventListener('complete', function () {
