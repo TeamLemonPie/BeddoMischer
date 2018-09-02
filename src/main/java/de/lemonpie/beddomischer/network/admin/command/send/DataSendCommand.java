@@ -9,11 +9,12 @@ import de.lemonpie.beddomischer.model.Board;
 
 public class DataSendCommand extends CommandData
 {
-	private Gson gson = new Gson();
 
 	public DataSendCommand()
 	{
 		super(Scope.ADMIN, CommandName.DATA, 0, null);
+
+		Gson gson = new Gson();
 
 		JsonObject data = new JsonObject();
 		JsonArray players = new JsonArray();

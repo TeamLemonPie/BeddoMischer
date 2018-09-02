@@ -28,10 +28,7 @@ import de.lemonpie.beddomischer.network.admin.listener.AdminBoardListener;
 import de.lemonpie.beddomischer.network.admin.listener.AdminPlayerListListener;
 import de.lemonpie.beddomischer.network.admin.listener.AdminSeatListener;
 import de.lemonpie.beddomischer.network.director.DirectorServerSocket;
-import de.lemonpie.beddomischer.network.director.command.read.LowerThirdAddReadCommand;
-import de.lemonpie.beddomischer.network.director.command.read.LowerThirdListReadCommand;
-import de.lemonpie.beddomischer.network.director.command.read.LowerThirdStartReadCommand;
-import de.lemonpie.beddomischer.network.director.command.read.OverlayHideReadCommand;
+import de.lemonpie.beddomischer.network.director.command.read.*;
 import de.lemonpie.beddomischer.network.director.listener.NetworkLowerThirdListListener;
 import de.lemonpie.beddomischer.network.reader.CardReadCommand;
 import de.lemonpie.beddomischer.network.reader.ManageCardReadCommand;
@@ -318,6 +315,7 @@ public class BeddoMischerMain
 		commandExecutor.addCommand(new LowerThirdFinishReadCommand(), Scope.DIRECTOR);
 
 		commandExecutor.addCommand(new OverlayHideReadCommand(), Scope.DIRECTOR);
+		commandExecutor.addCommand(new DirectorDataReadCommand(), Scope.DIRECTOR);
 	}
 
 	/*
