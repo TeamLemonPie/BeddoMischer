@@ -6,8 +6,9 @@ import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.player.Player;
-import logger.Logger;
+import de.tobias.logger.Logger;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 public class ManageCardReadCommand implements Command
@@ -19,7 +20,7 @@ public class ManageCardReadCommand implements Command
 	}
 
 	@Override
-	public void execute(CommandData command)
+	public synchronized void execute(CommandData command)
 	{
 		int readerId = command.getKey();
 		int manageCardCode = command.getValue().getAsJsonPrimitive().getAsInt();
@@ -31,18 +32,28 @@ public class ManageCardReadCommand implements Command
 		}
 
 		BeddoMischerMain.getSeatList().getSeatByReader(readerId).ifPresent(seat -> {
-			for(Player currentPlayer : BeddoMischerMain.getPlayers())
+			try
 			{
-				if(currentPlayer.getManageCardId() == manageCardCode)
+				final Iterator<Player> iterator = BeddoMischerMain.getPlayers().iterator();
+				//noinspection WhileLoopReplaceableByForEach
+				while(iterator.hasNext())
 				{
-					//remove player from current seat
-					Optional<Seat> previousSeatOptional = BeddoMischerMain.getSeatList().getSeatByPlayerId(currentPlayer.getId());
-					previousSeatOptional.ifPresent(previousSeat -> previousSeat.setPlayerId(-1));
+					Player currentPlayer = iterator.next();
+					if(currentPlayer.getManageCardId() == manageCardCode)
+					{
+						//remove player from current seat
+						Optional<Seat> previousSeatOptional = BeddoMischerMain.getSeatList().getSeatByPlayerId(currentPlayer.getId());
+						previousSeatOptional.ifPresent(previousSeat -> previousSeat.setPlayerId(-1));
 
-					//add player to new seat
-					Optional<Seat> newSeatOptional = BeddoMischerMain.getSeatList().getSeatByReader(readerId);
-					newSeatOptional.ifPresent(newSeat -> newSeat.setPlayerId(currentPlayer.getId()));
+						//add player to new seat
+						Optional<Seat> newSeatOptional = BeddoMischerMain.getSeatList().getSeatByReader(readerId);
+						newSeatOptional.ifPresent(newSeat -> newSeat.setPlayerId(currentPlayer.getId()));
+					}
 				}
+			}
+			catch(Exception e)
+			{
+				Logger.error(e);
 			}
 		});
 	}

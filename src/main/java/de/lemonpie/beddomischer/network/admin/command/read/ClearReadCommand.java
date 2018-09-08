@@ -68,7 +68,7 @@ public class ClearReadCommand implements Command
 						player.clearCards();
 					});
 
-					ClearSendCommand forwardCommandData = new ClearSendCommand(key);
+					ClearSendCommand forwardCommandData = new ClearSendCommand(seat.getReaderId());
 					if(BeddoMischerMain.getRfidServerSocket() != null)
 					{
 						BeddoMischerMain.getRfidServerSocket().writeAll(forwardCommandData);
