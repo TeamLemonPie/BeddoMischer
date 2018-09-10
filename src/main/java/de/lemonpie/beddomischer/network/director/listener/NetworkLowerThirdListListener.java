@@ -4,6 +4,7 @@ import de.lemonpie.beddocommon.model.ObservableListListener;
 import de.lemonpie.beddocommon.model.lowerthird.LowerThird;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.network.director.command.send.LowerThirdAddSendCommand;
+import de.lemonpie.beddomischer.network.director.command.send.LowerThirdDeleteSendCommand;
 
 public class NetworkLowerThirdListListener implements ObservableListListener<LowerThird>
 {
@@ -14,7 +15,8 @@ public class NetworkLowerThirdListListener implements ObservableListListener<Low
 	}
 
 	@Override
-	public void removeObjectFromList(LowerThird player)
+	public void removeObjectFromList(LowerThird lowerThird)
 	{
+		BeddoMischerMain.getDirectorServerSocket().writeAll(new LowerThirdDeleteSendCommand(lowerThird.getId()));
 	}
 }

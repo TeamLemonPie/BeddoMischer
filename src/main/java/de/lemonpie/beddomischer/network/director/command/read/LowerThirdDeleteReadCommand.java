@@ -1,27 +1,24 @@
 package de.lemonpie.beddomischer.network.director.command.read;
 
-import com.google.gson.JsonObject;
 import de.lemonpie.beddocommon.network.Command;
 import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 
-public class LowerThirdAddReadCommand implements Command
+public class LowerThirdDeleteReadCommand implements Command
 {
 	@Override
 	public CommandName name()
 	{
-		return CommandName.LOWER_THIRD_ADD;
+		return CommandName.LOWER_THIRD_DELETE;
 	}
 
 	@Override
 	public void execute(CommandData command)
 	{
-		final JsonObject payload = command.getValue().getAsJsonObject();
-		String name = payload.getAsJsonPrimitive("name").getAsString();
-		String data = payload.getAsJsonPrimitive("data").getAsString();
-
-		BeddoMischerMain.getLowerThirds().add(name, data);
+		int id = command.getKey();
+		BeddoMischerMain.getLowerThirds().getObject(id).ifPresent(lowerThird ->
+				BeddoMischerMain.getLowerThirds().remove(lowerThird));
 		// Send back to Director will be implemented in listener
 	}
 }

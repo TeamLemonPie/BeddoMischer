@@ -310,6 +310,7 @@ public class BeddoMischerMain
 
 		// Director Commands
 		commandExecutor.addCommand(new LowerThirdAddReadCommand(), Scope.DIRECTOR);
+		commandExecutor.addCommand(new LowerThirdDeleteReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdListReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdStartReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdFinishReadCommand(), Scope.DIRECTOR);
