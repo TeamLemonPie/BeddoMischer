@@ -201,8 +201,12 @@ public class Player implements Indexable
 
 	public void setHighlighted(boolean highlighted)
 	{
+		boolean didChange = this.isHighlighted != highlighted;
 		this.isHighlighted = highlighted;
-		fireListener(listener->listener.isHighlightedDidChange(this, highlighted));
+		if(didChange)
+		{
+			fireListener(listener -> listener.isHighlightedDidChange(this, highlighted));
+		}
 	}
 
 	public void addListener(PlayerListener playerListener)
