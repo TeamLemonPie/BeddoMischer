@@ -9,7 +9,7 @@
         <script src="js/BoardCallback.js"></script>
         <script src="js/DirectorCallback.js"></script>
         <script src="js/BoardAnimation.js"></script>
-
+        <meta charset="UTF-8">
     </head>
     <body onload="onLoad()">
     <script type="text/javascript">

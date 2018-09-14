@@ -6,7 +6,7 @@
     <script src="js/libs/jquery-3.2.1.min.js"></script>
     <script src="js/Callback.js"></script>
     <script src="js/PlayerCallback.js"></script>
-
+    <meta charset="UTF-8">
 </head>
 <body onload="onLoad()">
 <script type="text/javascript">

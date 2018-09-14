@@ -6,6 +6,7 @@
         <script src="js/Callback.js"></script>
         <script src="js/Countdown.js"></script>
         <script src="js/PlayerFeedbackCallback.js"></script>
+        <meta charset="UTF-8">
     </head>
     <body onload="onLoad()">
     <#-- @ftlvariable name="players" type="java.util.List<de.lemonpie.beddomischer.model.player.Player>" -->

@@ -6,6 +6,7 @@
     <script src="js/Countdown.js"></script>
     <script src="js/Callback.js"></script>
     <script src="js/CountdownCallback.js"></script>
+    <meta charset="UTF-8">
 </head>
 <body onload="onLoad()">
 <div class="main-container">
