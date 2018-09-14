@@ -20,8 +20,7 @@ import java.util.function.Consumer;
 @DatabaseTable(tableName = "Player")
 public class Player implements Indexable
 {
-
-	private List<PlayerListener> listeners;
+	private transient List<PlayerListener> listeners;
 
 	@DatabaseField(unique = true, generatedId = true)
 	private int id;

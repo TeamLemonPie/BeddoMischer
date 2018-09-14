@@ -17,30 +17,10 @@ public class DataSendCommand extends CommandData
 		Gson gson = new Gson();
 
 		JsonObject data = new JsonObject();
-		JsonArray players = new JsonArray();
 		JsonArray board = new JsonArray();
 		JsonArray boardReader = new JsonArray();
 		JsonElement seats = gson.toJsonTree(BeddoMischerMain.getSeatList().getData());
-
-		// Serialize player
-		BeddoMischerMain.getPlayers().forEach(player -> {
-			JsonObject obj = new JsonObject();
-
-			obj.addProperty("id", player.getId());
-			obj.addProperty("name", player.getName());
-			obj.addProperty("twitchName", player.getTwitchName());
-			obj.addProperty("state", player.getPlayerState().name());
-
-			obj.addProperty("chips", player.getChips());
-
-			obj.addProperty("cardLeft", player.getCardLeft().getName());
-			obj.addProperty("cardRight", player.getCardRight().getName());
-
-			obj.addProperty("isHighlighted", player.isHighlighted());
-			obj.addProperty("manageCardId", player.getManageCardId());
-
-			players.add(obj);
-		});
+		JsonElement players = gson.toJsonTree(BeddoMischerMain.getPlayers().getData());
 
 		// Serialize board
 		Board b = BeddoMischerMain.getBoard();
