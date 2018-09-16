@@ -2,7 +2,7 @@ package de.lemonpie.beddomischer.storage;
 
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.Board;
-import logger.Logger;
+import de.tobias.logger.Logger;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -3,7 +3,7 @@ package de.lemonpie.beddomischer.storage;
 import de.lemonpie.beddocommon.model.ObservableListListener;
 import de.lemonpie.beddocommon.model.lowerthird.LowerThird;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import logger.Logger;
+import de.tobias.logger.Logger;
 
 import java.sql.SQLException;
 

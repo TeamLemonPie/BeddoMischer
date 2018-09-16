@@ -5,7 +5,7 @@ import de.lemonpie.beddocommon.model.card.CardSymbol;
 import de.lemonpie.beddocommon.model.card.CardValue;
 import de.lemonpie.beddomischer.model.Board;
 import de.lemonpie.beddomischer.model.player.Player;
-import logger.Logger;
+import de.tobias.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;

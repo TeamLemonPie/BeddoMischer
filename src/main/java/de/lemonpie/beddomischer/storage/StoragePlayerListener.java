@@ -5,7 +5,7 @@ import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.player.Player;
 import de.lemonpie.beddomischer.model.player.PlayerState;
-import logger.Logger;
+import de.tobias.logger.Logger;
 
 import java.sql.SQLException;
 
