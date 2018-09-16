@@ -13,6 +13,7 @@ import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddocommon.network.server.ControlServerSocket;
 import de.lemonpie.beddomischer.http.handler.*;
 import de.lemonpie.beddomischer.http.websocket.WebSocketHandler;
+import de.lemonpie.beddomischer.http.websocket.command.LowerThirdFailedReadCommand;
 import de.lemonpie.beddomischer.http.websocket.command.LowerThirdFinishReadCommand;
 import de.lemonpie.beddomischer.http.websocket.listener.*;
 import de.lemonpie.beddomischer.model.BlockOption;
@@ -319,6 +320,7 @@ public class BeddoMischerMain
 		commandExecutor.addCommand(new LowerThirdDeleteReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdListReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdStartReadCommand(), Scope.DIRECTOR);
+		commandExecutor.addCommand(new LowerThirdFailedReadCommand(), Scope.DIRECTOR);
 		commandExecutor.addCommand(new LowerThirdFinishReadCommand(), Scope.DIRECTOR);
 
 		commandExecutor.addCommand(new OverlayHideReadCommand(), Scope.DIRECTOR);
