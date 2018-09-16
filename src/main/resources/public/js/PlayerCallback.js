@@ -30,10 +30,7 @@ Handles all player callback events from server.
  */
 
 function handlePlayerCallback(command, key, value) {
-    console.log("JO");
-
-
-    if (command === "seat") {
+    if (command === "seatPlayerId") {
         document.location.reload();
     }
 
