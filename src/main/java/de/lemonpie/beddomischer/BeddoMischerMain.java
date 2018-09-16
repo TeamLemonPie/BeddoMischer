@@ -86,6 +86,7 @@ public class BeddoMischerMain
 	private static Dao<Player, Integer> playerDao;
 	private static Dao<Seat, Integer> seatDao;
 	private static Dao<LowerThird, Integer> lowerThirdDao;
+	private static Dao<Board, Integer> boardDao;
 
 	private static void prepareLogger()
 	{
@@ -152,10 +153,12 @@ public class BeddoMischerMain
 		playerDao = DaoManager.createDao(connectionSource, Player.class);
 		seatDao = DaoManager.createDao(connectionSource, Seat.class);
 		lowerThirdDao = DaoManager.createDao(connectionSource, LowerThird.class);
+		boardDao = DaoManager.createDao(connectionSource, Board.class);
 
 		TableUtils.createTableIfNotExists(connectionSource, Player.class);
 		TableUtils.createTableIfNotExists(connectionSource, Seat.class);
 		TableUtils.createTableIfNotExists(connectionSource, LowerThird.class);
+		TableUtils.createTableIfNotExists(connectionSource, Board.class);
 
 		return connectionSource;
 	}
@@ -323,21 +326,6 @@ public class BeddoMischerMain
 	 * Data accessors
 	 */
 
-	public static Dao<Player, Integer> getPlayerDao()
-	{
-		return playerDao;
-	}
-
-	public static Dao<Seat, Integer> getSeatDao()
-	{
-		return seatDao;
-	}
-
-	public static Dao<LowerThird, Integer> getLowerThirdDao()
-	{
-		return lowerThirdDao;
-	}
-
 	public static PlayerList getPlayers()
 	{
 		return players;
@@ -371,6 +359,29 @@ public class BeddoMischerMain
 	public static Overlay getOverlay()
 	{
 		return overlay;
+	}
+
+	/*
+	DAO Access
+	 */
+	public static Dao<Player, Integer> getPlayerDao()
+	{
+		return playerDao;
+	}
+
+	public static Dao<Seat, Integer> getSeatDao()
+	{
+		return seatDao;
+	}
+
+	public static Dao<LowerThird, Integer> getLowerThirdDao()
+	{
+		return lowerThirdDao;
+	}
+
+	public static Dao<Board, Integer> getBoardDao()
+	{
+		return boardDao;
 	}
 
 	/*

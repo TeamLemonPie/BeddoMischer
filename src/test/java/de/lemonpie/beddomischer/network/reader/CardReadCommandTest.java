@@ -73,7 +73,7 @@ public class CardReadCommandTest
 	public void oneBoardCardShouldReturnNormal()
 	{
 		Board board = BeddoMischerMain.getBoard();
-		board.addReaderId(1);
+		board.addReaderId((byte) 1);
 
 		CommandData commandData = new CommandData(Scope.READER, CommandName.CARD, 1, new JsonPrimitive("Kr-2"));
 		CommandExecutor.getInstance().execute(commandData);

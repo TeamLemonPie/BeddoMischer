@@ -1,25 +1,38 @@
 package de.lemonpie.beddomischer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.BoardListener;
+import de.lemonpie.beddomischer.storage.type.ByteSetType;
+import de.lemonpie.beddomischer.storage.type.CardArrayType;
 import de.lemonpie.beddomischer.validator.CardValidator;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+@DatabaseTable(tableName = "Board")
 public class Board
 {
-
 	private transient List<BoardListener> listeners;
+
+	@DatabaseField(unique = true, generatedId = true)
+	private int id;
+
+	@DatabaseField(persisterClass = CardArrayType.class)
 	private Card[] cards;
 
-	private Set<Integer> readerIds;
+	@DatabaseField(persisterClass = ByteSetType.class)
+	private Set<Byte> readerIds;
 
+	@DatabaseField
 	private int smallBlind;
+	@DatabaseField
 	private int bigBlind;
+	@DatabaseField
 	private int ante;
 
 	public Board()
@@ -104,24 +117,26 @@ public class Board
 		fireListener(listener -> listener.anteDidChange(ante));
 	}
 
-	public Set<Integer> getReaderIds()
+	public Set<Byte> getReaderIds()
 	{
 		return readerIds;
 	}
 
-	public boolean isBoardReader(int readerId)
+	public boolean isBoardReader(byte readerId)
 	{
 		return readerIds.contains(readerId);
 	}
 
-	public void addReaderId(int readerId)
+	public void addReaderId(byte readerId)
 	{
 		readerIds.add(readerId);
+		fireListener(BoardListener::readerListDidChange);
 	}
 
-	public void removeReaderId(int readerId)
+	public void removeReaderId(byte readerId)
 	{
 		readerIds.remove(readerId);
+		fireListener(BoardListener::readerListDidChange);
 	}
 
 	public void addListener(BoardListener boardListener)

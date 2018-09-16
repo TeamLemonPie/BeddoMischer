@@ -8,7 +8,7 @@ import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
-import de.lemonpie.beddomischer.storage.CardType;
+import de.lemonpie.beddomischer.storage.type.CardType;
 import de.lemonpie.beddomischer.validator.CardValidator;
 
 import java.util.HashMap;

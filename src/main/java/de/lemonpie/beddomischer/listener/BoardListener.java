@@ -6,6 +6,8 @@ public interface BoardListener
 {
 	void cardDidChangeAtIndex(int index, Card card);
 
+	void readerListDidChange();
+
 	void smallBlindDidChange(int newValue);
 
 	void bigBlindDidChange(int newValue);

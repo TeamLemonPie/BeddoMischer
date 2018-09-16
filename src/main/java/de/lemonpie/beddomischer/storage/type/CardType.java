@@ -1,4 +1,4 @@
-package de.lemonpie.beddomischer.storage;
+package de.lemonpie.beddomischer.storage.type;
 
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.field.SqlType;

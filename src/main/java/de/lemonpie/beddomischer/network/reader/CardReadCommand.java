@@ -25,7 +25,7 @@ public class CardReadCommand implements Command
 	@Override
 	public void execute(CommandData command)
 	{
-		int readerId = command.getKey();
+		byte readerId = (byte) command.getKey();
 		String cardCode = command.getValue().getAsJsonPrimitive().getAsString();
 		Card card = Card.fromString(cardCode);
 

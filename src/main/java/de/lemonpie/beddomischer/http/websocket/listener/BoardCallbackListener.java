@@ -27,6 +27,11 @@ public class BoardCallbackListener implements BoardListener
 	}
 
 	@Override
+	public void readerListDidChange()
+	{
+	}
+
+	@Override
 	public void smallBlindDidChange(int newValue)
 	{
 		CallbackCommand callbackCommand = new CallbackCommand(Scope.BOARD, CommandName.SMALL_BLIND, -1,

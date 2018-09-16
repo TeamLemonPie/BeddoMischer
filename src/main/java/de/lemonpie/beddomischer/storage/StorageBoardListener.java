@@ -14,6 +14,12 @@ public class StorageBoardListener implements BoardListener
 	}
 
 	@Override
+	public void readerListDidChange()
+	{
+		BoardSerializer.saveBoard(BeddoMischerMain.getBoard());
+	}
+
+	@Override
 	public void smallBlindDidChange(int newValue)
 	{
 		BoardSerializer.saveBoard(BeddoMischerMain.getBoard());

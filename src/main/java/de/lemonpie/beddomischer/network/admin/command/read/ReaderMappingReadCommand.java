@@ -29,7 +29,7 @@ public class ReaderMappingReadCommand implements Command
 	@Override
 	public void execute(CommandData command)
 	{
-		int readerId = command.getKey();
+		byte readerId = (byte) command.getKey();
 
 		// Remove old reader id
 		removeOldReaderMapping(readerId);
@@ -49,7 +49,7 @@ public class ReaderMappingReadCommand implements Command
 			}
 			else if(type == ReaderType.BOARD.ordinal())
 			{ // BOARD
-				int oldReaderId = value.get("oldReaderId").getAsInt();
+				byte oldReaderId = value.get("oldReaderId").getAsByte();
 				BeddoMischerMain.getBoard().removeReaderId(oldReaderId);
 				if(readerId != READER_NULL_ID)
 				{
@@ -59,7 +59,7 @@ public class ReaderMappingReadCommand implements Command
 		}
 	}
 
-	private void removeOldReaderMapping(int readerId)
+	private void removeOldReaderMapping(byte readerId)
 	{
 		BeddoMischerMain.getSeatList().getSeatByReader(readerId).ifPresent(seat -> {
 			seat.setReaderId(READER_NULL_ID);

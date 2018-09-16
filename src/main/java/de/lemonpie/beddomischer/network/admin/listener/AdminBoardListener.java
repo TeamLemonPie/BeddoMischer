@@ -17,6 +17,12 @@ public class AdminBoardListener implements BoardListener
 	}
 
 	@Override
+	public void readerListDidChange()
+	{
+		// TODO CHECK
+	}
+
+	@Override
 	public void smallBlindDidChange(int newValue)
 	{
 	}

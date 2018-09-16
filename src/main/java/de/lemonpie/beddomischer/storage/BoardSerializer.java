@@ -1,54 +1,54 @@
 package de.lemonpie.beddomischer.storage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.Board;
 import logger.Logger;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.sql.SQLException;
+import java.util.List;
 
 public class BoardSerializer
 {
-
-	private static final String fileName = BeddoMischerMain.BASE_PATH + "/Board.json";
-
 	public static synchronized void saveBoard(Board board)
 	{
-		ObjectMapper objectMapper = new ObjectMapper();
-		final Path path = Paths.get(fileName);
-
 		try
 		{
-			final String s = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(board);
-			Files.write(path, s.getBytes(), StandardOpenOption.CREATE);
+			BeddoMischerMain.getBoardDao().update(board);
 		}
-		catch(IOException e)
+		catch(SQLException e)
 		{
-			e.printStackTrace();
+			Logger.error(e);
 		}
 	}
 
 	public static Board loadBoard()
 	{
-		ObjectMapper objectMapper = new ObjectMapper();
-		final Path path = Paths.get(fileName);
-
-		Board board = new Board();
-		if(Files.exists(path))
+		try
 		{
-			try
+			final List<Board> boards = BeddoMischerMain.getBoardDao().queryForAll();
+			if(boards.isEmpty())
 			{
-				board = objectMapper.readValue(Files.newBufferedReader(path), Board.class);
+				return createBoard();
 			}
-			catch(IOException e)
-			{
-				Logger.error(e);
-			}
+			return boards.get(0);
 		}
-		return board;
+		catch(SQLException e)
+		{
+			return createBoard();
+		}
+	}
+
+	private static Board createBoard()
+	{
+		Board board = new Board();
+		try
+		{
+			BeddoMischerMain.getBoardDao().create(board);
+			return board;
+		}
+		catch(SQLException e1)
+		{
+			return null;
+		}
 	}
 }

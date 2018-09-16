@@ -51,7 +51,7 @@ public class ReaderMappingReadCommandTest
 	public void setOneSeatReaderWithPreviousBoardReaderShouldReturnNormal()
 	{
 		Seat seat = BeddoMischerMain.getSeatList().add(new Seat());
-		BeddoMischerMain.getBoard().addReaderId(3);
+		BeddoMischerMain.getBoard().addReaderId((byte) 3);
 
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", 0); // Player Type
@@ -93,6 +93,6 @@ public class ReaderMappingReadCommandTest
 		CommandExecutor.getInstance().execute(data);
 
 		assertThat(seat.getReaderId()).isEqualTo(-3);
-		assertThat(BeddoMischerMain.getBoard().isBoardReader(3)).isTrue();
+		assertThat(BeddoMischerMain.getBoard().isBoardReader((byte) 3)).isTrue();
 	}
 }

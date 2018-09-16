@@ -22,7 +22,7 @@ public class ManageCardReadCommand implements Command
 	@Override
 	public synchronized void execute(CommandData command)
 	{
-		int readerId = command.getKey();
+		byte readerId = (byte) command.getKey();
 		int manageCardCode = command.getValue().getAsJsonPrimitive().getAsInt();
 
 		if(BeddoMischerMain.getBoard().isBoardReader(readerId))
