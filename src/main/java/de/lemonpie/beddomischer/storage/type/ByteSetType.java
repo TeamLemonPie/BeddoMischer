@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer.storage.type;
 import com.j256.ormlite.field.FieldType;
 import com.j256.ormlite.field.SqlType;
 import com.j256.ormlite.field.types.StringType;
+import de.tobias.logger.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -47,11 +48,22 @@ public class ByteSetType extends StringType
 		if(sqlArg != null)
 		{
 			String rawData = (String) sqlArg;
+			if(rawData.isEmpty())
+			{
+				return new HashSet<>();
+			}
 			String[] rawArray = rawData.split(";");
 			final Set<Byte> objects = new HashSet<>();
 			for(String element : rawArray)
 			{
-				objects.add(Byte.valueOf(element));
+				try
+				{
+					objects.add(Byte.valueOf(element));
+				}
+				catch(NumberFormatException e)
+				{
+					Logger.debug("Cannot convert {0} from database to byte", element);
+				}
 			}
 			return objects;
 		}
