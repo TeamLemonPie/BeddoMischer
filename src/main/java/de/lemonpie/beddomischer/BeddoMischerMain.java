@@ -87,6 +87,7 @@ public class BeddoMischerMain
 	private static Dao<Seat, Integer> seatDao;
 	private static Dao<LowerThird, Integer> lowerThirdDao;
 	private static Dao<Board, Integer> boardDao;
+	private static Dao<Overlay, Integer> overlayDao;
 
 	private static void prepareLogger()
 	{
@@ -154,11 +155,13 @@ public class BeddoMischerMain
 		seatDao = DaoManager.createDao(connectionSource, Seat.class);
 		lowerThirdDao = DaoManager.createDao(connectionSource, LowerThird.class);
 		boardDao = DaoManager.createDao(connectionSource, Board.class);
+		overlayDao = DaoManager.createDao(connectionSource, Overlay.class);
 
 		TableUtils.createTableIfNotExists(connectionSource, Player.class);
 		TableUtils.createTableIfNotExists(connectionSource, Seat.class);
 		TableUtils.createTableIfNotExists(connectionSource, LowerThird.class);
 		TableUtils.createTableIfNotExists(connectionSource, Board.class);
+		TableUtils.createTableIfNotExists(connectionSource, Overlay.class);
 
 		return connectionSource;
 	}
@@ -382,6 +385,11 @@ public class BeddoMischerMain
 	public static Dao<Board, Integer> getBoardDao()
 	{
 		return boardDao;
+	}
+
+	public static Dao<Overlay, Integer> getOverlayDao()
+	{
+		return overlayDao;
 	}
 
 	/*

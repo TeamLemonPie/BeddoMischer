@@ -1,16 +1,24 @@
 package de.lemonpie.beddomischer.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import de.lemonpie.beddomischer.listener.OverlayListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+@DatabaseTable(tableName = "Overlay")
 public class Overlay
 {
 	private transient List<OverlayListener> listeners;
 
+	@DatabaseField(unique = true, generatedId = true)
+	private int id;
+
+	@DatabaseField
 	private boolean hidePlayer;
+	@DatabaseField
 	private boolean hideBoard;
 
 	public Overlay()

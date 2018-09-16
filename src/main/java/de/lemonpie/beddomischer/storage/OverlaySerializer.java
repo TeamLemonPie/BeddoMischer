@@ -1,15 +1,11 @@
 package de.lemonpie.beddomischer.storage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.model.Overlay;
-import logger.Logger;
+import de.tobias.logger.Logger;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.sql.SQLException;
+import java.util.List;
 
 public class OverlaySerializer
 {
@@ -17,37 +13,45 @@ public class OverlaySerializer
 
 	public static synchronized void saveOverlay(Overlay overlay)
 	{
-		ObjectMapper objectMapper = new ObjectMapper();
-		final Path path = Paths.get(fileName);
-
 		try
 		{
-			final String s = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(overlay);
-			Files.write(path, s.getBytes(), StandardOpenOption.CREATE);
+			BeddoMischerMain.getOverlayDao().update(overlay);
 		}
-		catch(IOException e)
+		catch(SQLException e)
 		{
-			e.printStackTrace();
+			Logger.error(e);
 		}
 	}
 
 	public static Overlay loadOverlay()
 	{
-		ObjectMapper objectMapper = new ObjectMapper();
-		final Path path = Paths.get(fileName);
-
-		Overlay overlay = new Overlay();
-		if(Files.exists(path))
+		try
 		{
-			try
+			final List<Overlay> overlays = BeddoMischerMain.getOverlayDao().queryForAll();
+			if(overlays.isEmpty())
 			{
-				overlay = objectMapper.readValue(Files.newBufferedReader(path), Overlay.class);
+				return createOverlay();
 			}
-			catch(IOException e)
-			{
-				Logger.error(e);
-			}
+			return overlays.get(0);
 		}
-		return overlay;
+		catch(SQLException e)
+		{
+			return createOverlay();
+		}
+	}
+
+
+	private static Overlay createOverlay()
+	{
+		Overlay overlay = new Overlay();
+		try
+		{
+			BeddoMischerMain.getOverlayDao().create(overlay);
+			return overlay;
+		}
+		catch(SQLException e1)
+		{
+			return null;
+		}
 	}
 }
