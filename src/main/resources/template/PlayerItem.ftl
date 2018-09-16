@@ -1,5 +1,5 @@
 <#macro playerContainer player>
-<div class="player-container" id="player-${player.id}" data-id="${player.id}" data-hide="${player.state}">
+<div class="player-container" id="player-${player.id}" data-seat="${player.seatId}" data-hide="${player.state}">
     <div class="top-area">
         <div class="deck-container">
             <div class="deck">

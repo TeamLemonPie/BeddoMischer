@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import de.lemonpie.beddocommon.model.Indexable;
 import de.lemonpie.beddocommon.model.card.Card;
+import de.lemonpie.beddocommon.model.seat.Seat;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.PlayerListener;
 import de.lemonpie.beddomischer.model.BlockOption;
@@ -11,10 +12,7 @@ import de.lemonpie.beddomischer.model.winprobability.CalculatedHand;
 import de.lemonpie.beddomischer.storage.type.CardType;
 import de.lemonpie.beddomischer.validator.CardValidator;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 @DatabaseTable(tableName = "Player")
@@ -241,6 +239,17 @@ public class Player implements Indexable
 		map.put("timestampDeactivate", timestampDeactivate);
 		map.put("winprobability", winprobability);
 		map.put("isHighlighted", isHighlighted);
+
+		Optional<Seat> seatOptional = BeddoMischerMain.getSeatList().getSeatByPlayerId(id);
+		if(seatOptional.isPresent())
+		{
+			map.put("seatId", seatOptional.get().getId());
+		}
+		else
+		{
+			map.put("seatId", -1);
+		}
+
 		return map;
 	}
 

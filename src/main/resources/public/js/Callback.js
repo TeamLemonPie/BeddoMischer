@@ -51,7 +51,6 @@ function onLoad() {
             } finally {
             }
         } else if (data.scope === "PLAYER_FEEDBACK") {
-
             try {
                 handlePlayerFeedbackCallback(data.command, data.key, data.value);
             } catch (e) {

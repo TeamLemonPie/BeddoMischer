@@ -15,15 +15,14 @@ $(document).ready(function () {
         });
         $("#left-container").fadeOut(0);
     }
-});
 
-
-$(document).ready(function () {
     $(".player-container").each(function () {
         if ($(this).attr("data-hide") !== "ACTIVE") {
             $(this).animate({height: 'hide', opacity: 'hide'}, 0);
         }
-    })
+    });
+
+    sortPlayers();
 });
 
 /*
@@ -31,6 +30,13 @@ Handles all player callback events from server.
  */
 
 function handlePlayerCallback(command, key, value) {
+    console.log("JO");
+
+
+    if (command === "seat") {
+        document.location.reload();
+    }
+
     let playerContainer = $("#player-" + key);
     if (command === "name") {
         let playerName = $(playerContainer).find("#player-name");
@@ -99,9 +105,7 @@ function loadPlayer(id) {
         let container = $("#left-container");
         container.append(data);
 
-        container.find('.player-container').sort(function (a, b) {
-            return +a.dataset.id - +b.dataset.id;
-        }).appendTo(container);
+        sortPlayers();
 
         let player = $("#player-" + id);
         player.stop(true).fadeIn({
@@ -116,4 +120,11 @@ function removePlayer(id) {
     player.animate({height: 'toggle', opacity: 'toggle'}, 1000, function () {
         player.remove();
     });
+}
+
+function sortPlayers() {
+    let container = $("#left-container");
+    container.find('.player-container').sort(function (a, b) {
+        return +a.dataset.seat - +b.dataset.seat;
+    }).appendTo(container);
 }

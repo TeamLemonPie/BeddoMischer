@@ -26,5 +26,6 @@ public class SeatCallbackListener implements SeatListener
 	public void playerIdDidChange(Seat seat, int playerId)
 	{
 		webSocket.sendCommand(new CallbackCommand(Scope.PLAYER_FEEDBACK, CommandName.SEAT, seat.getId(), new JsonPrimitive(playerId)));
+		webSocket.sendCommand(new CallbackCommand(Scope.PLAYER, CommandName.SEAT, seat.getId(), new JsonPrimitive(playerId)));
 	}
 }
