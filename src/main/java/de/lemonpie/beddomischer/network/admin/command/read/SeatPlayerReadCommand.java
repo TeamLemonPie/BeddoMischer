@@ -10,7 +10,7 @@ import de.lemonpie.beddomischer.BeddoMischerMain;
  * Key: Seat
  * Command Value: Player Id
  */
-public class SeatReadCommand implements Command
+public class SeatPlayerReadCommand implements Command
 {
 	@Override
 	public CommandName name()
@@ -24,7 +24,11 @@ public class SeatReadCommand implements Command
 		final int playerId = command.getValue().getAsInt();
 
 		// Remove player from old seat
-		BeddoMischerMain.getSeatList().getSeatByPlayerId(playerId).ifPresent(Seat::removePlayer);
+		if(playerId != Seat.PLAYER_NULL_ID)
+		{
+			BeddoMischerMain.getSeatList().getSeatByPlayerId(playerId).ifPresent(Seat::removePlayer);
+		}
+
 		// Set player to new seat
 		BeddoMischerMain.getSeatList().getObject(command.getKey()).ifPresent(seat -> {
 			seat.setPlayerId(playerId);

@@ -3,7 +3,7 @@ Handles all player callback events from server.
  */
 function handlePlayerFeedbackCallback(command, key, value) {
     let playerContainer = $("#player-" + key);
-    if (command === "seat") {
+    if (command === "seatPlayerId") {
         document.location.reload();
     }
     else if (command === "name") {
