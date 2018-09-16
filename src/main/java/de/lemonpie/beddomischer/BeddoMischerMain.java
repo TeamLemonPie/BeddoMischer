@@ -313,7 +313,7 @@ public class BeddoMischerMain
 		commandExecutor.addCommand(new SmallBlindReadCommand(), Scope.ADMIN);
 		commandExecutor.addCommand(new AnteReadCommand(), Scope.ADMIN);
 
-		commandExecutor.addCommand(new SeatReadCommand(), Scope.ADMIN);
+		commandExecutor.addCommand(new SeatPlayerReadCommand(), Scope.ADMIN);
 
 		// Director Commands
 		commandExecutor.addCommand(new LowerThirdAddReadCommand(), Scope.DIRECTOR);
