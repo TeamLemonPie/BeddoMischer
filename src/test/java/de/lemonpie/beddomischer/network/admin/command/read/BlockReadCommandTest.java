@@ -1,12 +1,12 @@
 package de.lemonpie.beddomischer.network.admin.command.read;
 
+import de.lemonpie.beddocommon.model.BlockOption;
 import de.lemonpie.beddocommon.network.CommandData;
 import de.lemonpie.beddocommon.network.CommandName;
 import de.lemonpie.beddocommon.network.Scope;
 import de.lemonpie.beddocommon.network.server.CommandExecutor;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.BeddoMischerTestRunner;
-import de.lemonpie.beddomischer.model.BlockOption;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

@@ -1,10 +1,10 @@
 package de.lemonpie.beddomischer.model.winprobability;
 
+import de.lemonpie.beddocommon.model.BlockOption;
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddocommon.model.card.CardSymbol;
 import de.lemonpie.beddocommon.model.card.CardValue;
 import de.lemonpie.beddomischer.BeddoMischerMain;
-import de.lemonpie.beddomischer.model.BlockOption;
 import de.lemonpie.beddomischer.model.Board;
 import org.junit.Test;
 

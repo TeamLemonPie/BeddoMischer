@@ -3,6 +3,7 @@ package de.lemonpie.beddomischer.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import de.lemonpie.beddocommon.model.BlockOption;
 import de.lemonpie.beddocommon.model.card.Card;
 import de.lemonpie.beddomischer.BeddoMischerMain;
 import de.lemonpie.beddomischer.listener.BoardListener;
