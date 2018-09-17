@@ -75,7 +75,7 @@ public class ReaderMappingReadCommandTest
 
 		CommandExecutor.getInstance().execute(data);
 
-		assertThat(BeddoMischerMain.getBoard().getReaderIds().contains(3)).isTrue();
+		assertThat(BeddoMischerMain.getBoard().getReaderIds().contains((byte) 3)).isTrue();
 	}
 
 	@Test
