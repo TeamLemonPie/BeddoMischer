@@ -101,17 +101,21 @@
 </html>
 
 <#macro player playerId>
+    ${playerId}
+    <#list players as player>
+        ${player.id}
+    </#list>
     <#if playerId gte 0>
-        <table class="table-player" id="player-${players[playerId].id}">
+        <table class="table-player" id="player-${playerId}">
             <tr>
-                <td class="player-name">${players[playerId].name}</td>
+                <td class="player-name">${getPlayer(players, playerId).name}</td>
             </tr>
             <tr class="player-spacer-line"></tr>
             <tr>
                 <td>
-                    <#if players[playerId].card1 == "back" && players[playerId].card2 == "back">
+                    <#if getPlayer(players, playerId).card1 == "back" && getPlayer(players, playerId).card2 == "back">
                         <div class="card red"></div>
-                    <#elseif players[playerId].card1 != "back"  && players[playerId].card2 != "back">
+                    <#elseif getPlayer(players, playerId).card1 != "back"  && getPlayer(players, playerId).card2 != "back">
                         <div class="card green"></div>
                     <#else>
                        <div class="card orange"></div>
@@ -133,3 +137,12 @@
         </table>
     </#if>
 </#macro>
+
+<#function getPlayer(players, playerId)>
+    <#list players as player>
+        <#if player.id == playerId>
+            <#return player>
+        </#if>
+    </#list>
+    <#return players[0]>
+</#function>

@@ -39,7 +39,7 @@ public class PlayerFeedbackGetHandler implements TemplateViewRoute
 		model.put("ante", board.getAnte());
 		model.put("players", playerModel);
 
-		List<Integer> playerIds = BeddoMischerMain.getSeatList().getData().stream().sorted(Comparator.comparingInt(Seat::getId)).map(seat -> seat.getPlayerId() - 1).collect(Collectors.toList());
+		List<Integer> playerIds = BeddoMischerMain.getSeatList().getData().stream().sorted(Comparator.comparingInt(Seat::getId)).map(Seat::getPlayerId).collect(Collectors.toList());
 		model.put("seats", playerIds);
 
 		return new ModelAndView(model, "PlayerFeedback.ftl");
