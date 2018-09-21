@@ -101,10 +101,6 @@
 </html>
 
 <#macro player playerId>
-    ${playerId}
-    <#list players as player>
-        ${player.id}
-    </#list>
     <#if playerId gte 0>
         <table class="table-player" id="player-${playerId}">
             <tr>
