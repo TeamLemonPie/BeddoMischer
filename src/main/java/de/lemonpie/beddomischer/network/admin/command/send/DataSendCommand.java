@@ -19,6 +19,7 @@ public class DataSendCommand extends CommandData
 		JsonObject data = new JsonObject();
 		JsonArray board = new JsonArray();
 		JsonArray boardReader = new JsonArray();
+
 		JsonElement seats = gson.toJsonTree(BeddoMischerMain.getSeatList().getData());
 		JsonElement players = gson.toJsonTree(BeddoMischerMain.getPlayers().getData());
 
