@@ -1,6 +1,47 @@
-### BeddoMischer
-Tool to generate Poker Streamoverlay (with win probability)
+## BeddoMischer
 
+BeddoMischer is a tool in the "Beddo" product family.
+It's main purpose is to act as the central unit between multiple instances of BeddoFabrik and a BeddoControl admin interface.
+BeddoMischer provides several websites showing different overlays that can be used in live web streams to provide information for the audience.
 
-##### Poker Hands
-https://www.intellipoker.de/articles/Poker-Schule-Reihenfolge-Pokerblaetter
+![](/build/resources/icon_112x112.png) (Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>)
+
+### Main Features
+#### overlays for the audience
+show player names, twitch names, cards on hand (as scanned by the NFC scanners) and calculated win probability
+![](/build/resources/Overlay_Player.png)
+  
+show board cards (the five community cards in the center of the table as scanned by the NFC scanners) together with current big blind, small blind and ante
+![](/build/resources/Overlay_Board.png)
+  
+show a ordered list of all players sorted by the amount of remaining chips for each player
+![](/build/resources/Overlay_Chips.png)
+  
+show a countdown timer (countdown until the current break will end)
+![](/build/resources/Overlay_Countdown.PNG)
+  
+#### overlays for the players
+Show a so called "PlayerFeedbackPage" that represents the seven seats at the poker table. Every seat will show the corresponding player name and the scanner status using a three-color-code.
+  - red: now card is scanned
+  - orange/yellow: one card is successfully scanned
+  - green: both cards are successfully scanned
+This allows the players to get feedback about the scanning process so they can re-scan their cards if one or more card is not detected.
+![](/build/resources/Overlay_PlayerFeedback.PNG)
+  
+#### manage incoming events of scanned cards from all connected BeddoFabrik systems
+- update internal model
+- update win probability
+- update website overlays via websocket and javascript (This avoids reloading the page which otherwise would result in ugly flashing overlays.)
+- send updated data to BeddoControl to allow a UI refresh in BeddoControl (if connected)
+#### propagate clear commands to all connected BeddoFabrik systems in order to clear their internal buffers and prepare for a new round.
+#### listen for incoming commands originating from BeddoControl
+  - new round
+  - master lock/unlock
+  - lock/unlock board
+  - clear board
+  - add/edit/delete players
+  - manually set board cards
+  - map NFC scanners to seats
+  - set big blind/small blind/ante
+  - etc. --> for more detailed information see the BeddoControl README
+- all internal data will be persisted in a SQLite database (Restarting BeddoMischer will preserve settings and data)
