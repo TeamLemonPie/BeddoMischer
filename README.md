@@ -1,6 +1,6 @@
 ## BeddoMischer
 
-BeddoMischer is a tool in the "Beddo" product family.
+BeddoMischer is a tool in the "Beddo" product family. The products are designed to create an overlay for a poker live stream.
 It's main purpose is to act as the central unit between multiple instances of BeddoFabrik and a BeddoControl admin interface.
 BeddoMischer provides several websites showing different overlays that can be used in live web streams to provide information for the audience.
 
@@ -21,8 +21,9 @@ show a countdown timer (countdown until the current break will end)
 ![](/build/resources/Overlay_Countdown.PNG)
   
 #### overlays for the players
-Show a so called "PlayerFeedbackPage" that represents the seven seats at the poker table. Every seat will show the corresponding player name and the scanner status using a three-color-code.
-  - red: now card is scanned
+Show a so called "PlayerFeedbackPage" that represents the seven seats at the poker table. Every seat will show the corresponding player name and the scanner status using a four-color-code bar:
+  - black: player folded
+  - red: no card is scanned
   - orange/yellow: one card is successfully scanned
   - green: both cards are successfully scanned
 This allows the players to get feedback about the scanning process so they can re-scan their cards if one or more card is not detected.
