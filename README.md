@@ -46,3 +46,22 @@ This allows the players to get feedback about the scanning process so they can r
   - set big blind/small blind/ante
   - etc. --> for more detailed information see the BeddoControl README
 - all internal data will be persisted in a SQLite database (Restarting BeddoMischer will preserve settings and data)
+
+#### Third Party Libraries
+
+* com.google.code.gson:gson:2.8.0 (Apache 2.0)
+* com.sparkjava:spark-core:2.7.2 (The Apache Software License, Version 2.0)
+* com.sparkjava:spark-template-freemarker:2.7.1 (The Apache Software License, Version 2.0)
+* org.xerial:sqlite-jdbc:3.23.1 (The Apache Software License, Version 2.0)
+
+
+* junit:junit:4.12 (Eclipse Public License 1.0)
+* org.assertj:assertj-core:3.10.0 (Apache License, Version 2.0)
+
+
+* de.lemonpie:BeddoCommon:1.1.0
+* de.tobias:libLogger-slf4j:1.0.3
+* de.deadlocker8:tools:1.1.0
+* de.tobias:libUtils:1.6.7
+* de.tobias:libNetwork:1.0.1
+* de.tobias:libStorage:1.3.0
