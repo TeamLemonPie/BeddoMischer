@@ -21,7 +21,7 @@ show a countdown timer (countdown until the current break will end)
 ![](/build/resources/Overlay_Countdown.PNG)
   
 #### overlays for the players
-Show a so called "PlayerFeedbackPage" that represents the seven seats at the poker table. Every seat will show the corresponding player name and the scanner status using a four-color-code bar:
+Show a so called "PlayerFeedbackPage" that represents the seven seats at the poker table. The purpose for this overview is, that the players at the table can see the success of scanning. Every seat will show the corresponding player name and the scanner status using a four-color-code bar:
   - black: player folded
   - red: no card is scanned
   - orange/yellow: one card is successfully scanned
@@ -29,13 +29,27 @@ Show a so called "PlayerFeedbackPage" that represents the seven seats at the pok
 This allows the players to get feedback about the scanning process so they can re-scan their cards if one or more card is not detected.
 ![](/build/resources/Overlay_PlayerFeedback.PNG)
   
-#### manage incoming events of scanned cards from all connected BeddoFabrik systems
-- update internal model
+### Main Communication between components
+
+The main system architecture is based on a client-server infrastructure. The BeddoMischer acts a the server by providing different ports. 
+BeddoMischer prodives the following network connections:
+
+* HTTP Rest API (for Overlay)
+* WebSocket (for dynamic Overlay)
+* TCP Socket (for BeddoControl/BeddoFabrik)
+* UCP Broadcast (for discovery)
+
+#### Handling Communication btween BeddoMischer and BeddoFabrik:
+
+manage incoming events of scanned cards from all connected BeddoFabrik systems
+- update internal model on server side
 - update win probability
 - update website overlays via websocket and javascript (This avoids reloading the page which otherwise would result in ugly flashing overlays.)
 - send updated data to BeddoControl to allow a UI refresh in BeddoControl (if connected)
-#### propagate clear commands to all connected BeddoFabrik systems in order to clear their internal buffers and prepare for a new round.
-#### listen for incoming commands originating from BeddoControl
+
+propagate clear commands to all connected BeddoFabrik systems in order to clear their internal buffers and prepare for a new round.
+
+#### Handling Communication btween BeddoMischer and BeddoControl:
   - new round
   - master lock/unlock
   - lock/unlock board
