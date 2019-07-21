@@ -29,17 +29,17 @@ Show a so called "PlayerFeedbackPage" that represents the seven seats at the pok
 This allows the players to get feedback about the scanning process so they can re-scan their cards if one or more card is not detected.
 ![](/build/resources/Overlay_PlayerFeedback.PNG)
   
-### Main Communication between components
+### main Communication between components
 
 The main system architecture is based on a client-server infrastructure. The BeddoMischer acts a the server by providing different ports. 
 BeddoMischer prodives the following network connections:
 
-* HTTP Rest API (for Overlay)
-* WebSocket (for dynamic Overlay)
+* HTTP Rest API (for overlay)
+* WebSocket (for dynamic overlay)
 * TCP Socket (for BeddoControl/BeddoFabrik)
-* UCP Broadcast (for discovery)
+* UDP Broadcast (for discovery)
 
-#### Handling Communication btween BeddoMischer and BeddoFabrik:
+#### handling Communication btween BeddoMischer and BeddoFabrik:
 
 manage incoming events of scanned cards from all connected BeddoFabrik systems
 - update internal model on server side
@@ -47,7 +47,7 @@ manage incoming events of scanned cards from all connected BeddoFabrik systems
 - update website overlays via websocket and javascript (This avoids reloading the page which otherwise would result in ugly flashing overlays.)
 - send updated data to BeddoControl to allow a UI refresh in BeddoControl (if connected)
 
-propagate clear commands to all connected BeddoFabrik systems in order to clear their internal buffers and prepare for a new round.
+propagate clear commands to all connected BeddoFabrik systems in order to clear their internal buffers and prepare for a new round
 
 #### Handling Communication btween BeddoMischer and BeddoControl:
   - new round
